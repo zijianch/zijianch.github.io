@@ -1,12 +1,33 @@
 # jemdoc: menu{MENU}{info.html}
-= About me
+= Zijian Chen
 
-== Basic information
+~~~
+{}{img_left}{./1.jpg}{photo}{150px}{200px}{}
+Zijian Chen （Charles Chen）\n
+Undergraduate Student, \n
+School of Statistics, East China Normal University
+~~~
 
-== Programming and Software
+== Contact
 
+Address: 500 Dongchuan Rd., Shanghai
 
+Email: 
 
-== Language I speak
+- Official: [10185000310@stu.ecnu.edu.cn] or [charleszjchen@sjtu.edu.cn]
+- Private: /Not available at this moment/
 
-Technically, Cantonese is my mother tongue, mandrian is the second and English is the third.
+== Education
+
+- M.S in *Statistics* (2018.09 - 2022.07, unfinished at this moment)\n
+School of Statistics, East China Normal University
+-- Minor in *Mathematics and Applied Mathematics* (2020.02 - 2022.02, unfinished at this moment)\n
+School of Mathematical Science, Shanghai Jiao Tong University
+
+== Summary of my research 
+
+== Miscellaneous
+
+- Of all the Programming language, the degree of my mastery: MATLAB\=R>Python>C\+\+>SAS>Julia  
+- I can, and usually use Mathematica, Maple, Lingo, SPSS and JMP to assist learning and research.
+- Technically, Cantonese is my mother tongue, mandrian is the second and English is the third.
