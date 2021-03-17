@@ -3,19 +3,68 @@
 
 == Research Projects 
 
+I'm currently enrolled in two research project:
+
+- To theoretically develop an improved algorithm of estimating the median and make simulations to test efficiency and robutness.
+-- Status: already designed an algorithm that works, now working on simulations
+- To use survival analysis to analyze the data from a certain disease.
+-- Status: writing papers
+
+but I'm not available to give out too many information until papers are finished and accepted. 
+
+
 == Projects in related industries
 
 - Online Clinical Sample Size Calculator
+-- 
 
 == Competetion Projects
 
-- Network Analysis: How does a soccer team play
-- Decision-making of Airport Taxi Drivers based on Queuing Theory
-- Anti-assessment for Experts in Science-related Subject Competetions
-- Shadow Education Compromises Educational Equality
+- The Dynamics in Music
 
+- Determination of Stove-tempreture Curves
+
+- Network Analysis: How does a soccer team play
+-- ICM, Organized by the Consortium for Mathematics and Its Application, supervised by Qiang Yao
+-- Leader of the group, responsible for modeling and providing assistance for programming.
+-- Established a time-evolved network and studied into configurations and managed to pick out as well as analyse foundational structures(network motifs) to reveal the mode of how a team plays.
+-- Identified indices of the network that reflect local and general level properties.
+
+- Decision-making of Airport Taxi Drivers based on Queuing Theory
+-- CUMCM, Organized by China Society for Industrial and Applied Mathematics
+-- Leader of the group, responsible for modeling and programming.
+-- Exploited Markov chain and renewal theory to compute possible passengers in the parking lot and yield a criteria for taxi drivers' decision making.
+-- Optimized get-on sites by modeling park-and-go process of a taxi under different scenarios and programmed to simulate.
+
+- Anti-assessment for Experts in Science-related Subject Competetions
+-- Organized by School of Mathemtical Science, ECNU
+-- Establish a quantified model based on discrimination, validity and preference to evaluate judges' behaviors in grading.
+-- Using BP neural network with Levenberg-Marquart algorithm to rank judges.
+-- Optimization: proposed a way of judges grouping and adjustment of final scores.
+
+- Shadow Education Compromises Educational Equality
+-- National Competetion of Academic English, Organized by ECNU
+-- Collected data from PISA program, tidying over 10GB data by R.
+-- Studied into statistics which reflects the relationship between socialeconomic status and academic achievements as well as explained how these factors work.
+-- Gained experience in data processing and analysing.
 
 == Course Projects
 
-- Captcha Recognition based on KNN and OpenCV
+- Multivariate Control Charts for Bivariate Weibull Data
+-- Supervised by Dongdong Xiang, School of Statistics, ECNU
+-- Theorectically Justify that all three multivariate control charts (Shewhart, CUSUM,EWMA) work on bivariate weibull data.
+-- Provide algorithms to perform
+-- Compare the efficiency of the three charts
 
+- Captcha Recognition based on KNN and OpenCV
+-- Supervised by Yan Liu, School of Data Science and Engineering, ECNU
+-- Improved functions in OpenCV to clear background noise and interferential curves.
+-- Programmed to split all characters according to the interconnectivity of a single character by iterating targets' surrounding elements.
+-- Improved KNN algorithm to better fit intermediate results as input and get output in expected forms.
+
+== Exchange programme and Summer School
+- International Elites in Science and Technology Scheme
+-- Organized by The University of Hong Kong
+-- The learning Brain (by Prof. Akaysha Tang): Shaping of the modulatory system; Expression of habituation of neurons in the Aplysio abdominal ganglion; Stress hormone concetration and learning.
+-- 3-D printing (by Dr. S.H.Choi): STL formatting; Slicing algorithms (uniform, direct and tolerant slicing); Topological Hierarchy of Slice Contours and Sorting; Hand-on experience.
+-- Big Data (by Dr. Reynold Cheng): Data storage, structure and means of data processing and analysis.
