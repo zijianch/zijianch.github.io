@@ -1,13 +1,16 @@
 # jemdoc: menu{MENU}{project.html}
 = project
 
+Note: if you are interested in some of these projects, you can require a copy of my paper or source code through email.
+
 == Research Projects 
 
 I'm currently enrolled in two research project:
 
 - To theoretically develop an improved algorithm of estimating the median and make simulations to test efficiency and robutness.
 -- Status: already designed an algorithm that works, now working on simulations
-- To use survival analysis to analyze the data from a certain disease.
+- To develop a way that can effectively use truncated data to give more precise estimates on certain clinical
+characteristics compared with existing methods.
 -- Status: writing papers
 
 but I'm not available to give out too many information until papers are finished and accepted. 
