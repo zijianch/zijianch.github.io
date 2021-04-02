@@ -1,17 +1,17 @@
 # jemdoc: menu{MENU}{project.html}
-= project
+= Project
 
 Note: if you are interested in some of these projects, you can require a copy of my paper or source code through email.
 
 == Research Projects 
 
-I'm currently enrolled in two research project:
+I'm currently enrolled in two research projects:
 
 - To theoretically develop an improved algorithm of estimating the median and make simulations to test efficiency and robutness.
 -- Status: already designed an algorithm that works, now working on simulations
 - To develop a way that can effectively use truncated data to give more precise estimates on certain clinical
-characteristics compared with existing methods.
--- Status: writing papers
+characteristics than other existing methods.
+-- First author, submitted at 2021/03/28, current status: With Editor
 
 but I'm not available to give out too many information until papers are finished and accepted. 
 
@@ -24,8 +24,15 @@ but I'm not available to give out too many information until papers are finished
 == Competetion Projects
 
 - The Dynamics in Music
+-- ICM, Organized by the Consortium for Mathematics and Its Application, supervised by Qiang Yao
+-- Leader of the group, responsible for modeling and programming.
+-- Established a network to display how musicians influencing each other, identifying indices of the network that meausre the influence of a certain musician.
 
 - Determination of Stove-tempreture Curves
+-- CUMCM, Organized by China Society for Industrial and Applied Mathematics
+-- Leader of the group, responsible for Mathematical reasoning and programming.
+-- Solved PDEs, discribing the distribution of heat in a stove.
+-- Programmed using numerical approaches to simulate the stove-tempreture curve.
 
 - Network Analysis: How does a soccer team play
 -- ICM, Organized by the Consortium for Mathematics and Its Application, supervised by Qiang Yao
