@@ -1,38 +1,27 @@
 # jemdoc: menu{MENU}{project.html}
 = Project
 
-Note: if you are interested in some of these projects, you can require a copy of my paper or source code through email.
-
-== Research Projects 
-
-I'm currently enrolled in two research projects:
-
-- To theoretically develop an improved algorithm of estimating the median and make simulations to test efficiency and robutness.
--- Status: already designed an algorithm that works, now working on simulations
-- To develop a way that can effectively use truncated data to give more precise estimates on certain clinical
-characteristics than other existing methods.
--- First author, submitted at 2021/03/28, current status: With Editor
-
-but I'm not available to give out too many information until papers are finished and accepted. 
-
+~~~
+if you are interested in some of these projects, you can require a copy of my paper or source code through email.
+~~~
 
 == Projects in related industries
 
 - Online Clinical Sample Size Calculator
 -- 
 
-== Competetion Projects
+== Competition Projects
 
 - The Dynamics in Music
 -- ICM, Organized by the Consortium for Mathematics and Its Application, supervised by Qiang Yao
 -- Leader of the group, responsible for modeling and programming.
--- Established a network to display how musicians influencing each other, identifying indices of the network that meausre the influence of a certain musician.
+-- Established a network to display how musicians influencing each other, identifying indices of the network that measure the influence of a certain musician.
 
-- Determination of Stove-tempreture Curves
+- Determination of Stove-temperature Curves
 -- CUMCM, Organized by China Society for Industrial and Applied Mathematics
 -- Leader of the group, responsible for Mathematical reasoning and programming.
--- Solved PDEs, discribing the distribution of heat in a stove.
--- Programmed using numerical approaches to simulate the stove-tempreture curve.
+-- Solved PDEs, describing the distribution of heat in a stove.
+-- Programmed using numerical approaches to simulate the stove temperature curve.
 
 - Network Analysis: How does a soccer team play
 -- ICM, Organized by the Consortium for Mathematics and Its Application, supervised by Qiang Yao
@@ -46,23 +35,23 @@ but I'm not available to give out too many information until papers are finished
 -- Exploited Markov chain and renewal theory to compute possible passengers in the parking lot and yield a criteria for taxi drivers' decision making.
 -- Optimized get-on sites by modeling park-and-go process of a taxi under different scenarios and programmed to simulate.
 
-- Anti-assessment for Experts in Science-related Subject Competetions
--- Organized by School of Mathemtical Science, ECNU
+- Anti-assessment for Experts in Science-related Subject Competitions
+-- Organized by School of Mathematical Science, ECNU
 -- Establish a quantified model based on discrimination, validity and preference to evaluate judges' behaviors in grading.
 -- Using BP neural network with Levenberg-Marquart algorithm to rank judges.
 -- Optimization: proposed a way of judges grouping and adjustment of final scores.
 
 - Shadow Education Compromises Educational Equality
--- National Competetion of Academic English, Organized by ECNU
+-- National Competition of Academic English, Organized by ECNU
 -- Collected data from PISA program, tidying over 10GB data by R.
--- Studied into statistics which reflects the relationship between socialeconomic status and academic achievements as well as explained how these factors work.
--- Gained experience in data processing and analysing.
+-- Studied into statistics which reflects the relationship between social-economic status and academic achievements as well as explained how these factors work.
+-- Gained experience in data processing and analyzing.
 
 == Course Projects
 
 - Multivariate Control Charts for Bivariate Weibull Data
 -- Supervised by Dongdong Xiang, School of Statistics, ECNU
--- Theorectically Justify that all three multivariate control charts (Shewhart, CUSUM,EWMA) work on bivariate weibull data.
+-- Theoretically Justify that all three multivariate control charts (Shewhart, CUSUM,EWMA) work on bivariate Weibull data.
 -- Provide algorithms to perform
 -- Compare the efficiency of the three charts
 
@@ -72,7 +61,7 @@ but I'm not available to give out too many information until papers are finished
 -- Programmed to split all characters according to the interconnectivity of a single character by iterating targets' surrounding elements.
 -- Improved KNN algorithm to better fit intermediate results as input and get output in expected forms.
 
-== Exchange programme and Summer School
+== Exchange Program and Summer School
 - International Elites in Science and Technology Scheme
 -- Organized by The University of Hong Kong
 -- The learning Brain (by Prof. Akaysha Tang): Shaping of the modulatory system; Expression of habituation of neurons in the Aplysio abdominal ganglion; Stress hormone concetration and learning.
