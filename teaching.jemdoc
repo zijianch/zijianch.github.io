@@ -12,8 +12,15 @@
 
 == Directed Reading Program
 
-I served as a graduate student mentor for the [https://hilbert.math.wisc.edu/~drp/ Directed Reading Program] in 2022 Spring. The reading topic is *Probabilistic perspectives in machine learning*. Following are some of the handouts:
+I served as a graduate student mentor for the [https://hilbert.math.wisc.edu/~drp/ Directed Reading Program] in 2022 Spring. The reading topic of my session is *Probabilistic perspectives in machine learning*. Following are some of the handouts I wrote:
 
+- Supervised and unsupervised learning, Basic concepts in ML, Fundamentals in probability \[[files/DRP_1.pdf pdf]\]
+- Entropy, KL divergence, Maximum Likelihood Estimation \[[files/DRP_2.pdf pdf]\]
+- MLE for Linear Regression, MLE for Logistic Regression \[[files/DRP_3.pdf pdf]\]
+- MLE for Linear Regression, MLE for Logistic Regression \[[files/DRP_3.pdf pdf]\]
+- Mixture Normal, EM algorithm, EM for Mixture Normal \[[files/DRP_56.pdf pdf]\]
+
+The contents are mostly from the book *Machine Learning: A probabilistic Prospective* by Kevin Patrick Murphy, and from the lecture notes of the course /Selections of Frontiers in Statistics/ lectured by Zhou Yu, ECNU.
 
 == Madison Experimental Mathematics Lab
 
