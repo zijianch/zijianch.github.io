@@ -1,0 +1,25 @@
+# jemdoc: menu{MENU}{jem.html}
+= Quick tutorial of Jemdoc
+
+
+== Steps to generate a new HTML page
+
+0. Say, your folder is +\\User\\xxx\\myJem+
+
+1. Create a +xxx.jemdoc+ file (by TextEdit or something). This should include:
+
+~~~
+{}{}
+# jemdoc: menu{MENU}{xxx.html}
+= Your section title
+~~~
+
+2. Use +Terminal+ (or +cmd+ in Windows) to generate HTML file
+
+~~~
+{}{}
+cd \User\xxx\myJem
+python2 jemdoc.py xxx
+~~~
+
+
