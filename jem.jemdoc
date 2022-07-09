@@ -5,6 +5,8 @@ These static pages are generated using Jemdoc, which is originally developed by 
 
 == Steps to generate a new HTML page
 
+=== regular pages
+
 0. Say, your folder is +\\User\\xxx\\myJem+
 
 1. Create a +xxx.jemdoc+ file (by TextEdit or something). This should include:
@@ -22,6 +24,25 @@ These static pages are generated using Jemdoc, which is originally developed by 
 cd \User\xxx\myJem
 python2 jemdoc.py xxx
 ~~~
+
+
+=== Menu
+
+Create a file named +MENU+ WITHOUT any extension name, and put the following (say)
+
+~~~
+{}{}
+Home
+    About me           [index.html]
+    What's new		 [new.html]
+~~~
+Then use +Terminal+ 
+~~~
+{}{}
+cd \User\xxx\myJem
+python2 jemdoc.py MENU
+~~~
+Remember to re-generate all other pages after you update the menu.
 
 == Cheatsheet
 
