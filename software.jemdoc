@@ -2,13 +2,23 @@
 = Software
 
 
-== Spherical Multi-dimensional Scaling
-
-
 == Hodge Lapalacian
 
-This is the description.
+The code performs the Hodge Laplacian based modeling of cycles and various Hodge Laplacian based computations in brain networks. Click [hodgeLap.html here] for details of the algorithm and the usage. 
 
-Click [hodgeLap.html here] for details of the algorithm and the usage. The source codes can also be found at the.
+The source codes can also be found at this [https://github.com/laplcebeltrami/hodge GitHub repo]. If you are using any of the codes given here, please reference the paper
 
-If you are using any of the codes given here, please reference
+~~~
+Dakurah, S., Anand, D.V., Chen, Z., Chung, M.K. 2022, Modeling Cycles in Brain Networks Using Hodge Laplacian, Medical Image Computing and Computer Assisted Intervention (MICCAI)
+~~~
+
+
+== Spherical Multi-dimensional Scaling
+
+The codes performs the spherical- and hyperbolic-MDS. 
+
+The source codes can also be found at this [https://github.com/laplcebeltrami/sphericalMDS GitHub repo]. If you are using any of the codes given here, please reference the paper
+
+~~~
+Chung, M.K., Chen Z. 2022, Embedding of Functional Human Brain Networks on a Sphere. [https://arxiv.org/abs/2204.03653]
+~~~
