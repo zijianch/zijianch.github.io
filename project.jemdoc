@@ -1,14 +1,38 @@
 # jemdoc: menu{MENU}{project.html}
 = Project
 
-~~~
-if you are interested in some of these projects, you can require a copy of my paper or source code through email.
-~~~
+
+The followings are some of my course\/competition\/industry projects during my undergraduate studies. If you are interested in some of these projects, you can require a copy of my paper or source code through email.
+
+*NOTE: Projects are somewhat more complex and creative than homework, but far from publishing. That's why I have no more new projects to update recently. I just do serious research :) *
+
 
 == Projects in related industries
 
 - Online Clinical Sample Size Calculator
--- 
+
+== Course Projects
+
+- Comparison of four methods for shifting parameter estimation
+-- Supervised by Dongdong Xiang, School of Statistics, ECNU
+-- Compare theoretically and numerically four diﬀerent methods that are used to estimate the CI of shifting parameter in the two sample model
+
+- Analysis of Housing price in northeastern China based on the VAR model
+-- Supervised by Yanlin Tang, School of Statistics, ECNU
+-- Applying the VAR model to ﬁt second-hand housing price, as well as using the FEVD and IRF to detect the spill-out eﬀect.
+
+- Multivariate Control Charts for Bivariate Weibull Data
+-- Supervised by Dongdong Xiang, School of Statistics, ECNU
+-- Theoretically Justify that all three multivariate control charts (Shewhart, CUSUM,EWMA) work on bivariate Weibull data.
+-- Provide algorithms to perform
+-- Compare the efficiency of the three charts
+
+- Captcha Recognition based on KNN and OpenCV
+-- Supervised by Yan Liu, School of Data Science and Engineering, ECNU
+-- Improved functions in OpenCV to clear background noise and interferential curves.
+-- Programmed to split all characters according to the interconnectivity of a single character by iterating targets' surrounding elements.
+-- Improved KNN algorithm to better fit intermediate results as input and get output in expected forms.
+
 
 == Competition Projects
 
@@ -47,19 +71,6 @@ if you are interested in some of these projects, you can require a copy of my pa
 -- Studied into statistics which reflects the relationship between social-economic status and academic achievements as well as explained how these factors work.
 -- Gained experience in data processing and analyzing.
 
-== Course Projects
-
-- Multivariate Control Charts for Bivariate Weibull Data
--- Supervised by Dongdong Xiang, School of Statistics, ECNU
--- Theoretically Justify that all three multivariate control charts (Shewhart, CUSUM,EWMA) work on bivariate Weibull data.
--- Provide algorithms to perform
--- Compare the efficiency of the three charts
-
-- Captcha Recognition based on KNN and OpenCV
--- Supervised by Yan Liu, School of Data Science and Engineering, ECNU
--- Improved functions in OpenCV to clear background noise and interferential curves.
--- Programmed to split all characters according to the interconnectivity of a single character by iterating targets' surrounding elements.
--- Improved KNN algorithm to better fit intermediate results as input and get output in expected forms.
 
 == Exchange Program and Summer School
 - International Elites in Science and Technology Scheme
