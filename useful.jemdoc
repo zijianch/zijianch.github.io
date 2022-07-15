@@ -2,21 +2,18 @@
 = Some useful Stuff
 
 
-== Collected from Internet
-
-=== Academics
+== Academics
 
 - The Matrix Cookbook: a collection of facts about matrices for quick reference. \[[https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf pdf]\]
 
-=== MATLAB
+== MATLAB
 
-- Visualization
--- Plot cheatsheet, by [http://home.ustc.edu.cn/~pjer1316/ Peijin Zhang] \[[files/matlab_plot_cheatsheet.png png]\]
--- How to apply +colormap+ on line objects. \[[http://brainimaging.waisman.wisc.edu/%7Echung/tracts/ link]\].
+=== Visualization
+- Plot cheatsheet, by [http://home.ustc.edu.cn/~pjer1316/ Peijin Zhang] \[[files/matlab_plot_cheatsheet.png png]\]
+- How to apply +colormap+ on line objects. \[[http://brainimaging.waisman.wisc.edu/%7Echung/tracts/ link]\].
 
-- Key functions in neuroimaging
--- Heat kernel smoothing: \[[http://brainimaging.waisman.wisc.edu/%7Echung/lb/ link1]\] \[[https://pages.stat.wisc.edu/~mchung/mandible/ link2]\].
--- Permutation test and Transposition test. \[[https://pages.stat.wisc.edu/~mchung/transpositions/ link]\]
+=== Functions in brain network analysis
+- Heat kernel smoothing: \[[http://brainimaging.waisman.wisc.edu/%7Echung/lb/ link1]\] \[[https://pages.stat.wisc.edu/~mchung/mandible/ link2]\].
+- Permutation test and Transposition test. \[[https://pages.stat.wisc.edu/~mchung/transpositions/ link1]\]\[[https://pages.stat.wisc.edu/~mchung/dynamicTDA/ link2]\]
 
-== My own Contribution
 
