@@ -4,3 +4,6 @@
 
 == Brain Network Analysis
 
+In this area, function of the human brain are studied through noninvasive imaging modalities such as functional magnetic resonance imaging (f-MRI). Regions of interest are regarded as network nodes and correlations of blood-oxygen-level dependent (BOLD) signals can serve as weighted network edges (although some other studies might use white matter fiber tracts counts/lengths (though DTI) for structural connectivity evaluation). 
+
+

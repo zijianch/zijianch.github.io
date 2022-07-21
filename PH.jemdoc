@@ -1,5 +1,14 @@
 = Summary of Persistent Homology
 
+Information in this page is summarized from the following resources:
+
+- Presentation slides (all by [https://pages.stat.wisc.edu/~mchung/index.html Moo K. Chung])
+-- [https://pages.stat.wisc.edu/~mchung/talks/chung.2017.persistence.pdf Persistent homological brain network analysis]
+-- [https://github.com/laplcebeltrami/wasserstein/blob/main/2022.05.23.topological.singapore.pdf Topological inference and learning for graphs]
+-- [https://pages.stat.wisc.edu/~mchung/talks/2020.01.04.KAUST.pdf Introduction to Topological Data Analysis without Algebraic Topology]
+
+- Papers
+
 
 == Filtrations
 
