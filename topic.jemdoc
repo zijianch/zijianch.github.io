@@ -4,6 +4,17 @@
 
 == Brain Network Analysis
 
-In this area, function of the human brain are studied through noninvasive imaging modalities such as functional magnetic resonance imaging (f-MRI). Regions of interest are regarded as network nodes and correlations of blood-oxygen-level dependent (BOLD) signals can serve as weighted network edges (although some other studies might use white matter fiber tracts counts/lengths (though DTI) for structural connectivity evaluation). 
+In this area, function of the human brain are studied through noninvasive imaging modalities such as functional magnetic resonance imaging (f-MRI). Regions of interest are regarded as network nodes and correlations of blood-oxygen-level dependent (BOLD) signals can serve as weighted network edges (although some other studies might use white matter fiber tracts counts/lengths (though DTI) for structural connectivity evaluation). Due to its complex nature and massive amount of data, brain network is still not fully understood.
 
+To address such issues, we proceed in the following two ways:
+
+- *Persistent Homology*: It allows us to track changes of topological features (connected components, modules, and cycles etc.) over multiple scales. Birth and dead times of features during the scale change are recorded and are used to measure the "persistence". Longer persistence means higher possibility to be an actual underlying network structure (rather than noises). For more details, see [PH.html this page].
+
+- *Manifold learning*: Embedding of brain network into lower dimensional or non-Euclidean space allows us to discover intrinsic patterns of geometry and connectivity. By embedding it on a sphere, we can smoothly estimate the network gradient and curls which are often used in the Hodge decomposition. By embedding it into the hyperbolic space, we will be able to easily identify the hierarchical structures (e.g. tress) of the network.
+
+Besides, there are some other issues that worth noting:
+
+- Noises are inevitably introduced to the real-world data we study (during image acquisition/processing). One of the effective ways to reduce the noise is Kernel smoothing. However, in irregular or non-Euclidean domains, the direct use of existing kernel like Gaussian kernel tends to cause numerical issues. Thus, we need to generalize and formulate the kernel using diffusion equation with corresponding boundary conditions. 
+
+- Traditional network distances are based on matrix norms, which may fail to capture topological features. Better options are the Gromov–Hausdorff (GH) and Kolmogorov–Smirnov (KS) distance. Wasserstein Distance has also attracted much attention these days. 
 
