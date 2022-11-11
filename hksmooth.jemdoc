@@ -8,13 +8,89 @@ This page is currently under construction.
 
 == Eigenfunctions of the Laplace-Beltrami Operator
 
+The Laplace-Beltrami Operator $\Delta$ corresponding to the surface parameterization $p=X\left(u^{1}, u^{2}\right)$ is defined as
+\(
+\Delta=\frac{1}{\operatorname{det} g^{1 / 2}} \sum_{i, j=1}^{2} \frac{\partial}{\partial u^{i}}\left(\operatorname{det} g^{1 / 2} g^{i j} \frac{\partial}{\partial u^{j}}\right)
+\)
+where $g=(g_{ij})$ is the Riemannian metric tensor. Example: [https://pages.stat.wisc.edu/~mchung/teaching/stat992/ima20.pdf Laplacian in spherical coordinates]
+
+Consider the eigen-problem
+\(
+    \Delta \phi_i=-\lambda_i\phi_i, \quad \lambda_i\geq 0
+\)
+Sometimes we will impose some boundary conditions (mostly $\phi_i=0$ on $\partial \Omega$) to guarantee orthonormality of the solution. 
+
 === Explicit Solution
+
+Under special cases, explicit Solution can be derived using separate of variables. Followings are some examples:
+
+- Rectangular region: \[[https://web.stanford.edu/class/math220b/handouts/heateqn.pdf Lecture Notes 1], [https://web.pdx.edu/~daescu/mth428_528/HighDimPDEs.pdf Lecture Notes 2]\]
+- Unit disk: \[[https://web.pdx.edu/~daescu/mth428_528/HighDimPDEs.pdf Lecture Notes]\]
+- Unit sphere: \[[https://pages.stat.wisc.edu/~mchung/teaching/stat992/ima21.pdf Lecture Notes]\]
 
 === Numerical Solution
 
+In a more general/abstract setting, we might not be able to solve this problem explicitly. One way is to use FEM \[4,5\].
+
+For MATLAB implementation, see \[[http://brainimaging.waisman.wisc.edu/%7Echung/lb/ link1]\] \[[https://pages.stat.wisc.edu/~mchung/mandible/ link2]\].
+
+
 == Heat Kernel Smoothing
 
-Test $Ax+b$. 
+=== Heat Kernel
+
+The heat kernel on Riemannian manifold $M$ is a function $K(x,y,t)$ (or $K_{t}(x,y)$, also written $e^{-t\Delta}$) on $M\times M\times \mathbb{R}_+$ such that \[5,6\]
+\(
+    \begin{cases}
+    &\dfrac{\partial K_t(x,y)}{\partial t} = \Delta K_t(x,y) \\
+    & K_0(x,y)=\delta(x-y)
+    \end{cases}.
+\)
+This also means that the convolution $K_{t}*f(x):=\int_{M} K(x, y, t) f(y) \mathrm{d} y $ is the unique solution of the heat equation \[1,5\]
+\(
+    \begin{cases}
+    &\dfrac{\partial v(x,t)}{\partial t} = \Delta v(x,t) \\
+    & v(x,t=0)=f(x)
+    \end{cases}.
+\)
+
+The formal expression for Heat kernel is \[7\]
+\(
+    K(t,x,y)=\sum_{i=0}^{\infty} e^{-\lambda_i t}\phi_i(x)\phi_i(y),\quad x,y\in M,\; t\in \mathbb{R}_+
+\)
+where $\{\phi_i\}$ is an orthonormal basis of $L^2(M)$ that satisfies $\Delta \phi_i=\lambda_i\phi_i$. To validate this statement, put into the convolution formula, use $f=\sum a_i\omega_i$ to get the same result as $K_tf=\sum a_i\exp(-\lambda_i t)\omega_i$.
+
+{{<br />}} 
+
+*Q: Why it is a generalization of Gaussian kernel?*
+
+
+=== Heat Kernel Smoothing
+
+
+== Special case: the Graph Laplacian
+
+
+
+== References and Further readings
+
+=== Papers and textbooks
+
+Texts in {{<font color="gray">gray</font>}} are highlights of the paper.
+
+{{<br />}} 
+
+. Chung, M.K., Robbins, S., Evans, A.C. 2005. [https://pages.stat.wisc.edu/~mchung/papers/IPMI/hk.IPMI.2005.pdf Unified statistical approach to cortical thickness analysis]. Information Processing in Medical Imaging (IPMI). Lecture Notes in Computer Science (LNCS) 3565:627-638. \n {{<font color="gray">Definition and basic properties of Heat kernel.</font>}}
+. Chung, M.K., Dalton, K.M., Shen, L., L., Evans, A.C., Davidson, R.J. 2007. [https://pages.stat.wisc.edu/~mchung/papers/TMI.SPHARM.2007.pdf Weighted Fourier series representation and its application to quantifying the amount of gray matter]. IEEE Transactions on Medical Imaging. 26:566-581.
+. Seo, S., Chung, M.K., Vorperian, H. K. 2010. [https://pages.stat.wisc.edu/~mchung/papers/miccai.2010.seo.pdf Heat kernel smoothing using Laplace-Beltrami eigenfunctions]. 13th International Conference on Medical Image Computing and Computer Assisted Intervention (MICCAI). Lecture Notes in Computer Science (LNCS). 6363:505-512. \n {{<font color="gray">Generalized Eigenvalue Problem; Iterative Residual Fitting Algorithm.</font>}}
+. Chung, M.K., Taylor, J. 2004. [https://pages.stat.wisc.edu/~mchung/papers/BMI2004/diffusion_biomed04.pdf Diffusion Smoothing on Brain Surface via Finite Element Method],  IEEE International Symposium on Biomedical Imaging (ISBI). 562. \n {{<font color="gray"> FEM of solving LB eigenproblem</font>}}
+. Chung, M.K., Qiu, A., Seo S. Vorperian, H.K. 2015. Unified heat kernel regression for diffusion, kernel smoothing and wavelets on manifolds and its application to mandible growth modeling in CT images, Medical Image Analysis. 22:63-76
+. I. Chavel, B. Randol, and J. Dodziuk. Eigenvalues in Riemannian Geometry. ISSN. Elsevier Science, 1984
+. S. Rosenberg, R. Steven, J.W. Bruce, and C.M. Series. The Laplacian on a Riemannian Manifold: An Introduction to Analysis on Manifolds. EBSCO ebook academic collection. Cambridge University Press,1997
+
+=== Lecture notes
+
+
 
 
 
