@@ -10,7 +10,7 @@ The code performs the Hodge Laplacian based modeling of cycles and various Hodge
 The source codes can also be found at this [https://github.com/laplcebeltrami/hodge GitHub repo]. If you are using any of the codes given here, please reference the paper
 
 ~~~
-Dakurah, S., Anand, D.V., Chen, Z., Chung, M.K. 2022, Modeling Cycles in Brain Networks Using Hodge Laplacian, Medical Image Computing and Computer Assisted Intervention (MICCAI)
+Dakurah, S., Anand, D.V., Chen, Z., Chung, M.K. 2022, Modeling Cycles in Brain Networks Using Hodge Laplacian, Medical Image Computing and Computer Assisted Intervention - MICCAI 2022. Lecture Notes in Computer Science, vol 13431. Springer, Cham.
 ~~~
 
 
@@ -23,3 +23,10 @@ The source codes can also be found at this [https://github.com/laplcebeltrami/sp
 ~~~
 Chung, M.K., Chen Z. 2022, Embedding of Functional Human Brain Networks on a Sphere. [https://arxiv.org/abs/2204.03653]
 ~~~
+
+
+== Heat Kernel Smoothing on circular data
+
+This function provides a smooth estimate of the functional data (corpus callosum boundaries) defined on a circle. This is for matching two circular functional data for cross comparison that reduces spatial variability in statistical analysis.
+
+The source codes can be found at this [https://github.com/laplcebeltrami/circle GitHub repo].

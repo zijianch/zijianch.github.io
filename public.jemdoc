@@ -1,16 +1,16 @@
 # jemdoc: menu{MENU}{public.html}
-= Publications
-
-== Preprints
-
-1. Chung, M.K., Chen, Z. 2022, Embedding of Functional Human Brain Networks on a Sphere, [https://arxiv.org/abs/2204.03653]
+= Publications and Preprints
 
 
-== Publications
+== 2022
 
-1. Dakurah, S., Anand, D.V., Chen, Z., Chung, M.K. 2022 [https://github.com/laplcebeltrami/hodge/blob/main/dakurah.2022.MICCAI.pdf Modeling Cycles in Brain Networks Using Hodge Laplacian], Medical Image Computing and Computer Assisted Intervention (MICCAI) (received travel award). \[[hodgeLap.html MATLAB code]\]
+. Dakurah, S., Anand, D.V., Chen, Z., Chung, M.K. 2022, [https://github.com/laplcebeltrami/hodge/blob/main/dakurah.2022.MICCAI.pdf Modeling Cycles in Brain Networks Using Hodge Laplacian], Medical Image Computing and Computer Assisted Intervention - MICCAI 2022. Lecture Notes in Computer Science, vol 13431. Springer, Cham. (received travel award). \[[hodgeLap.html MATLAB code]\]
 
-2. Liu, T, Chen, Z, Xu, J. Epidemiological characteristics and incubation period of SARS-CoV-2 during the 2020–2021 winter pandemic wave in North China: an observational study. J Med Virol. 2021; 93: 6628-6633.
+. Chung, M.K., Chen, Z. 2022, Embedding of Functional Human Brain Networks on a Sphere, [https://arxiv.org/abs/2204.03653] \[[https://github.com/laplcebeltrami/sphericalMDS MATLAB code]\]
+
+== 2021
+
+. Liu, T, Chen, Z, Xu, J. Epidemiological characteristics and incubation period of SARS-CoV-2 during the 2020–2021 winter pandemic wave in North China: an observational study. J Med Virol. 2021; 93: 6628-6633.
 
 
 
