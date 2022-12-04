@@ -3,7 +3,10 @@
 
 The followings are some of the software of which I am one of the developers. Other useful software can be found in [useful.html Misc>>Resources].
 
-== Hodge Lapalacian
+== Brain Networks Analysis
+
+
+=== Hodge Lapalacian
 
 The code performs the Hodge Laplacian based modeling of cycles and various Hodge Laplacian based computations in brain networks. Click [hodgeLap.html here] for details of the algorithm and the usage. 
 
@@ -14,7 +17,7 @@ Dakurah, S., Anand, D.V., Chen, Z., Chung, M.K. 2022, Modeling Cycles in Brain N
 ~~~
 
 
-== Spherical Multi-dimensional Scaling
+=== Spherical Multi-dimensional Scaling
 
 The codes performs the spherical- and hyperbolic-MDS. 
 
@@ -24,8 +27,9 @@ The source codes can also be found at this [https://github.com/laplcebeltrami/sp
 Chung, M.K., Chen Z. 2022, Embedding of Functional Human Brain Networks on a Sphere. [https://arxiv.org/abs/2204.03653]
 ~~~
 
+== Computational Neuroimaging/Neuroanatomy 
 
-== Heat Kernel Smoothing on circular data
+=== Heat Kernel Smoothing on circular data
 
 This function provides a smooth estimate of the functional data (corpus callosum boundaries) defined on a circle. This is for matching two circular functional data for cross comparison that reduces spatial variability in statistical analysis.
 
