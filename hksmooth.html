@@ -5,7 +5,7 @@
 <meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link rel="stylesheet" href="jemdoc.css" type="text/css" />
-<title>Heat Kernel Smoothing</title>
+<title>Heat Kernel Smoothing (Diffusion Smoothing)</title>
 <!-- MathJax -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
 </script>
@@ -19,89 +19,119 @@ MathJax.Hub.Config({
 <body>
 <div id="layout-content">
 <div id="toptitle">
-<h1>Heat Kernel Smoothing</h1>
+<h1>Heat Kernel Smoothing (Diffusion Smoothing)</h1>
 </div>
 <div class="infoblock">
 <div class="blockcontent">
 <p>This page is currently under construction.
 </p>
 </div></div>
-<h2>Introduction</h2>
-<h2>Eigenfunctions of the Laplace-Beltrami Operator</h2>
-<p>The Laplace-Beltrami Operator \(\Delta\) corresponding to the surface parameterization \(p=X\left(u^{1}, u^{2}\right)\) is defined as
+<h2>Motivation of Diffusion Smoothing</h2>
+<p>The direct use of Gaussian kernel smoothing tend to cause troubles  on irregular domains: (i) signals would be blurred across boundaries; (ii) on a curved (non-Euclidean) manifold, geodesics are not simply straight lines and consequently weights may be incorrectly assigned. The most straightforward way is incorporate boundary conditions and formulate the smoothing as a solution to certain partial differential equations. The question is: What is the proper equation that Gaussian kernel satisfies? 
+</p>
+<p>Let's consider the \(n-\)dimensional Gaussian kernel in spherical coordinates:
 </p>
 <p style="text-align:center">
 \[
-\Delta=\frac{1}{\operatorname{det} g^{1 / 2}} \sum_{i, j=1}^{2} \frac{\partial}{\partial u^{i}}\left(\operatorname{det} g^{1 / 2} g^{i j} \frac{\partial}{\partial u^{j}}\right)
+    K_\sigma(r)=\frac{1}{(2 \pi)^{n / 2} \sigma^n} \exp \left(-\frac{r^2}{2 \sigma^2}\right)
 \]
-</p><p>where \(g=(g_{ij})\) is the Riemannian metric tensor. Example: <a href="https://pages.stat.wisc.edu/~mchung/teaching/stat992/ima20.pdf" target=&ldquo;blank&rdquo;>Laplacian in spherical coordinates</a>
-</p>
-<p>Consider the eigen-problem
+</p><p>where \(r^2=\sum_{i=1}^n t_i^2\). Recall that the Laplace operator is defined as \(\Delta=\sum_{i=1}^n \frac{\partial^2}{\partial t_i^2}\). Then, we have
 </p>
 <p style="text-align:center">
 \[
-    \Delta \phi_i=-\lambda_i\phi_i, \quad \lambda_i\geq 0
+        \Delta K_\sigma =\frac{\partial^2 K_\sigma}{\partial r^2}+\frac{n-1}{r} \frac{\partial K_\sigma}{\partial r}
+        =\left(\frac{r^2}{\sigma^4}-\frac{n}{\sigma^2}\right) K_\sigma
 \]
-</p><p>Sometimes we will impose some boundary conditions (mostly \(\phi_i=0\) on \(\partial \Omega\)) to guarantee orthonormality of the solution. 
+</p><p>On the other hand, 
 </p>
-<h3>Explicit Solution</h3>
-<p>Under special cases, explicit Solution can be derived using separate of variables. Followings are some examples:
+<p style="text-align:center">
+\[
+    \frac{\partial K_\sigma}{\partial \sigma}=\left(\frac{r^2}{\sigma^3}-\frac{n}{\sigma}\right) K_\sigma
+\]
+</p><p>Combining these two equations, we have
+</p>
+<p style="text-align:center">
+\[
+    \frac{1}{\sigma} \frac{\partial K_\sigma}{\partial \sigma}=\Delta K_\sigma.
+\]
+</p><p>By letting \(\sigma^2=2t\), we have exactly the diffusion equation:
+</p>
+<p style="text-align:center">
+\[
+    \frac{\partial K_\sigma}{\partial t}=\Delta K_\sigma.
+    \label{eq:heatEq}
+\]
+</p><p>This answers our question: the Gaussian kernel is the solution to the diffusion equation.
+</p>
+<h2>Diffusion smoothing on manifolds</h2>
+<h3>The Cauchy problem and its solutions</h3>
+<p>If we apply convolution to both sides of the diffusion equation, we will have the following theorem:
+</p>
+<div class="infoblock">
+<div class="blockcontent">
+<p><b>Theorem.</b> \(K_\sigma * f\) is the unique solution of the isotropic diffusion equation
+</p>
+<p style="text-align:center">
+\[
+    \frac{\partial g}{\partial t}=\Delta g
+    \label{eq:Cauchy1}
+\]
+</p><p>at time \(t=\sigma^2 / 2\), with initial condition
+</p>
+<p style="text-align:center">
+\[
+    g(x,t=0)=f(x)
+    \label{eq:Cauchy1-initial}
+\]
+</p></div></div>
+<p>This theorem suggests that diffusing the observation \(f(x)\) for time duration of \(t=\sigma^2/2\) is equivalent to smoothing it using Gaussian kernel with bandwidth \(\sigma\). 
+</p>
+<p>Examples of the solution on different manifolds:
 </p>
 <ul>
-<li><p>Rectangular region: [<a href="https://web.stanford.edu/class/math220b/handouts/heateqn.pdf" target=&ldquo;blank&rdquo;>Lecture Notes 1</a>, <a href="https://web.pdx.edu/~daescu/mth428_528/HighDimPDEs.pdf" target=&ldquo;blank&rdquo;>Lecture Notes 2</a>]
+<li><p>interval in \(\mathbb{R}\)
 </p>
 </li>
-<li><p>Unit disk: [<a href="https://web.pdx.edu/~daescu/mth428_528/HighDimPDEs.pdf" target=&ldquo;blank&rdquo;>Lecture Notes</a>]
+<li><p>rectangular region in \(\mathbb{R}^2\)
 </p>
 </li>
-<li><p>Unit sphere: [<a href="https://pages.stat.wisc.edu/~mchung/teaching/stat992/ima21.pdf" target=&ldquo;blank&rdquo;>Lecture Notes</a>]
+<li><p>unit circle
+</p>
+</li>
+<li><p>unit sphere
 </p>
 </li>
 </ul>
-<h3>Numerical Solution</h3>
-<p>In a more general/abstract setting, we might not be able to solve this problem explicitly. One way is to use FEM [4,5].
+<p>All these solutions have the same form:
 </p>
-<p>For MATLAB implementation, see [<a href="http://brainimaging.waisman.wisc.edu/%7Echung/lb/" target=&ldquo;blank&rdquo;>link1</a>] [<a href="https://pages.stat.wisc.edu/~mchung/mandible/" target=&ldquo;blank&rdquo;>link2</a>].
-</p>
-<h2>Heat Kernel Smoothing</h2>
-<h3>Heat Kernel</h3>
-<p>The heat kernel on Riemannian manifold \(M\) is a function \(K(x,y,t)\) (or \(K_{t}(x,y)\), also written \(e^{-t\Delta}\)) on \(M\times M\times \mathbb{R}_+\) such that [5,6]
+<div class="infoblock">
+<div class="blockcontent">
+<p><b>Theorem.</b> On any compact differentiable manifold \(\mathcal{M}\subset \mathbb{R}^d\), the unique solution to the Cauchy problem 
 </p>
 <p style="text-align:center">
 \[
-    \begin{cases}
-    &amp;\dfrac{\partial K_t(x,y)}{\partial t} = \Delta K_t(x,y) \\
-    &amp; K_0(x,y)=\delta(x-y)
-    \end{cases}.
+        \begin{cases}
+            \frac{\partial g}{\partial t}=\Delta g\\
+            g(x,t=0)=f(x)
+        \end{cases} 
+        \label{eq:CauchyP}
 \]
-</p><p>This also means that the convolution \(K_{t}*f(x):=\int_{M} K(x, y, t) f(y) \mathrm{d} y \) is the unique solution of the heat equation [1,5]
+</p><p>is given by
 </p>
 <p style="text-align:center">
 \[
-    \begin{cases}
-    &amp;\dfrac{\partial v(x,t)}{\partial t} = \Delta v(x,t) \\
-    &amp; v(x,t=0)=f(x)
-    \end{cases}.
+        g(x, t)=\sum_{j=0}^{\infty} e^{-\lambda_j t}\left\langle f, \psi_j\right\rangle \psi_j(x)
+        \label{eq:gxt}
 \]
-</p><p>The formal expression for Heat kernel is [7]
+</p><p>where \(\lambda_j\) and \(\psi_j\) are eigenvalues and eigenfunctions of \(\Delta\).
 </p>
-<p style="text-align:center">
-\[
-    K(t,x,y)=\sum_{i=0}^{\infty} e^{-\lambda_i t}\phi_i(x)\phi_i(y),\quad x,y\in M,\; t\in \mathbb{R}_+
-\]
-</p><p>where \(\{\phi_i\}\) is an orthonormal basis of \(L^2(M)\) that satisfies \(\Delta \phi_i=\lambda_i\phi_i\). To validate this statement, put into the convolution formula, use \(f=\sum a_i\omega_i\) to get the same result as \(K_tf=\sum a_i\exp(-\lambda_i t)\omega_i\).
-</p>
-<p><br /> 
-</p>
-<p><b>Q: Why it is a generalization of Gaussian kernel?</b>
-</p>
-<h3>Heat Kernel Smoothing</h3>
-<h2>Special case: the Graph Laplacian</h2>
+</div></div>
+<h3>Weighted Fourier Series and coefficient estimation</h3>
+<h3>What if we cannot find explicit solutions? </h3>
+<h2>Diffusion smoothing on graphs</h2>
 <h2>References and Further readings</h2>
 <h3>Papers and textbooks</h3>
 <p>Texts in <font color="gray">gray</font> are highlights of the paper.
-</p>
-<p><br /> 
 </p>
 <ol>
 <li><p>Chung, M.K., Robbins, S., Evans, A.C. 2005. <a href="https://pages.stat.wisc.edu/~mchung/papers/IPMI/hk.IPMI.2005.pdf" target=&ldquo;blank&rdquo;>Unified statistical approach to cortical thickness analysis</a>. Information Processing in Medical Imaging (IPMI). Lecture Notes in Computer Science (LNCS) 3565:627-638. <br /> <font color="gray">Definition and basic properties of Heat kernel.</font>
@@ -129,7 +159,7 @@ MathJax.Hub.Config({
 <h3>Lecture notes</h3>
 <div id="footer">
 <div id="footer-text">
-Page generated 2022-12-03 01:34:19 CST.
+Page generated 2022-12-05 09:59:18 CST.
 </div>
 </div>
 </div>
