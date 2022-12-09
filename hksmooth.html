@@ -29,39 +29,26 @@ MathJax.Hub.Config({
 <h2>Motivation of Diffusion Smoothing</h2>
 <p>The direct use of Gaussian kernel smoothing tend to cause troubles  on irregular domains: (i) signals would be blurred across boundaries; (ii) on a curved (non-Euclidean) manifold, geodesics are not simply straight lines and consequently weights may be incorrectly assigned. The most straightforward way is incorporate boundary conditions and formulate the smoothing as a solution to certain partial differential equations. The question is: What is the proper equation that Gaussian kernel satisfies? 
 </p>
-<p>Let's consider the \(n-\)dimensional Gaussian kernel in spherical coordinates:
-</p>
-<p style="text-align:center">
-\[
-    K_\sigma(r)=\frac{1}{(2 \pi)^{n / 2} \sigma^n} \exp \left(-\frac{r^2}{2 \sigma^2}\right)
-\]
-</p><p>where \(r^2=\sum_{i=1}^n t_i^2\). Recall that the Laplace operator is defined as \(\Delta=\sum_{i=1}^n \frac{\partial^2}{\partial t_i^2}\). Then, we have
+<p>Let's consider the \(n-\)dimensional Gaussian kernel in spherical coordinates and apply the Laplace operator:
 </p>
 <p style="text-align:center">
 \[
         \Delta K_\sigma =\frac{\partial^2 K_\sigma}{\partial r^2}+\frac{n-1}{r} \frac{\partial K_\sigma}{\partial r}
-        =\left(\frac{r^2}{\sigma^4}-\frac{n}{\sigma^2}\right) K_\sigma
+        =\left(\frac{r^2}{\sigma^4}-\frac{n}{\sigma^2}\right) K_\sigma.
 \]
-</p><p>On the other hand, 
+</p><p>On the other hand, by direct computation, we have
 </p>
 <p style="text-align:center">
 \[
-    \frac{\partial K_\sigma}{\partial \sigma}=\left(\frac{r^2}{\sigma^3}-\frac{n}{\sigma}\right) K_\sigma
+    \frac{\partial K_\sigma}{\partial \sigma}=\left(\frac{r^2}{\sigma^3}-\frac{n}{\sigma}\right) K_\sigma.
 \]
 </p><p>Combining these two equations, we have
 </p>
 <p style="text-align:center">
 \[
-    \frac{1}{\sigma} \frac{\partial K_\sigma}{\partial \sigma}=\Delta K_\sigma.
+    \frac{1}{\sigma} \frac{\partial K_\sigma}{\partial \sigma}=\Delta K_\sigma \implies \frac{\partial K_t}{\partial t}=\Delta K_t.
 \]
-</p><p>By letting \(\sigma^2=2t\), we have exactly the diffusion equation:
-</p>
-<p style="text-align:center">
-\[
-    \frac{\partial K_\sigma}{\partial t}=\Delta K_\sigma.
-    \label{eq:heatEq}
-\]
-</p><p>This answers our question: the Gaussian kernel is the solution to the diffusion equation.
+</p><p>where we let \(\sigma^2=2t\). This answers our question: the Gaussian kernel is the solution to the diffusion equation.
 </p>
 <h2>Diffusion smoothing on manifolds</h2>
 <h3>The Cauchy problem and its solutions</h3>
@@ -69,7 +56,7 @@ MathJax.Hub.Config({
 </p>
 <div class="infoblock">
 <div class="blockcontent">
-<p><b>Theorem.</b> \(K_\sigma * f\) is the unique solution of the isotropic diffusion equation
+<p><b>Theorem.</b> [<a href="https://www.cambridge.org/core/books/laplacian-on-a-riemannian-manifold/56F18C2AB0A765A91892E164079A3B74" target=&ldquo;blank&rdquo;>7</a>] \(K_\sigma * f\) is the unique solution of the isotropic diffusion equation
 </p>
 <p style="text-align:center">
 \[
@@ -80,25 +67,28 @@ MathJax.Hub.Config({
 </p>
 <p style="text-align:center">
 \[
-    g(x,t=0)=f(x)
+    g(x,t=0)=f(x).
     \label{eq:Cauchy1-initial}
 \]
 </p></div></div>
 <p>This theorem suggests that diffusing the observation \(f(x)\) for time duration of \(t=\sigma^2/2\) is equivalent to smoothing it using Gaussian kernel with bandwidth \(\sigma\). 
 </p>
-<p>Examples of the solution on different manifolds:
+<p>Examples of the solution on different manifolds (by separation of variables)
 </p>
 <ul>
-<li><p>interval in \(\mathbb{R}\)
+<li><p>interval in \(\mathbb{R}\): [<a href="http://ramanujan.math.trinity.edu/rdaileda/teach/s14/m3357/lectures/lecture_2_25_slides.pdf" target=&ldquo;blank&rdquo;>Lecture Notes</a>]
 </p>
 </li>
-<li><p>rectangular region in \(\mathbb{R}^2\)
+<li><p>rectangular region in \(\mathbb{R}^2\): [<a href="https://web.stanford.edu/class/math220b/handouts/heateqn.pdf" target=&ldquo;blank&rdquo;>Lecture Notes 1</a>, <a href="https://web.pdx.edu/~daescu/mth428_528/HighDimPDEs.pdf" target=&ldquo;blank&rdquo;>Lecture Notes 2</a>]
 </p>
 </li>
-<li><p>unit circle
+<li><p>unit circle: [<a href="https://pages.stat.wisc.edu/~mchung/papers/huang.2019.DSW.pdf" target=&ldquo;blank&rdquo;>paper</a>]
 </p>
 </li>
-<li><p>unit sphere
+<li><p>unit disk: [<a href="https://web.pdx.edu/~daescu/mth428_528/HighDimPDEs.pdf" target=&ldquo;blank&rdquo;>Lecture Notes</a>]
+</p>
+</li>
+<li><p>unit sphere: [<a href="https://pages.stat.wisc.edu/~mchung/teaching/stat992/ima21.pdf" target=&ldquo;blank&rdquo;>Lecture Notes</a>]
 </p>
 </li>
 </ul>
@@ -106,28 +96,123 @@ MathJax.Hub.Config({
 </p>
 <div class="infoblock">
 <div class="blockcontent">
-<p><b>Theorem.</b> On any compact differentiable manifold \(\mathcal{M}\subset \mathbb{R}^d\), the unique solution to the Cauchy problem 
+<p><b>Theorem.</b> [<a href="https://ieeexplore.ieee.org/document/4141186" target=&ldquo;blank&rdquo;>2</a>] On any compact differentiable manifold \(\mathcal{M}\subset \mathbb{R}^d\), the unique solution to the Cauchy problem 
 </p>
 <p style="text-align:center">
 \[
         \begin{cases}
             \frac{\partial g}{\partial t}=\Delta g\\
             g(x,t=0)=f(x)
-        \end{cases} 
+        \end{cases}
         \label{eq:CauchyP}
 \]
 </p><p>is given by
 </p>
 <p style="text-align:center">
 \[
-        g(x, t)=\sum_{j=0}^{\infty} e^{-\lambda_j t}\left\langle f, \psi_j\right\rangle \psi_j(x)
+        g(x, t)=\sum_{j=0}^{\infty} e^{-\lambda_j t}\left\langle f, \psi_j\right\rangle \psi_j(x).
         \label{eq:gxt}
 \]
 </p><p>where \(\lambda_j\) and \(\psi_j\) are eigenvalues and eigenfunctions of \(\Delta\).
 </p>
 </div></div>
-<h3>Weighted Fourier Series and coefficient estimation</h3>
-<h3>What if we cannot find explicit solutions? </h3>
+<p>If we let \(f(x)\) be a delta function (centered at \(y\)), then we have the kernel:
+</p>
+<p style="text-align:center">
+\[
+        K_{t}(x, y)=\sum_{j=0}^{\infty} e^{-\lambda_j t} \psi_j(x)\psi_j(y).
+        \label{eq:hk}
+\]
+</p><h3>Weighted Fourier Series and coefficient estimation</h3>
+<p>Denote the partial sum (superscript \(k\))
+</p>
+<p style="text-align:center">
+\[
+  \mathcal{F}_t^k[f](x)=\sum_{j=0}^k e^{-\lambda_j t}\left\langle f,\psi_j\right\rangle \psi_j(x), \quad  K_t^k(x, y)=\sum_{j=0}^k e^{-\lambda_j t} \psi_j(x) \psi_j(y) ,
+\]
+</p><p>and the space spanned by the eigenfunctions of \(\Delta\) (which form a basis) 
+</p>
+<p style="text-align:center">
+\[
+\mathcal{H}_k=\left\{\sum_{j=0}^k \beta_j \psi_j(p): \beta_j \in \mathbb{R}\right\} \subset L^2(\mathcal{M}).
+\]
+</p><p>We have the following results:
+</p>
+<div class="infoblock">
+<div class="blockcontent">
+<p><b>Theorem.</b> (1) The relationship between partial sum and the real solution \(g\):
+</p>
+<p style="text-align:center">
+\[
+\mathcal{F}_t^k[f](x)=\arg \min _{h \in \mathcal{H}_k} \|h-g\|.
+\]
+</p><p>(2) Reformulation as the kernel regression problem: If \(\int_{\mathcal{M}} K_t^k(p, q) \mathrm{d} \mu(q)=1\) and \(\ell \leq k\), then
+</p>
+<p style="text-align:center">
+\[
+\mathcal{F}_t^\ell[f](p)=\arg \min _{h \in \mathcal{H}_\ell} \int_{\mathcal{M}} K_t^k(p, q)|f(q)-h(p)|^2 \mathrm{d} \mu(q)
+\]
+</p><p>A special case (Least square):
+</p>
+<p style="text-align:center">
+\[\begin{align}
+\mathcal{F}_0^k[f](p)=\arg \min _{h \in \mathcal{H}_k}\|f-h\|^2. \label{eq:fk0}
+\end{align}
+\]
+</p></div></div>
+<p>This theorem (especially \(\eqref{eq:fk0}\)) provides a way to estimate the Fourier coefficients. Given \(n\) points \(x_1,\cdots,x_n\in \mathcal{M}\), the minimum in \(\eqref{eq:fk0}\) is obtained when
+</p>
+<p style="text-align:center">
+\[
+    f(x_i)=\sum_{j=0}^k \beta_k \psi_k(x_i), \quad  i=1,\cdots,n.
+\]
+</p><p>which are referred as the normal equations. Now we let
+</p>
+<p style="text-align:center">
+\[
+    \mathbf{f}=\begin{bmatrix}
+        f(x_1)\\ \vdots \\ f(x_n)
+    \end{bmatrix}, \quad \boldsymbol{\beta}=\begin{bmatrix}
+        \beta_1\\ \vdots \\ \beta_k
+    \end{bmatrix}, \quad \boldsymbol{\Psi}=\begin{bmatrix}
+    \psi_1(x_1) &amp; \cdots &amp; \psi_k(x_1)\\
+    \vdots &amp; &amp; \vdots \\
+    \psi_1(x_n) &amp; \cdots &amp; \psi_k(x_n)\\
+    \end{bmatrix},
+\]
+</p><p>These equations can be written in the matrix form as 
+</p>
+<p style="text-align:center">
+\[
+    \mathbf{f}=\boldsymbol{\Psi}\boldsymbol{\beta}.
+\]
+</p><p>Consequently, the solution is given by
+</p>
+<p style="text-align:center">
+\[
+    \boldsymbol{\beta}=(\boldsymbol{\Psi}^{\top} \boldsymbol{\Psi})^{-1} \boldsymbol{\Psi}^{\top} \mathbf{f}.
+\]
+</p><h3>What if we cannot find explicit solutions? </h3>
+<p>In practice, the manifolds may not be so simple, where the explicit solution for the diffusion equation can be hard to obtain. The most widely used numerical scheme is the finite element method (FEM). 
+</p>
+<p>Using cotan formulation, the diffusion equation is discretized as
+</p>
+<p style="text-align:center">
+\[
+\frac{\partial \mathbf{g}}{\partial t}=-\mathbf{A}^{-1} \mathbf{C g},
+\]
+</p><p>where \(\mathbf{g}=[g(x_1,t),\cdots,g(x_n,t)]^{\top}\), \(\mathbf{A}=(\mathbf{A}_{ij})\) is the stiffness matrix and \(\mathbf{C}=(\mathbf{C}_{ij})\) is the coefficient matrix. For detailed definition of these matrices, see []. The discretization of the Laplace operator is given as \(-\mathbf{A}^{-1} \mathbf{C}\). 
+</p>
+<p>After obtaining \( \mathbf{A}\) and \( \mathbf{C}\), we have two ways to proceed: 
+</p>
+<ul>
+<li><p>Discretize the LHS using forward<i>center</i>backward or other difference schemes, and then solve the equation directly, or
+</p>
+</li>
+<li><p>Obtain eigenvalues and eigenfunctions of the Laplace operator through the general eigenproblem \(\mathbf{C} \psi=\lambda \mathbf{A} \psi\) (which is the discretized version of \(\Delta \psi=-\lambda \psi\)). Then use the above theorems to obtain the smoothing result of the kernel.
+</p>
+</li>
+</ul>
 <h2>Diffusion smoothing on graphs</h2>
 <h2>References and Further readings</h2>
 <h3>Papers and textbooks</h3>
@@ -159,7 +244,7 @@ MathJax.Hub.Config({
 <h3>Lecture notes</h3>
 <div id="footer">
 <div id="footer-text">
-Page generated 2022-12-05 09:59:18 CST.
+Page generated 2022-12-09 10:51:15 CST.
 </div>
 </div>
 </div>
