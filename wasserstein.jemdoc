@@ -1,0 +1,93 @@
+# jemdoc: analytics{UA-252546838-1}
+= Wasserstein Distance (Optimal Transport Problem)
+
+~~~
+This page is currently under construction.
+~~~
+
+== Formulation
+
+The OT problem seeks to answer this question: /How do you best move given piles of sand to fill up given holes (in another place) of the same total volume?/ Let's translate this into math (see [https://www.math.ucdavis.edu/~qlxia/Research/monge.pdf these slides]): 
+
+- "piles of sand": a positive measure $\mu$ defined on $X$
+- "holes (in another place)": another positive measure $\nu$ defined on $Y$
+- "same total volume": usually we restrict $\mu$ and $\nu$ to be probability measures (so the total volume is 1)
+- "best": the total cost to move should be minimized. The cost for moving 1 unit of mass from $x\in X$ to $y\in Y$ is $c(x,y)$.
+
+Under different formulations, interpretations of the following words/phrases may differ:
+- "move": transport maps (a measurable map $F$) or transport plans (probability measure $\gamma$)
+- "fill up": $F_{\#}\mu = \nu$ for transport maps and $\left(\pi_X\right)_{\#} \gamma=\mu$, $\left(\pi_Y\right)_{\#} \gamma=\nu$ for transport plans.
+
+=== Monge's formulation
+
+Given two measure space $(X,\mu)$ and $(Y,\nu)$, we define a measurable map $F:X\to Y$ with
+\(
+F_{\#}\mu = \nu, \quad \text{i.e., }\; \int_{F^{-1}(A)}  \mathrm d \mu(x) = \int_A \mathrm d \nu(y) \quad \forall \text{ measurable } A\in Y.
+\)
+This is also known as the "pushfoward of $\mu$", or the "transport map". The Monge's formulation for the OT problem is
+\(
+\min_{F} \int_X c\big(x,F(x)\big) \mathrm d \mu(x),
+\)
+where $c:X\times Y\to \mathbb{R}^+$ is the cost of transportation. 
+
+However, the problem is not well-posed in a sense that there may not always be a transport map for two given measures, since each particle must be moved as a whole. For example, it cannot deal with cases where numbers of particles (with positive mass) are not equal (e.g., $X=[-1,1]$, $\mu=\delta_0$, $\nu=\frac{\delta_{-1}+\delta_{1}}{2}$).
+
+=== Kantorovich's formulation
+
+Instead of defining the transport map, Kantorovich proposed the "transport plan" which allows particles to be split and moved to different places ("Kantorovich's relaxation"). It is a probability measure $\gamma\in X\times Y$ with marginals $\mu$ and $\nu$, i.e.,
+\(
+\left(\pi_X\right)_{\#} \gamma=\mu,\quad \left(\pi_Y\right)_{\#} \gamma=\nu,
+\)
+where $\pi_X:X\times Y\to X$ and $\pi_Y:X\times Y\to Y$ are called canonical projections. Note that there will be multiple joint distributions that correspond to the given two marginal distributions $\mu$ and $\nu$. We denote the set of all such joint distributions as $\Pi(\mu,\nu)$. The Kantorovich's formulation is
+\(
+    \min_{\gamma\in \Pi(\mu,\nu)}\int_{X\times Y} c(x,y)\mathrm d\gamma(x,y).
+\)
+
+Since the problem is convex, the solutions for the dual and the primal problem will be the same. So we have 
+[https://en.wikipedia.org/wiki/Wasserstein_metric\#Dual_representation_of_W1 Kantorovich's dual formulation]. 
+
+=== Relationship between these two formulations
+
+If a transport map $F$ exists, then it will induce a unique transport plan $\gamma$ with the same cost function given by $\gamma = (\mathrm{Id},F)_{\#}\mu$. Moreover, if $F$ is the optimal transport map, $\gamma$ induced by $F$ will be the optimal transport plan. The inverse is not true: The existence of transport plans does NOT guarantee the existence of transport maps.
+
+*Brenier's theorem*: If $X=Y=\mathbb{R}^n$, $c(x,y)=\|x-y\|^2$, $\mu,\nu$ are with finite second-order moments and $\mu$ is absolutely continuous, then there exist a unique optimal transport map $F$ and a unique optimal transport plan: 
+\( \int_X\|x-F(x)\|^2 \mathrm{d} \mu(x) =  \min_{\gamma\in \Pi(\mu,\nu)}\int_{X\times Y} \|x-y\|^2\mathrm d\gamma(x,y). \) 
+Moreover, $F=\nabla \phi(x)$ for some convex scalar function $\phi: \mathbb{R}^m\to \mathbb{R}$. Note that $\phi$ can be solved from the [https://en.wikipedia.org/wiki/Monge–Ampère_equation Monge-Ampère equation] $I_0(x)=\mathrm{det}\big(\nabla^2 \phi(x)\big)I_1\big(\nabla \phi(x)\big)$ where $I_0$ and $I_1$ are density functions of $\mu$ and $\nu$ respectively. 
+
+
+
+== Solving the problem
+
+For one dimensional problem with $c(x,y)=|x-y|^p$, the solution is simply given as 
+\(
+\left(\int_0^1\left|F_0^{-1}(z)-F_1^{-1}(z)\right|^p d z\right)^{\frac{1}{p}}
+\)
+where $F_0^{-1}$ and $F_1^{-1}$ are the quantile functions (inverse CDFs).
+
+However, higher dimensional cases are more complicated and we will not have such closed form expression (except for Normal distributions).
+
+=== Linear programming
+
+This solver relies on discretization. Consider the densities $I_0(x)=\sum_{i=1}^{n_p}p_i\delta(x-x_i)$ and $I_1(x)=\sum_{j=1}^{n_q}q_j\delta(y-y_j)$. The problem has the following form:
+\(
+\begin{aligned}
+\min_{\boldsymbol{\gamma}=(\gamma_{ij}) \in \mathbb{R}^{n_p\times n_q}} \quad &\sum_{i=1}^{n_p}\sum_{j=1}^{n_q} c(x_i,y_j)\gamma_{ij}\\
+\text{subject to} \quad & \sum_{i=1}^{n_p} \gamma_{ij} = q_j, \quad \forall j=1,\cdots,n_q\\
+ & \sum_{j=1}^{n_q} \gamma_{ij} = p_i, \quad \forall i=1,\cdots,n_p\\
+ & \gamma_{ij}\geq 0, \quad \forall i,j.
+\end{aligned}
+\)
+Corresponding MATLAB codes can be downloaded here. This method is applicable to general costs, but will have great trouble when the densities are supported on a large number of sites.
+
+=== Gradient Descent: using Brenier's theorem
+
+=== Gradient Descent: using Kantorovich's dual formulation
+
+
+== Applications
+
+
+
+
+
+
