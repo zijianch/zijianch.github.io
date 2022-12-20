@@ -1,4 +1,4 @@
-# jemdoc: menu{MENU}{topic.html}
+# jemdoc: menu{MENU}{topic.html},analytics{UA-252546838-1}
 = Research Topics
 
 
@@ -25,4 +25,4 @@ Background:
 
 - Noises are inevitably introduced to the real-world data we study (during image acquisition/processing). One of the effective ways to reduce the noise is Kernel smoothing. However, in irregular or non-Euclidean domains, the direct use of existing kernel like Gaussian kernel tends to cause numerical issues. Thus, we need to generalize and formulate the kernel using diffusion equation with corresponding boundary conditions. See [hksmooth.html this page] for details.
 
-- Traditional distances are based on norms, which may fail to capture topological features. Better options are the Gromov–Hausdorff (GH) and Kolmogorov–Smirnov (KS) distance. Wasserstein Distance has also attracted much attention these days. 
+- Traditional distances are based on norms, which may fail to capture topological features. Better options are the Gromov–Hausdorff (GH) and Kolmogorov–Smirnov (KS) distance. [wasserstein.html Wasserstein Distance] has also attracted much attention these days. 
