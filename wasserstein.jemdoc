@@ -78,21 +78,60 @@ This solver relies on discretization. Consider the densities $I_0(x)=\sum_{i=1}^
 \)
 Corresponding MATLAB codes can be downloaded here. This method is applicable to general costs, but will have great trouble when the densities are supported on a large number of sites.
 
-=== Gradient Descent: using Brenier's theorem
+=== Gradient Descent with Brenier's theorem
 
 The key idea of this algorithm is that $F=\nabla \phi(x)$ for some convex function $\phi: X\to \mathbb{R}$ and thus $F$ is [https://en.wikipedia.org/wiki/Curl_(mathematics)\#Identities curl-free]. The procedure begins with finding an arbitrary transport map (not necessarily optimal!), and repeating updating it so that it remains a transport map while reducing the curl.
 
 ==== Finding the initial transport map
 
-In this step, we need to map two probability measures. The method is called "Knothe-Rosenblatt rearrangement". 
+In this step, we need to map two probability measures. In fact, this is closely related to [https://en.wikipedia.org/wiki/Coupling_(probability) couplings], or to be more specific, deterministic couplings (for details, see [https://cedricvillani.org/sites/dev/files/old_images/2012/08/preprint-1.pdf this book]). 
+
+The method is called "Knothe-Rosenblatt rearrangement". It solves a family of one dimensional problems to ﬁnd the $n$-dimensional solution. _To begin with_, we compute the marginals of the first variable, which we denote by $\mu^{(1)}$ and $\nu^{(1)}$ with densities
+\(
+   I_0^{(1)}(x^{(1)}) =  \int_{-\infty}^{\infty} I_0(x^{(1)},x^{(2)}) \mathrm d x^{(1)}, \quad I_1^{(1)}(y^{(1)})=\int_{-\infty}^{\infty} I_1(y^{(1)},y^{(2)}) \mathrm d y^{(2)}.
+\)
+Then we need to consider the optimal transport map between $\mu^{(1)}$ and $\nu^{(1)}$, which is a one-dimensional problem! We denote it as $F_0^{(1)}$, then 
+$(F_0^{(1)})_\# \mu^{(1)}=\nu^{(1)}$ can be written as
+\(
+    \int_{-\infty}^{F_0^{(1)}(x^{(1)})} I_1^{(1)}(\eta) \mathrm d \eta =  \int_{-\infty}^{x^{(1)}} I_0^{(1)}(\eta) \mathrm d \eta , \quad \text{i.e.,}\quad \int_{-\infty}^{F_0^{(1)}(x^{(1)})} \int_{-\infty}^{\infty} I_1(\eta,y^{(2)}) \mathrm d y^{(2)} \mathrm d \eta =  \int_{-\infty}^{x^{(1)}}  \int_{-\infty}^{\infty} I_0(\eta,x^{(2)}) \mathrm d x^{(2)}  \mathrm d \eta
+\)
+We need to solve for $F_0^{(1)}$ via this equation.
+
+_In the next step_, we will consider the [https://en.wikipedia.org/wiki/Disintegration_theorem disintegration] of the marginal of the first two variables (which is $\mu$ and $\nu$ in our $\mathbb{R}^2$ case) with respect to $\mu^{(1)}$ and $\nu^{(1)}$. This will give us $\mu^{(2)}(x^{(2)}|x^{(1)})$ and $\nu^{(2)}(y^{(2)}|y^{(1)})$ with densities
+\(
+I_0^{(2)}(x^{(2)}|x^{(1)})=\frac{I_0(x^{(1)},x^{(2)})}{I_0^{(1)}(x^{(1)})}, \quad I_1^{(2)}(y^{(2)}|y^{(1)})=\frac{I_1(y^{(1)},y^{(2)})}{I_1^{(1)}(y^{(1)})}.
+\)
+Similarly, we need to consider the optimal transport map between $\mu^{(2)}$ and $\nu^{(2)}$. We denote it as $F_0^{(2)}$, which can be solved through
+\(
+\int_{-\infty}^{F_0^{(2)}(x^{(1)}, x^{(2)})} \int_{-\infty}^{F_0^{(1)}(x^{(1)})} I_1(y^{(1)}, y^{(2)}) \mathrm d y^{(1)} \mathrm d y^{(2)}=\int_{-\infty}^{x^{(2)}} \int_{-\infty}^{x^{(1)}} I_0(\eta, \tau) \mathrm d \eta \mathrm d \tau
+\)
+The _final solution_ (for $X,Y\subset \mathbb{R}^2$) is given as
+\(
+    F_0(x) = \begin{bmatrix}
+        F_0^{(1)}(x^{(1)}) \\ F_0^{(2)}(x^{(1)},x^{(2)})
+    \end{bmatrix}, \quad \text{for } x=(x^{(1)},x^{(2)})\in X
+\)
+This process can be repeated to obtain the solution in $\mathbb{R}^n$.
+
 
 ==== Removing the curl
 
+After the initial map is found, we need to remove its curl. This is not completed in one run. Instead, we consider the map $S:X\to X$ with $S_{\#}\mu=\mu$ ("measure preserving"). This map is parametrized by time $t$, so that it becomes a "flow" and will be updated as time progresses.  The map is initiated as the identity $S(x,0)=x$, and the final goal is to let $F_0(S^{-1}(x,t))$ converge to a curl-free mapping.
 
-=== Gradient Descent: using Kantorovich's dual formulation
+
+=== Gradient Descent with Kantorovich's dual formulation
 
 
 == Applications
+
+
+
+
+== References and further readings
+
+. Nicolas Bonnotte. From knothe’s rearrangement to brenier’s optimal transport map. SIAM Journal on Mathematical Analysis, 45(1):64–87, 2013.
+. Cedric Villani. [https://cedricvillani.org/sites/dev/files/old_images/2012/08/preprint-1.pdf Optimal transport: old and new], volume 338. Springer Science & Business Media, 2008.
+
 
 
 
