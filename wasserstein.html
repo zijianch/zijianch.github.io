@@ -121,11 +121,17 @@ F_{\#}\mu = \nu, \quad \text{i.e., }\; \int_{F^{-1}(A)}  \mathrm d \mu(x) = \int
 </p><p>Corresponding MATLAB codes can be downloaded here. This method is applicable to general costs, but will have great trouble when the densities are supported on a large number of sites.
 </p>
 <h3>Gradient Descent: using Brenier's theorem</h3>
+<p>The key idea of this algorithm is that \(F=\nabla \phi(x)\) for some convex function \(\phi: X\to \mathbb{R}\) and thus \(F\) is <a href="https://en.wikipedia.org/wiki/Curl_(mathematics)#Identities" target=&ldquo;blank&rdquo;>curl-free</a>. The procedure begins with finding an arbitrary transport map (not necessarily optimal!), and repeating updating it so that it remains a transport map while reducing the curl.
+</p>
+<h4>Finding the initial transport map</h4>
+<p>In this step, we need to map two probability measures. The method is called &ldquo;Knothe-Rosenblatt rearrangement&rdquo;. 
+</p>
+<h4>Removing the curl</h4>
 <h3>Gradient Descent: using Kantorovich's dual formulation</h3>
 <h2>Applications</h2>
 <div id="footer">
 <div id="footer-text">
-Page generated 2022-12-20 15:30:40 CST.
+Page generated 2022-12-20 16:31:45 CST.
 </div>
 </div>
 </div>

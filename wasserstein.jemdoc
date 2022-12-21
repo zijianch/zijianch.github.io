@@ -80,6 +80,15 @@ Corresponding MATLAB codes can be downloaded here. This method is applicable to 
 
 === Gradient Descent: using Brenier's theorem
 
+The key idea of this algorithm is that $F=\nabla \phi(x)$ for some convex function $\phi: X\to \mathbb{R}$ and thus $F$ is [https://en.wikipedia.org/wiki/Curl_(mathematics)\#Identities curl-free]. The procedure begins with finding an arbitrary transport map (not necessarily optimal!), and repeating updating it so that it remains a transport map while reducing the curl.
+
+==== Finding the initial transport map
+
+In this step, we need to map two probability measures. The method is called "Knothe-Rosenblatt rearrangement". 
+
+==== Removing the curl
+
+
 === Gradient Descent: using Kantorovich's dual formulation
 
 
