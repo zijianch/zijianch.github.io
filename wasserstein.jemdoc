@@ -51,7 +51,14 @@ If a transport map $F$ exists, then it will induce a unique transport plan $\gam
 
 *Brenier's theorem*: If $X=Y=\mathbb{R}^n$, $c(x,y)=\|x-y\|^2$, $\mu,\nu$ are with finite second-order moments and $\mu$ is absolutely continuous, then there exist a unique optimal transport map $F$ and a unique optimal transport plan: 
 \( \int_X\|x-F(x)\|^2 \mathrm{d} \mu(x) =  \min_{\gamma\in \Pi(\mu,\nu)}\int_{X\times Y} \|x-y\|^2\mathrm d\gamma(x,y). \) 
-Moreover, $F=\nabla \phi(x)$ for some convex scalar function $\phi: \mathbb{R}^m\to \mathbb{R}$. Note that $\phi$ can be solved from the [https://en.wikipedia.org/wiki/Monge–Ampère_equation Monge-Ampère equation] $I_0(x)=\mathrm{det}\big(\nabla^2 \phi(x)\big)I_1\big(\nabla \phi(x)\big)$ where $I_0$ and $I_1$ are density functions of $\mu$ and $\nu$ respectively. 
+Moreover, $F=\nabla \phi(x)$ for some convex scalar function $\phi: \mathbb{R}^m\to \mathbb{R}$. Note that $\phi$ can be solved from the [https://en.wikipedia.org/wiki/Monge–Ampère_equation Monge-Ampère equation] 
+\(
+    \begin{equation}
+    I_0(x)=\mathrm{det}\big(\nabla^2 \phi(x)\big)I_1\big(\nabla \phi(x)\big)\quad \Longleftrightarrow \quad I_0(x)=\operatorname{det}(D F(x)) I_1(F(x))
+    \label{eq:Monge-Ampere}
+    \end{equation}
+\)
+where $I_0$ and $I_1$ are density functions of $\mu$ and $\nu$ respectively, and  $DF$ is the Jacobian matrix of $F$.
 
 
 
@@ -80,7 +87,7 @@ Corresponding MATLAB codes can be downloaded here. This method is applicable to 
 
 === Gradient Descent with Brenier's theorem
 
-The key idea of this algorithm is that $F=\nabla \phi(x)$ for some convex function $\phi: X\to \mathbb{R}$ and thus $F$ is [https://en.wikipedia.org/wiki/Curl_(mathematics)\#Identities curl-free]. The procedure begins with finding an arbitrary transport map (not necessarily optimal!), and repeating updating it so that it remains a transport map while reducing the curl.
+The key idea of this algorithm is that $F=\nabla \phi(x)$ for some convex function $\phi: X\to \mathbb{R}$ and thus $F$ is [https://en.wikipedia.org/wiki/Curl_(mathematics)\#Identities curl-free]. The procedure begins with finding an arbitrary transport map (not necessarily optimal!), and repeating updating it so that it remains a transport map while reducing the curl. {{<font style="color:red">(question: transport map + curlfree = optimal map?)</font>}}
 
 ==== Finding the initial transport map
 
@@ -93,7 +100,7 @@ The method is called "Knothe-Rosenblatt rearrangement". It solves a family of on
 Then we need to consider the optimal transport map between $\mu^{(1)}$ and $\nu^{(1)}$, which is a one-dimensional problem! We denote it as $F_0^{(1)}$, then 
 $(F_0^{(1)})_\# \mu^{(1)}=\nu^{(1)}$ can be written as
 \(
-    \int_{-\infty}^{F_0^{(1)}(x^{(1)})} I_1^{(1)}(\eta) \mathrm d \eta =  \int_{-\infty}^{x^{(1)}} I_0^{(1)}(\eta) \mathrm d \eta , \quad \text{i.e.,}\quad \int_{-\infty}^{F_0^{(1)}(x^{(1)})} \int_{-\infty}^{\infty} I_1(\eta,y^{(2)}) \mathrm d y^{(2)} \mathrm d \eta =  \int_{-\infty}^{x^{(1)}}  \int_{-\infty}^{\infty} I_0(\eta,x^{(2)}) \mathrm d x^{(2)}  \mathrm d \eta
+    \int_{-\infty}^{F_0^{(1)}(x^{(1)})} I_1^{(1)}(\eta) \mathrm d \eta =  \int_{-\infty}^{x^{(1)}} I_0^{(1)}(\eta) \mathrm d \eta , \quad \text{i.e.,}\quad \int_{-\infty}^{F_0^{(1)}(x^{(1)})} \int_{-\infty}^{\infty} I_1(\eta,y^{(2)}) \mathrm d y^{(2)} \mathrm d \eta =  \int_{-\infty}^{x^{(1)}}  \int_{-\infty}^{\infty} I_0(\eta,x^{(2)}) \mathrm d x^{(2)}  \mathrm d \eta.
 \)
 We need to solve for $F_0^{(1)}$ via this equation.
 
@@ -103,13 +110,13 @@ I_0^{(2)}(x^{(2)}|x^{(1)})=\frac{I_0(x^{(1)},x^{(2)})}{I_0^{(1)}(x^{(1)})}, \qua
 \)
 Similarly, we need to consider the optimal transport map between $\mu^{(2)}$ and $\nu^{(2)}$. We denote it as $F_0^{(2)}$, which can be solved through
 \(
-\int_{-\infty}^{F_0^{(2)}(x^{(1)}, x^{(2)})} \int_{-\infty}^{F_0^{(1)}(x^{(1)})} I_1(y^{(1)}, y^{(2)}) \mathrm d y^{(1)} \mathrm d y^{(2)}=\int_{-\infty}^{x^{(2)}} \int_{-\infty}^{x^{(1)}} I_0(\eta, \tau) \mathrm d \eta \mathrm d \tau
+\int_{-\infty}^{F_0^{(2)}(x^{(1)}, x^{(2)})} \int_{-\infty}^{F_0^{(1)}(x^{(1)})} I_1(y^{(1)}, y^{(2)}) \mathrm d y^{(1)} \mathrm d y^{(2)}=\int_{-\infty}^{x^{(2)}} \int_{-\infty}^{x^{(1)}} I_0(\eta, \tau) \mathrm d \eta \mathrm d \tau.
 \)
 The _final solution_ (for $X,Y\subset \mathbb{R}^2$) is given as
 \(
     F_0(x) = \begin{bmatrix}
         F_0^{(1)}(x^{(1)}) \\ F_0^{(2)}(x^{(1)},x^{(2)})
-    \end{bmatrix}, \quad \text{for } x=(x^{(1)},x^{(2)})\in X
+    \end{bmatrix}, \quad \text{for } x=(x^{(1)},x^{(2)})\in X.
 \)
 This process can be repeated to obtain the solution in $\mathbb{R}^n$.
 
@@ -117,6 +124,15 @@ This process can be repeated to obtain the solution in $\mathbb{R}^n$.
 ==== Removing the curl
 
 After the initial map is found, we need to remove its curl. This is not completed in one run. Instead, we consider the map $S:X\to X$ with $S_{\#}\mu=\mu$ ("measure preserving"). This map is parametrized by time $t$, so that it becomes a "flow" and will be updated as time progresses.  The map is initiated as the identity $S(x,0)=x$, and the final goal is to let $F_0(S^{-1}(x,t))$ converge to a curl-free mapping.
+
+In order to preserve the measure preserving property, $S$ should satisfy (this is obtained by differentiating the Monge-Ampère equation $\eqref{eq:Monge-Ampere}$)
+\(
+\frac{\partial S}{\partial t} = (\frac{1}{I_0}\xi)\circ S,
+\) 
+for some divergence-free vector field $\xi$ on $X$ so that $\langle \xi,\mathbf{n}\rangle=0$ with $\mathbf{n}$ being normal to the boundary of $X$. Subsequently, by differentiating $F(x,t)=F_0(S^{-1}(x,t))$ with respect to $t$, we have
+\(
+\frac{\partial F}{\partial t} = -\frac{1}{I_0}(DF)\xi.
+\)
 
 
 === Gradient Descent with Kantorovich's dual formulation
@@ -129,8 +145,9 @@ After the initial map is found, we need to remove its curl. This is not complete
 
 == References and further readings
 
-. Nicolas Bonnotte. From knothe’s rearrangement to brenier’s optimal transport map. SIAM Journal on Mathematical Analysis, 45(1):64–87, 2013.
+# Nicolas Bonnotte. From knothe’s rearrangement to brenier’s optimal transport map. SIAM Journal on Mathematical Analysis, 45(1):64–87, 2013.
 . Cedric Villani. [https://cedricvillani.org/sites/dev/files/old_images/2012/08/preprint-1.pdf Optimal transport: old and new], volume 338. Springer Science & Business Media, 2008.
+. Steven Haker, Lei Zhu, Allen Tannenbaum, and Sigurd Angenent. [https://link.springer.com/article/10.1023/B:VISI.0000036836.66311.97 Optimal mass transport for registration and warping.] International Journal of Computer Vision, 60(3):225–240, 2004.
 
 
 

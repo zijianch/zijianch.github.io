@@ -93,7 +93,16 @@ F_{\#}\mu = \nu, \quad \text{i.e., }\; \int_{F^{-1}(A)}  \mathrm d \mu(x) = \int
 </p>
 <p style="text-align:center">
 \[ \int_X\|x-F(x)\|^2 \mathrm{d} \mu(x) =  \min_{\gamma\in \Pi(\mu,\nu)}\int_{X\times Y} \|x-y\|^2\mathrm d\gamma(x,y). \]
-</p><p>Moreover, \(F=\nabla \phi(x)\) for some convex scalar function \(\phi: \mathbb{R}^m\to \mathbb{R}\). Note that \(\phi\) can be solved from the <a href="https://en.wikipedia.org/wiki/Monge–Ampère_equation" target=&ldquo;blank&rdquo;>Monge-Ampère equation</a> \(I_0(x)=\mathrm{det}\big(\nabla^2 \phi(x)\big)I_1\big(\nabla \phi(x)\big)\) where \(I_0\) and \(I_1\) are density functions of \(\mu\) and \(\nu\) respectively. 
+</p><p>Moreover, \(F=\nabla \phi(x)\) for some convex scalar function \(\phi: \mathbb{R}^m\to \mathbb{R}\). Note that \(\phi\) can be solved from the <a href="https://en.wikipedia.org/wiki/Monge–Ampère_equation" target=&ldquo;blank&rdquo;>Monge-Ampère equation</a> 
+</p>
+<p style="text-align:center">
+\[
+    \begin{equation}
+    I_0(x)=\mathrm{det}\big(\nabla^2 \phi(x)\big)I_1\big(\nabla \phi(x)\big)\quad \Longleftrightarrow \quad I_0(x)=\operatorname{det}(D F(x)) I_1(F(x))
+    \label{eq:Monge-Ampere}
+    \end{equation}
+\]
+</p><p>where \(I_0\) and \(I_1\) are density functions of \(\mu\) and \(\nu\) respectively, and  \(DF\) is the Jacobian matrix of \(F\).
 </p>
 <h2>Solving the problem</h2>
 <p>For one dimensional problem with \(c(x,y)=|x-y|^p\), the solution is simply given as 
@@ -121,7 +130,7 @@ F_{\#}\mu = \nu, \quad \text{i.e., }\; \int_{F^{-1}(A)}  \mathrm d \mu(x) = \int
 </p><p>Corresponding MATLAB codes can be downloaded here. This method is applicable to general costs, but will have great trouble when the densities are supported on a large number of sites.
 </p>
 <h3>Gradient Descent with Brenier's theorem</h3>
-<p>The key idea of this algorithm is that \(F=\nabla \phi(x)\) for some convex function \(\phi: X\to \mathbb{R}\) and thus \(F\) is <a href="https://en.wikipedia.org/wiki/Curl_(mathematics)#Identities" target=&ldquo;blank&rdquo;>curl-free</a>. The procedure begins with finding an arbitrary transport map (not necessarily optimal!), and repeating updating it so that it remains a transport map while reducing the curl.
+<p>The key idea of this algorithm is that \(F=\nabla \phi(x)\) for some convex function \(\phi: X\to \mathbb{R}\) and thus \(F\) is <a href="https://en.wikipedia.org/wiki/Curl_(mathematics)#Identities" target=&ldquo;blank&rdquo;>curl-free</a>. The procedure begins with finding an arbitrary transport map (not necessarily optimal!), and repeating updating it so that it remains a transport map while reducing the curl. <font style="color:red">(question: transport map + curlfree = optimal map?)</font>
 </p>
 <h4>Finding the initial transport map</h4>
 <p>In this step, we need to map two probability measures. In fact, this is closely related to <a href="https://en.wikipedia.org/wiki/Coupling_(probability)" target=&ldquo;blank&rdquo;>couplings</a>, or to be more specific, deterministic couplings (for details, see <a href="https://cedricvillani.org/sites/dev/files/old_images/2012/08/preprint-1.pdf" target=&ldquo;blank&rdquo;>this book</a>). 
@@ -137,7 +146,7 @@ F_{\#}\mu = \nu, \quad \text{i.e., }\; \int_{F^{-1}(A)}  \mathrm d \mu(x) = \int
 </p>
 <p style="text-align:center">
 \[
-    \int_{-\infty}^{F_0^{(1)}(x^{(1)})} I_1^{(1)}(\eta) \mathrm d \eta =  \int_{-\infty}^{x^{(1)}} I_0^{(1)}(\eta) \mathrm d \eta , \quad \text{i.e.,}\quad \int_{-\infty}^{F_0^{(1)}(x^{(1)})} \int_{-\infty}^{\infty} I_1(\eta,y^{(2)}) \mathrm d y^{(2)} \mathrm d \eta =  \int_{-\infty}^{x^{(1)}}  \int_{-\infty}^{\infty} I_0(\eta,x^{(2)}) \mathrm d x^{(2)}  \mathrm d \eta
+    \int_{-\infty}^{F_0^{(1)}(x^{(1)})} I_1^{(1)}(\eta) \mathrm d \eta =  \int_{-\infty}^{x^{(1)}} I_0^{(1)}(\eta) \mathrm d \eta , \quad \text{i.e.,}\quad \int_{-\infty}^{F_0^{(1)}(x^{(1)})} \int_{-\infty}^{\infty} I_1(\eta,y^{(2)}) \mathrm d y^{(2)} \mathrm d \eta =  \int_{-\infty}^{x^{(1)}}  \int_{-\infty}^{\infty} I_0(\eta,x^{(2)}) \mathrm d x^{(2)}  \mathrm d \eta.
 \]
 </p><p>We need to solve for \(F_0^{(1)}\) via this equation.
 </p>
@@ -151,7 +160,7 @@ I_0^{(2)}(x^{(2)}|x^{(1)})=\frac{I_0(x^{(1)},x^{(2)})}{I_0^{(1)}(x^{(1)})}, \qua
 </p>
 <p style="text-align:center">
 \[
-\int_{-\infty}^{F_0^{(2)}(x^{(1)}, x^{(2)})} \int_{-\infty}^{F_0^{(1)}(x^{(1)})} I_1(y^{(1)}, y^{(2)}) \mathrm d y^{(1)} \mathrm d y^{(2)}=\int_{-\infty}^{x^{(2)}} \int_{-\infty}^{x^{(1)}} I_0(\eta, \tau) \mathrm d \eta \mathrm d \tau
+\int_{-\infty}^{F_0^{(2)}(x^{(1)}, x^{(2)})} \int_{-\infty}^{F_0^{(1)}(x^{(1)})} I_1(y^{(1)}, y^{(2)}) \mathrm d y^{(1)} \mathrm d y^{(2)}=\int_{-\infty}^{x^{(2)}} \int_{-\infty}^{x^{(1)}} I_0(\eta, \tau) \mathrm d \eta \mathrm d \tau.
 \]
 </p><p>The <u>final solution</u> (for \(X,Y\subset \mathbb{R}^2\)) is given as
 </p>
@@ -159,27 +168,39 @@ I_0^{(2)}(x^{(2)}|x^{(1)})=\frac{I_0(x^{(1)},x^{(2)})}{I_0^{(1)}(x^{(1)})}, \qua
 \[
     F_0(x) = \begin{bmatrix}
         F_0^{(1)}(x^{(1)}) \\ F_0^{(2)}(x^{(1)},x^{(2)})
-    \end{bmatrix}, \quad \text{for } x=(x^{(1)},x^{(2)})\in X
+    \end{bmatrix}, \quad \text{for } x=(x^{(1)},x^{(2)})\in X.
 \]
 </p><p>This process can be repeated to obtain the solution in \(\mathbb{R}^n\).
 </p>
 <h4>Removing the curl</h4>
 <p>After the initial map is found, we need to remove its curl. This is not completed in one run. Instead, we consider the map \(S:X\to X\) with \(S_{\#}\mu=\mu\) (&ldquo;measure preserving&rdquo;). This map is parametrized by time \(t\), so that it becomes a &ldquo;flow&rdquo; and will be updated as time progresses.  The map is initiated as the identity \(S(x,0)=x\), and the final goal is to let \(F_0(S^{-1}(x,t))\) converge to a curl-free mapping.
 </p>
-<h3>Gradient Descent with Kantorovich's dual formulation</h3>
+<p>In order to preserve the measure preserving property, \(S\) should satisfy (this is obtained by differentiating the Monge-Ampère equation \(\eqref{eq:Monge-Ampere}\))
+</p>
+<p style="text-align:center">
+\[
+\frac{\partial S}{\partial t} = (\frac{1}{I_0}\xi)\circ S,
+\]
+</p><p>for some divergence-free vector field \(\xi\) on \(X\) so that \(\langle \xi,\mathbf{n}\rangle=0\) with \(\mathbf{n}\) being normal to the boundary of \(X\). Subsequently, by differentiating \(F(x,t)=F_0(S^{-1}(x,t))\) with respect to \(t\), we have
+</p>
+<p style="text-align:center">
+\[
+\frac{\partial F}{\partial t} = -\frac{1}{I_0}(DF)\xi.
+\]
+</p><h3>Gradient Descent with Kantorovich's dual formulation</h3>
 <h2>Applications</h2>
 <h2>References and further readings</h2>
 <ol>
-<li><p>Nicolas Bonnotte. From knothe’s rearrangement to brenier’s optimal transport map. SIAM Journal on Mathematical Analysis, 45(1):64–87, 2013.
+<li><p>Cedric Villani. <a href="https://cedricvillani.org/sites/dev/files/old_images/2012/08/preprint-1.pdf" target=&ldquo;blank&rdquo;>Optimal transport: old and new</a>, volume 338. Springer Science &amp; Business Media, 2008.
 </p>
 </li>
-<li><p>Cedric Villani. <a href="https://cedricvillani.org/sites/dev/files/old_images/2012/08/preprint-1.pdf" target=&ldquo;blank&rdquo;>Optimal transport: old and new</a>, volume 338. Springer Science &amp; Business Media, 2008.
+<li><p>Steven Haker, Lei Zhu, Allen Tannenbaum, and Sigurd Angenent. <a href="https://link.springer.com/article/10.1023/B:VISI.0000036836.66311.97" target=&ldquo;blank&rdquo;>Optimal mass transport for registration and warping.</a> International Journal of Computer Vision, 60(3):225–240, 2004.
 </p>
 </li>
 </ol>
 <div id="footer">
 <div id="footer-text">
-Page generated 2022-12-21 15:59:32 CST.
+Page generated 2022-12-22 09:54:11 CST.
 </div>
 </div>
 </div>
