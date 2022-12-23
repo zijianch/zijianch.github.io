@@ -97,10 +97,7 @@ F_{\#}\mu = \nu, \quad \text{i.e., }\; \int_{F^{-1}(A)}  \mathrm d \mu(x) = \int
 </p>
 <p style="text-align:center">
 \[
-    \begin{equation}
     I_0(x)=\mathrm{det}\big(\nabla^2 \phi(x)\big)I_1\big(\nabla \phi(x)\big)\quad \Longleftrightarrow \quad I_0(x)=\operatorname{det}(D F(x)) I_1(F(x))
-    \label{eq:Monge-Ampere}
-    \end{equation}
 \]
 </p><p>where \(I_0\) and \(I_1\) are density functions of \(\mu\) and \(\nu\) respectively, and  \(DF\) is the Jacobian matrix of \(F\).
 </p>
@@ -130,7 +127,7 @@ F_{\#}\mu = \nu, \quad \text{i.e., }\; \int_{F^{-1}(A)}  \mathrm d \mu(x) = \int
 </p><p>Corresponding MATLAB codes can be downloaded here. This method is applicable to general costs, but will have great trouble when the densities are supported on a large number of sites.
 </p>
 <h3>Gradient Descent with Brenier's theorem</h3>
-<p>The key idea of this algorithm is that \(F=\nabla \phi(x)\) for some convex function \(\phi: X\to \mathbb{R}\) and thus \(F\) is <a href="https://en.wikipedia.org/wiki/Curl_(mathematics)#Identities" target=&ldquo;blank&rdquo;>curl-free</a>. The procedure begins with finding an arbitrary transport map (not necessarily optimal!), and repeating updating it so that it remains a transport map while reducing the curl. <font style="color:red">(question: transport map + curlfree = optimal map?)</font>
+<p>The key idea of this algorithm is that \(F=\nabla \phi(x)\) for some convex function \(\phi: X\to \mathbb{R}\) and thus \(F\) is <a href="https://en.wikipedia.org/wiki/Curl_(mathematics)#Identities" target=&ldquo;blank&rdquo;>curl-free</a>. The procedure begins with finding an arbitrary transport map (not necessarily optimal!), and repeating updating it so that it remains a transport map while reducing the curl and the distance. <font style="color:red">(Attention: transport map + curlfree \(\neq\) optimal map, that's why we also need to minimize the objective function, i.e., the distance)</font>
 </p>
 <h4>Finding the initial transport map</h4>
 <p>In this step, we need to map two probability measures. In fact, this is closely related to <a href="https://en.wikipedia.org/wiki/Coupling_(probability)" target=&ldquo;blank&rdquo;>couplings</a>, or to be more specific, deterministic couplings (for details, see <a href="https://cedricvillani.org/sites/dev/files/old_images/2012/08/preprint-1.pdf" target=&ldquo;blank&rdquo;>this book</a>). 
@@ -175,19 +172,66 @@ I_0^{(2)}(x^{(2)}|x^{(1)})=\frac{I_0(x^{(1)},x^{(2)})}{I_0^{(1)}(x^{(1)})}, \qua
 <h4>Removing the curl</h4>
 <p>After the initial map is found, we need to remove its curl. This is not completed in one run. Instead, we consider the map \(S:X\to X\) with \(S_{\#}\mu=\mu\) (&ldquo;measure preserving&rdquo;). This map is parametrized by time \(t\), so that it becomes a &ldquo;flow&rdquo; and will be updated as time progresses.  The map is initiated as the identity \(S(x,0)=x\), and the final goal is to let \(F_0(S^{-1}(x,t))\) converge to a curl-free mapping.
 </p>
-<p>In order to preserve the measure preserving property, \(S\) should satisfy (this is obtained by differentiating the Monge-Ampère equation \(\eqref{eq:Monge-Ampere}\))
+<p>Noe let's focus only on decreasing the objective function \(M\), namely
 </p>
 <p style="text-align:center">
 \[
+    M(t) = \int_{X}\|F(x, t)-x\|^2 I_0(x) \mathrm d x
+\]
+</p><p>We take the derivative wrt. \(t\) (for details, see [<a href="https://link.springer.com/article/10.1023/B:VISI.0000036836.66311.97" target=&ldquo;blank&rdquo;>2</a>]):
+</p>
+<p style="text-align:center">
+\[
+    \frac{\partial M}{\partial t}=-2 \int_{X}\left\langle F(x, t), I_0(\frac{\partial S}{\partial t} \circ S^{-1}(x, t))\right\rangle \mathrm d x
+\]
+</p><p>The question is, what is \(\frac{\partial S}{\partial t}\). Recall that \(S\) should preserve the measure, i.e., \( I_0(x)=\operatorname{det}(D S(x)) I_0(S(x))\). By differentiating this equation, we have
+</p>
+<p style="text-align:center">
+\[
+\begin{equation}
 \frac{\partial S}{\partial t} = (\frac{1}{I_0}\xi)\circ S,
+\label{eq:AHT-S}
+\end{equation}
 \]
-</p><p>for some divergence-free vector field \(\xi\) on \(X\) so that \(\langle \xi,\mathbf{n}\rangle=0\) with \(\mathbf{n}\) being normal to the boundary of \(X\). Subsequently, by differentiating \(F(x,t)=F_0(S^{-1}(x,t))\) with respect to \(t\), we have
+</p><p>for some divergence-free vector field \(\xi\) on \(X\) so that \(\langle \xi,\mathbf{n}\rangle=0\) with \(\mathbf{n}\) being normal to the boundary of \(X\). Subsequently, we have
 </p>
 <p style="text-align:center">
 \[
-\frac{\partial F}{\partial t} = -\frac{1}{I_0}(DF)\xi.
+\frac{\partial M}{\partial t}=-2 \int_{X}\bigg\langle F(x, t), \xi(x, t)\bigg\rangle \mathrm d x.
 \]
-</p><h3>Gradient Descent with Kantorovich's dual formulation</h3>
+</p><p>Notice that \(\xi\) is divergence-free, and that by <a href="https://en.wikipedia.org/wiki/Helmholtz_decomposition" target=&ldquo;blank&rdquo;>Helmholtz decomposition</a> \(F=\nabla \phi+\chi\) for divergence-free field \(\chi\). Using the <a href="https://en.wikipedia.org/wiki/Divergence_theorem" target=&ldquo;blank&rdquo;>divergence theorem</a>, we can simplify the above equation
+</p>
+<p style="text-align:center">
+\[
+\frac{\partial M}{\partial t}=-2 \int_{X}\bigg\langle \chi(x, t), \xi(x, t)\bigg\rangle \mathrm d x.
+\]
+</p><p>Now we see that if we take \(\xi=\chi\), then \(M\) will decrease most. But how do we find \(\chi\)? One way is to first find \(\phi\) and then subtract \(\nabla \phi\) from \(F\), since finding \(\phi\) is much simpler. Using the fact that \(\chi\) is divergence-free, we take the divergence of both sides in the Helmholtz decomposition, and will have
+</p>
+<p style="text-align:center">
+\[
+\operatorname{div}(F)=\Delta \phi,
+\]
+</p><p>with boundary condition \(\langle\nabla \phi, \mathbf{n}\rangle=\langle F, \mathbf{n}\rangle\) on \(\partial X\). We simply write the solution for this equation as
+</p>
+<p style="text-align:center">
+\[
+\phi = \Delta^{-1}\operatorname{div}(F),
+\]
+</p><p>and thus \(\xi=\chi = F-\nabla \Delta^{-1}\operatorname{div}(F)\). Now, at this stage, we can precisely characterize \(S\) through \(\eqref{eq:AHT-S}\). As a consequence, through \(F(x, t)=F_0\left(S^{-1}(x, t)\right)\), we can also characterize \(F\), by
+</p>
+<p style="text-align:center">
+\[
+\frac{\partial F}{\partial t} = -\frac{1}{I_0}(DF)\xi \implies \frac{\partial F}{\partial t} =-\frac{1}{I_0}(DF)( F-\nabla \Delta^{-1}\operatorname{div}(F)).
+\]
+</p><p>Now, this equation can be translated into the numerical scheme as
+</p>
+<p style="text-align:center">
+\[
+F(x,t_{n+1}) = F(x,t_n) + \alpha \frac{1}{I_0}(DF)( F-\nabla \Delta^{-1}\operatorname{div}(F(x,t_n))).
+\]
+</p><p>Note that there will be simpler expression in \(\mathbb{R}^2\) (see [<a href="https://link.springer.com/article/10.1023/B:VISI.0000036836.66311.97" target=&ldquo;blank&rdquo;>2</a>]).
+</p>
+<h3>Gradient Descent with Kantorovich's dual formulation</h3>
 <h2>Applications</h2>
 <h2>References and further readings</h2>
 <ol>
@@ -200,7 +244,7 @@ I_0^{(2)}(x^{(2)}|x^{(1)})=\frac{I_0(x^{(1)},x^{(2)})}{I_0^{(1)}(x^{(1)})}, \qua
 </ol>
 <div id="footer">
 <div id="footer-text">
-Page generated 2022-12-22 09:54:11 CST.
+Page generated 2022-12-22 21:30:54 CST.
 </div>
 </div>
 </div>

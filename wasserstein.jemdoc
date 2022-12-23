@@ -53,10 +53,7 @@ If a transport map $F$ exists, then it will induce a unique transport plan $\gam
 \( \int_X\|x-F(x)\|^2 \mathrm{d} \mu(x) =  \min_{\gamma\in \Pi(\mu,\nu)}\int_{X\times Y} \|x-y\|^2\mathrm d\gamma(x,y). \) 
 Moreover, $F=\nabla \phi(x)$ for some convex scalar function $\phi: \mathbb{R}^m\to \mathbb{R}$. Note that $\phi$ can be solved from the [https://en.wikipedia.org/wiki/Monge–Ampère_equation Monge-Ampère equation] 
 \(
-    \begin{equation}
     I_0(x)=\mathrm{det}\big(\nabla^2 \phi(x)\big)I_1\big(\nabla \phi(x)\big)\quad \Longleftrightarrow \quad I_0(x)=\operatorname{det}(D F(x)) I_1(F(x))
-    \label{eq:Monge-Ampere}
-    \end{equation}
 \)
 where $I_0$ and $I_1$ are density functions of $\mu$ and $\nu$ respectively, and  $DF$ is the Jacobian matrix of $F$.
 
@@ -87,7 +84,7 @@ Corresponding MATLAB codes can be downloaded here. This method is applicable to 
 
 === Gradient Descent with Brenier's theorem
 
-The key idea of this algorithm is that $F=\nabla \phi(x)$ for some convex function $\phi: X\to \mathbb{R}$ and thus $F$ is [https://en.wikipedia.org/wiki/Curl_(mathematics)\#Identities curl-free]. The procedure begins with finding an arbitrary transport map (not necessarily optimal!), and repeating updating it so that it remains a transport map while reducing the curl. {{<font style="color:red">(question: transport map + curlfree = optimal map?)</font>}}
+The key idea of this algorithm is that $F=\nabla \phi(x)$ for some convex function $\phi: X\to \mathbb{R}$ and thus $F$ is [https://en.wikipedia.org/wiki/Curl_(mathematics)\#Identities curl-free]. The procedure begins with finding an arbitrary transport map (not necessarily optimal!), and repeating updating it so that it remains a transport map while reducing the curl and the distance. {{<font style="color:red">(Attention: transport map + curlfree $\neq$ optimal map, that's why we also need to minimize the objective function, i.e., the distance)</font>}}
 
 ==== Finding the initial transport map
 
@@ -125,15 +122,46 @@ This process can be repeated to obtain the solution in $\mathbb{R}^n$.
 
 After the initial map is found, we need to remove its curl. This is not completed in one run. Instead, we consider the map $S:X\to X$ with $S_{\#}\mu=\mu$ ("measure preserving"). This map is parametrized by time $t$, so that it becomes a "flow" and will be updated as time progresses.  The map is initiated as the identity $S(x,0)=x$, and the final goal is to let $F_0(S^{-1}(x,t))$ converge to a curl-free mapping.
 
-In order to preserve the measure preserving property, $S$ should satisfy (this is obtained by differentiating the Monge-Ampère equation $\eqref{eq:Monge-Ampere}$)
+Noe let's focus only on decreasing the objective function $M$, namely
 \(
-\frac{\partial S}{\partial t} = (\frac{1}{I_0}\xi)\circ S,
-\) 
-for some divergence-free vector field $\xi$ on $X$ so that $\langle \xi,\mathbf{n}\rangle=0$ with $\mathbf{n}$ being normal to the boundary of $X$. Subsequently, by differentiating $F(x,t)=F_0(S^{-1}(x,t))$ with respect to $t$, we have
-\(
-\frac{\partial F}{\partial t} = -\frac{1}{I_0}(DF)\xi.
+    M(t) = \int_{X}\|F(x, t)-x\|^2 I_0(x) \mathrm d x
 \)
-
+We take the derivative wrt. $t$ (for details, see \[[https://link.springer.com/article/10.1023/B:VISI.0000036836.66311.97 2]\]):
+\(
+    \frac{\partial M}{\partial t}=-2 \int_{X}\left\langle F(x, t), I_0(\frac{\partial S}{\partial t} \circ S^{-1}(x, t))\right\rangle \mathrm d x
+\)
+The question is, what is $\frac{\partial S}{\partial t}$. Recall that $S$ should preserve the measure, i.e., $ I_0(x)=\operatorname{det}(D S(x)) I_0(S(x))$. By differentiating this equation, we have
+\(
+\begin{equation}
+\frac{\partial S}{\partial t} = (\frac{1}{I_0}\xi)\circ S,
+\label{eq:AHT-S}
+\end{equation}
+\) 
+for some divergence-free vector field $\xi$ on $X$ so that $\langle \xi,\mathbf{n}\rangle=0$ with $\mathbf{n}$ being normal to the boundary of $X$. Subsequently, we have
+\(
+\frac{\partial M}{\partial t}=-2 \int_{X}\bigg\langle F(x, t), \xi(x, t)\bigg\rangle \mathrm d x.
+\)
+Notice that $\xi$ is divergence-free, and that by [https://en.wikipedia.org/wiki/Helmholtz_decomposition Helmholtz decomposition] $F=\nabla \phi+\chi$ for divergence-free field $\chi$. Using the [https://en.wikipedia.org/wiki/Divergence_theorem divergence theorem], we can simplify the above equation
+\(
+\frac{\partial M}{\partial t}=-2 \int_{X}\bigg\langle \chi(x, t), \xi(x, t)\bigg\rangle \mathrm d x.
+\)
+Now we see that if we take $\xi=\chi$, then $M$ will decrease most. But how do we find $\chi$? One way is to first find $\phi$ and then subtract $\nabla \phi$ from $F$, since finding $\phi$ is much simpler. Using the fact that $\chi$ is divergence-free, we take the divergence of both sides in the Helmholtz decomposition, and will have
+\(
+\operatorname{div}(F)=\Delta \phi,
+\)
+with boundary condition $\langle\nabla \phi, \mathbf{n}\rangle=\langle F, \mathbf{n}\rangle$ on $\partial X$. We simply write the solution for this equation as
+\(
+\phi = \Delta^{-1}\operatorname{div}(F),
+\)
+and thus $\xi=\chi = F-\nabla \Delta^{-1}\operatorname{div}(F)$. Now, at this stage, we can precisely characterize $S$ through $\eqref{eq:AHT-S}$. As a consequence, through $F(x, t)=F_0\left(S^{-1}(x, t)\right)$, we can also characterize $F$, by
+\(
+\frac{\partial F}{\partial t} = -\frac{1}{I_0}(DF)\xi \implies \frac{\partial F}{\partial t} =-\frac{1}{I_0}(DF)( F-\nabla \Delta^{-1}\operatorname{div}(F)).
+\)
+Now, this equation can be translated into the numerical scheme as
+\(
+F(x,t_{n+1}) = F(x,t_n) + \alpha \frac{1}{I_0}(DF)( F-\nabla \Delta^{-1}\operatorname{div}(F(x,t_n))).
+\)
+Note that there will be simpler expression in $\mathbb{R}^2$ (see \[[https://link.springer.com/article/10.1023/B:VISI.0000036836.66311.97 2]\]).
 
 === Gradient Descent with Kantorovich's dual formulation
 
