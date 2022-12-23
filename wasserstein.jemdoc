@@ -1,3 +1,4 @@
+# jemdoc: addpackage{color}
 = Wasserstein Distance (Optimal Transport Problem)
 
 ~~~
@@ -111,9 +112,9 @@ Similarly, we need to consider the optimal transport map between $\mu^{(2)}$ and
 \)
 The _final solution_ (for $X,Y\subset \mathbb{R}^2$) is given as
 \(
-    F_0(x) = \begin{bmatrix}
+   \color{blue}{ F_0(x) = \begin{bmatrix}
         F_0^{(1)}(x^{(1)}) \\ F_0^{(2)}(x^{(1)},x^{(2)})
-    \end{bmatrix}, \quad \text{for } x=(x^{(1)},x^{(2)})\in X.
+    \end{bmatrix}, \quad \text{for } x=(x^{(1)},x^{(2)})\in X. }
 \)
 This process can be repeated to obtain the solution in $\mathbb{R}^n$.
 
@@ -128,12 +129,12 @@ Noe let's focus only on decreasing the objective function $M$, namely
 \)
 We take the derivative wrt. $t$ (for details, see \[[https://link.springer.com/article/10.1023/B:VISI.0000036836.66311.97 2]\]):
 \(
-    \frac{\partial M}{\partial t}=-2 \int_{X}\left\langle F(x, t), I_0(\frac{\partial S}{\partial t} \circ S^{-1}(x, t))\right\rangle \mathrm d x
+    \frac{\partial M}{\partial t}=-2 \int_{X}\left\langle F(x, t), I_0(\color{green}{\frac{\partial S}{\partial t} \circ S^{-1}(x, t)})\right\rangle \mathrm d x
 \)
 The question is, what is $\frac{\partial S}{\partial t}$. Recall that $S$ should preserve the measure, i.e., $ I_0(x)=\operatorname{det}(D S(x)) I_0(S(x))$. By differentiating this equation, we have
 \(
 \begin{equation}
-\frac{\partial S}{\partial t} = (\frac{1}{I_0}\xi)\circ S,
+\color{green}{\frac{\partial S}{\partial t}} = (\frac{1}{I_0}\xi)\color{green}{\circ S},
 \label{eq:AHT-S}
 \end{equation}
 \) 
@@ -157,16 +158,20 @@ and thus $\xi=\chi = F-\nabla \Delta^{-1}\operatorname{div}(F)$. Now, at this st
 \(
 \frac{\partial F}{\partial t} = -\frac{1}{I_0}(DF)\xi \implies \frac{\partial F}{\partial t} =-\frac{1}{I_0}(DF)( F-\nabla \Delta^{-1}\operatorname{div}(F)).
 \)
-Now, this equation can be translated into the numerical scheme as
+Now, this equation can be translated into the numerical scheme as 
 \(
-F(x,t_{n+1}) = F(x,t_n) + \alpha \frac{1}{I_0}(DF)( F-\nabla \Delta^{-1}\operatorname{div}(F(x,t_n))).
+\color{blue}{F(x,t_{n+1}) = F(x,t_n) + \alpha \frac{1}{I_0}(DF)( F-\nabla \Delta^{-1}\operatorname{div}(F(x,t_n))).}
 \)
 Note that there will be simpler expression in $\mathbb{R}^2$ (see \[[https://link.springer.com/article/10.1023/B:VISI.0000036836.66311.97 2]\]).
+
+
 
 === Gradient Descent with Kantorovich's dual formulation
 
 
 == Applications
+
+
 
 
 

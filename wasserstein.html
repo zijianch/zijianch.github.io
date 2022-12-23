@@ -163,9 +163,9 @@ I_0^{(2)}(x^{(2)}|x^{(1)})=\frac{I_0(x^{(1)},x^{(2)})}{I_0^{(1)}(x^{(1)})}, \qua
 </p>
 <p style="text-align:center">
 \[
-    F_0(x) = \begin{bmatrix}
+   \color{blue}{ F_0(x) = \begin{bmatrix}
         F_0^{(1)}(x^{(1)}) \\ F_0^{(2)}(x^{(1)},x^{(2)})
-    \end{bmatrix}, \quad \text{for } x=(x^{(1)},x^{(2)})\in X.
+    \end{bmatrix}, \quad \text{for } x=(x^{(1)},x^{(2)})\in X. }
 \]
 </p><p>This process can be repeated to obtain the solution in \(\mathbb{R}^n\).
 </p>
@@ -182,14 +182,14 @@ I_0^{(2)}(x^{(2)}|x^{(1)})=\frac{I_0(x^{(1)},x^{(2)})}{I_0^{(1)}(x^{(1)})}, \qua
 </p>
 <p style="text-align:center">
 \[
-    \frac{\partial M}{\partial t}=-2 \int_{X}\left\langle F(x, t), I_0(\frac{\partial S}{\partial t} \circ S^{-1}(x, t))\right\rangle \mathrm d x
+    \frac{\partial M}{\partial t}=-2 \int_{X}\left\langle F(x, t), I_0(\color{green}{\frac{\partial S}{\partial t} \circ S^{-1}(x, t)})\right\rangle \mathrm d x
 \]
 </p><p>The question is, what is \(\frac{\partial S}{\partial t}\). Recall that \(S\) should preserve the measure, i.e., \( I_0(x)=\operatorname{det}(D S(x)) I_0(S(x))\). By differentiating this equation, we have
 </p>
 <p style="text-align:center">
 \[
 \begin{equation}
-\frac{\partial S}{\partial t} = (\frac{1}{I_0}\xi)\circ S,
+\color{green}{\frac{\partial S}{\partial t}} = (\frac{1}{I_0}\xi)\color{green}{\circ S},
 \label{eq:AHT-S}
 \end{equation}
 \]
@@ -223,11 +223,11 @@ I_0^{(2)}(x^{(2)}|x^{(1)})=\frac{I_0(x^{(1)},x^{(2)})}{I_0^{(1)}(x^{(1)})}, \qua
 \[
 \frac{\partial F}{\partial t} = -\frac{1}{I_0}(DF)\xi \implies \frac{\partial F}{\partial t} =-\frac{1}{I_0}(DF)( F-\nabla \Delta^{-1}\operatorname{div}(F)).
 \]
-</p><p>Now, this equation can be translated into the numerical scheme as
+</p><p>Now, this equation can be translated into the numerical scheme as 
 </p>
 <p style="text-align:center">
 \[
-F(x,t_{n+1}) = F(x,t_n) + \alpha \frac{1}{I_0}(DF)( F-\nabla \Delta^{-1}\operatorname{div}(F(x,t_n))).
+\color{blue}{F(x,t_{n+1}) = F(x,t_n) + \alpha \frac{1}{I_0}(DF)( F-\nabla \Delta^{-1}\operatorname{div}(F(x,t_n))).}
 \]
 </p><p>Note that there will be simpler expression in \(\mathbb{R}^2\) (see [<a href="https://link.springer.com/article/10.1023/B:VISI.0000036836.66311.97" target=&ldquo;blank&rdquo;>2</a>]).
 </p>
@@ -244,7 +244,7 @@ F(x,t_{n+1}) = F(x,t_n) + \alpha \frac{1}{I_0}(DF)( F-\nabla \Delta^{-1}\operato
 </ol>
 <div id="footer">
 <div id="footer-text">
-Page generated 2022-12-22 21:30:54 CST.
+Page generated 2022-12-22 22:03:07 CST.
 </div>
 </div>
 </div>
