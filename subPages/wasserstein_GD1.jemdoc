@@ -1,0 +1,97 @@
+# jemdoc: addpackage{color}, menu{wasserstein_MENU}{wasserstein_GD1.html}
+= Gradient Descent with Brenier's theorem
+
+The key idea of this algorithm is that $F=\nabla \phi(x)$ for some convex function $\phi: X\to \mathbb{R}$ and thus $F$ is [https://en.wikipedia.org/wiki/Curl_(mathematics)\#Identities curl-free]. The procedure begins with finding an arbitrary transport map (not necessarily optimal!), and repeating updating it so that it remains a transport map while reducing the curl and the distance. {{<font style="color:red">(Attention: transport map + curlfree $\neq$ optimal map, that's why we also need to minimize the objective function, i.e., the distance)</font>}}
+
+== Algorithm
+
+=== Step 1: Finding the initial transport map
+
+In this step, we need to map two probability measures. In fact, this is closely related to [https://en.wikipedia.org/wiki/Coupling_(probability) couplings], or to be more specific, deterministic couplings (for details, see [https://cedricvillani.org/sites/dev/files/old_images/2012/08/preprint-1.pdf this book]). 
+
+The method is called "Knothe-Rosenblatt rearrangement". It solves a family of one dimensional problems to ﬁnd the $n$-dimensional solution. _To begin with_, we compute the marginals of the first variable, which we denote by $\mu^{(1)}$ and $\nu^{(1)}$ with densities
+\(
+   I_0^{(1)}(x^{(1)}) =  \int_{-\infty}^{\infty} I_0(x^{(1)},x^{(2)}) \mathrm d x^{(1)}, \quad I_1^{(1)}(y^{(1)})=\int_{-\infty}^{\infty} I_1(y^{(1)},y^{(2)}) \mathrm d y^{(2)}.
+\)
+Then we need to consider the optimal transport map between $\mu^{(1)}$ and $\nu^{(1)}$, which is a one-dimensional problem! We denote it as $F_0^{(1)}$, then 
+$(F_0^{(1)})_\# \mu^{(1)}=\nu^{(1)}$ can be written as
+\(
+    \int_{-\infty}^{F_0^{(1)}(x^{(1)})} I_1^{(1)}(\eta) \mathrm d \eta =  \int_{-\infty}^{x^{(1)}} I_0^{(1)}(\eta) \mathrm d \eta , \quad \text{i.e.,}\quad \int_{-\infty}^{F_0^{(1)}(x^{(1)})} \int_{-\infty}^{\infty} I_1(\eta,y^{(2)}) \mathrm d y^{(2)} \mathrm d \eta =  \int_{-\infty}^{x^{(1)}}  \int_{-\infty}^{\infty} I_0(\eta,x^{(2)}) \mathrm d x^{(2)}  \mathrm d \eta.
+\)
+We need to solve for $F_0^{(1)}$ via this equation.
+
+_In the next step_, we will consider the [https://en.wikipedia.org/wiki/Disintegration_theorem disintegration] of the marginal of the first two variables (which is $\mu$ and $\nu$ in our $\mathbb{R}^2$ case) with respect to $\mu^{(1)}$ and $\nu^{(1)}$. This will give us $\mu^{(2)}(x^{(2)}|x^{(1)})$ and $\nu^{(2)}(y^{(2)}|y^{(1)})$ with densities
+\(
+I_0^{(2)}(x^{(2)}|x^{(1)})=\frac{I_0(x^{(1)},x^{(2)})}{I_0^{(1)}(x^{(1)})}, \quad I_1^{(2)}(y^{(2)}|y^{(1)})=\frac{I_1(y^{(1)},y^{(2)})}{I_1^{(1)}(y^{(1)})}.
+\)
+Similarly, we need to consider the optimal transport map between $\mu^{(2)}$ and $\nu^{(2)}$. We denote it as $F_0^{(2)}$, which can be solved through
+\(
+\int_{-\infty}^{F_0^{(2)}(x^{(1)}, x^{(2)})} \int_{-\infty}^{F_0^{(1)}(x^{(1)})} I_1(y^{(1)}, y^{(2)}) \mathrm d y^{(1)} \mathrm d y^{(2)}=\int_{-\infty}^{x^{(2)}} \int_{-\infty}^{x^{(1)}} I_0(\eta, \tau) \mathrm d \eta \mathrm d \tau.
+\)
+The _final solution_ (for $X,Y\subset \mathbb{R}^2$) is given as
+\(
+   \color{blue}{ F_0(x) = \begin{bmatrix}
+        F_0^{(1)}(x^{(1)}) \\ F_0^{(2)}(x^{(1)},x^{(2)})
+    \end{bmatrix}, \quad \text{for } x=(x^{(1)},x^{(2)})\in X. }
+\)
+This process can be repeated to obtain the solution in $\mathbb{R}^n$.
+
+
+=== Step 2: Removing the curl
+
+After the initial map is found, we need to remove its curl. This is not completed in one run. Instead, we consider the map $S:X\to X$ with $S_{\#}\mu=\mu$ ("measure preserving"). This map is parametrized by time $t$, so that it becomes a "flow" and will be updated as time progresses.  The map is initiated as the identity $S(x,0)=x$, and the final goal is to let $F_0(S^{-1}(x,t))$ converge to a curl-free mapping.
+
+Noe let's focus only on decreasing the objective function $M$, namely
+\(
+    M(t) = \int_{X}\|F(x, t)-x\|^2 I_0(x) \mathrm d x
+\)
+We take the derivative wrt. $t$ (for details, see \[[https://link.springer.com/article/10.1023/B:VISI.0000036836.66311.97 2]\]):
+\(
+    \frac{\partial M}{\partial t}=-2 \int_{X}\left\langle F(x, t), I_0(\color{green}{\frac{\partial S}{\partial t} \circ S^{-1}(x, t)})\right\rangle \mathrm d x
+\)
+The question is, what is $\frac{\partial S}{\partial t}$. Recall that $S$ should preserve the measure, i.e., $ I_0(x)=\operatorname{det}(D S(x)) I_0(S(x))$. By differentiating this equation, we have
+\(
+\begin{equation}
+\color{green}{\frac{\partial S}{\partial t}} = (\frac{1}{I_0}\xi)\color{green}{\circ S},
+\label{eq:AHT-S}
+\end{equation}
+\) 
+for some divergence-free vector field $\xi$ on $X$ so that $\langle \xi,\mathbf{n}\rangle=0$ with $\mathbf{n}$ being normal to the boundary of $X$. Subsequently, we have
+\(
+\frac{\partial M}{\partial t}=-2 \int_{X}\bigg\langle F(x, t), \xi(x, t)\bigg\rangle \mathrm d x.
+\)
+Notice that $\xi$ is divergence-free, and that by [https://en.wikipedia.org/wiki/Helmholtz_decomposition Helmholtz decomposition] $F=\nabla \phi+\chi$ for divergence-free field $\chi$. Using the [https://en.wikipedia.org/wiki/Divergence_theorem divergence theorem], we can simplify the above equation
+\(
+\frac{\partial M}{\partial t}=-2 \int_{X}\bigg\langle \chi(x, t), \xi(x, t)\bigg\rangle \mathrm d x.
+\)
+Now we see that if we take $\xi=\chi$, then $M$ will decrease most. But how do we find $\chi$? One way is to first find $\phi$ and then subtract $\nabla \phi$ from $F$, since finding $\phi$ is much simpler. Using the fact that $\chi$ is divergence-free, we take the divergence of both sides in the Helmholtz decomposition, and will have
+\(
+\operatorname{div}(F)=\Delta \phi,
+\)
+with boundary condition $\langle\nabla \phi, \mathbf{n}\rangle=\langle F, \mathbf{n}\rangle$ on $\partial X$. We simply write the solution for this equation as
+\(
+\phi = \Delta^{-1}\operatorname{div}(F),
+\)
+and thus $\xi=\chi = F-\nabla \Delta^{-1}\operatorname{div}(F)$. Now, at this stage, we can precisely characterize $S$ through $\eqref{eq:AHT-S}$. As a consequence, through $F(x, t)=F_0\left(S^{-1}(x, t)\right)$, we can also characterize $F$, by
+\(
+\frac{\partial F}{\partial t} = -\frac{1}{I_0}(DF)\xi \implies \frac{\partial F}{\partial t} =-\frac{1}{I_0}(DF)( F-\nabla \Delta^{-1}\operatorname{div}(F)).
+\)
+Now, this equation can be translated into the numerical scheme as 
+\(
+\color{blue}{F(x,t_{n+1}) = F(x,t_n) + \alpha \frac{1}{I_0}(DF)( F-\nabla \Delta^{-1}\operatorname{div}(F(x,t_n))).}
+\)
+Note that there will be simpler expression in $\mathbb{R}^2$ (see \[[https://link.springer.com/article/10.1023/B:VISI.0000036836.66311.97 2]\]).
+
+
+== Side notes
+
+=== How are the curls removed?
+
+
+== Implementation
+
+
+
+
+
+

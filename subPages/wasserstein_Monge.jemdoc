@@ -1,0 +1,16 @@
+# jemdoc: addpackage{color}, menu{wasserstein_MENU}{wasserstein_Monge.html}
+= Monge's formulation
+
+
+Given two measure space $(X,\mu)$ and $(Y,\nu)$, we define a measurable map $F:X\to Y$ with
+\(
+F_{\#}\mu = \nu, \quad \text{i.e., }\; \int_{F^{-1}(A)}  \mathrm d \mu(x) = \int_A \mathrm d \nu(y) \quad \forall \text{ measurable } A\in Y.
+\)
+This is also known as the "pushfoward of $\mu$", or the "transport map". The Monge's formulation for the OT problem is
+\(
+\min_{F} \int_X c\big(x,F(x)\big) \mathrm d \mu(x),
+\)
+where $c:X\times Y\to \mathbb{R}^+$ is the cost of transportation. 
+
+However, the problem is not well-posed in a sense that there may not always be a transport map for two given measures, since each particle must be moved as a whole. For example, it cannot deal with cases where numbers of particles (with positive mass) are not equal (e.g., $X=[-1,1]$, $\mu=\delta_0$, $\nu=\frac{\delta_{-1}+\delta_{1}}{2}$).
+

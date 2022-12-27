@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="jemdoc.css" type="text/css" />
+<title>Linear programming</title>
+<!-- MathJax -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+<!-- End MathJax -->
+</head>
+<body>
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-category">Wasserstein Distance</div>
+<div class="menu-item"><a href="wasserstein_index.html">Intro</a></div>
+<div class="menu-category">Formulations</div>
+<div class="menu-item"><a href="wasserstein_Monge.html">Monge</a></div>
+<div class="menu-item"><a href="wasserstein_Kantorovich.html">Kantorovich</a></div>
+<div class="menu-item"><a href="wasserstein_Relations.html">Relations</a></div>
+<div class="menu-category">Solvers</div>
+<div class="menu-item"><a href="wasserstein_explicit.html">Explicit&nbsp;solution</a></div>
+<div class="menu-item"><a href="wasserstein_LP.html" class="current">Linear&nbsp;programming</a></div>
+<div class="menu-item"><a href="wasserstein_GD1.html">GD&nbsp;with&nbsp;Brenier</a></div>
+<div class="menu-item"><a href="wasserstein_GD2.html">GD&nbsp;with&nbsp;dual&nbsp;formulation</a></div>
+<div class="menu-category">Applications</div>
+<div class="menu-item"><a href="wasserstein_reg.html">Registration</a></div>
+</td>
+<td id="layout-content">
+<div id="toptitle">
+<h1>Linear programming</h1>
+</div>
+<h2>Algorithm</h2>
+<p>This solver relies on discretization. Consider the densities \(I_0(x)=\sum_{i=1}^{n_p}p_i\delta(x-x_i)\) and \(I_1(x)=\sum_{j=1}^{n_q}q_j\delta(y-y_j)\). The problem has the following form:
+</p>
+<p style="text-align:center">
+\[
+\begin{aligned}
+\min_{\boldsymbol{\gamma}=(\gamma_{ij}) \in \mathbb{R}^{n_p\times n_q}} \quad &amp;\sum_{i=1}^{n_p}\sum_{j=1}^{n_q} c(x_i,y_j)\gamma_{ij}\\
+\text{subject to} \quad &amp; \sum_{i=1}^{n_p} \gamma_{ij} = q_j, \quad \forall j=1,\cdots,n_q\\
+ &amp; \sum_{j=1}^{n_q} \gamma_{ij} = p_i, \quad \forall i=1,\cdots,n_p\\
+ &amp; \gamma_{ij}\geq 0, \quad \forall i,j.
+\end{aligned}
+\]
+</p><p>This method is applicable to general costs, but will have great trouble when the densities are supported on a large number of sites.
+</p>
+<h2>Implementation</h2>
+<div id="footer">
+<div id="footer-text">
+Page generated 2022-12-26 10:03:33 CST.
+</div>
+</div>
+</td>
+</tr>
+</table>
+</body>
+</html>

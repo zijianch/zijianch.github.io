@@ -1,0 +1,14 @@
+Wasserstein Distance
+    Intro             				[wasserstein_index.html]
+Formulations      				
+    Monge					[wasserstein_Monge.html]
+    Kantorovich					[wasserstein_Kantorovich.html]
+    Relations					[wasserstein_Relations.html]
+Solvers
+    Explicit solution				[wasserstein_explicit.html]
+    Linear programming				[wasserstein_LP.html]
+    GD with Brenier				[wasserstein_GD1.html]
+    GD with dual formulation			[wasserstein_GD2.html]
+Applications
+    Registration				[wasserstein_reg.html]
+

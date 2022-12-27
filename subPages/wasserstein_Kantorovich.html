@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="jemdoc.css" type="text/css" />
+<title>Kantorovich's formulation</title>
+<!-- MathJax -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+<!-- End MathJax -->
+</head>
+<body>
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-category">Wasserstein Distance</div>
+<div class="menu-item"><a href="wasserstein_index.html">Intro</a></div>
+<div class="menu-category">Formulations</div>
+<div class="menu-item"><a href="wasserstein_Monge.html">Monge</a></div>
+<div class="menu-item"><a href="wasserstein_Kantorovich.html" class="current">Kantorovich</a></div>
+<div class="menu-item"><a href="wasserstein_Relations.html">Relations</a></div>
+<div class="menu-category">Solvers</div>
+<div class="menu-item"><a href="wasserstein_explicit.html">Explicit&nbsp;solution</a></div>
+<div class="menu-item"><a href="wasserstein_LP.html">Linear&nbsp;programming</a></div>
+<div class="menu-item"><a href="wasserstein_GD1.html">GD&nbsp;with&nbsp;Brenier</a></div>
+<div class="menu-item"><a href="wasserstein_GD2.html">GD&nbsp;with&nbsp;dual&nbsp;formulation</a></div>
+<div class="menu-category">Applications</div>
+<div class="menu-item"><a href="wasserstein_reg.html">Registration</a></div>
+</td>
+<td id="layout-content">
+<div id="toptitle">
+<h1>Kantorovich's formulation</h1>
+</div>
+<h2>Kantorovich's formulation</h2>
+<p>Instead of defining the transport map, Kantorovich proposed the &ldquo;transport plan&rdquo; which allows particles to be split and moved to different places (&ldquo;Kantorovich's relaxation&rdquo;). It is a probability measure \(\gamma\in X\times Y\) with marginals \(\mu\) and \(\nu\), i.e.,
+</p>
+<p style="text-align:center">
+\[
+\left(\pi_X\right)_{\#} \gamma=\mu,\quad \left(\pi_Y\right)_{\#} \gamma=\nu,
+\]
+</p><p>where \(\pi_X:X\times Y\to X\) and \(\pi_Y:X\times Y\to Y\) are called canonical projections. Note that there will be multiple joint distributions that correspond to the given two marginal distributions \(\mu\) and \(\nu\). We denote the set of all such joint distributions as \(\Pi(\mu,\nu)\). The Kantorovich's formulation is
+</p>
+<p style="text-align:center">
+\[
+    \min_{\gamma\in \Pi(\mu,\nu)}\int_{X\times Y} c(x,y)\mathrm d\gamma(x,y).
+\]
+</p><h2>Kantorovich's dual formulation</h2>
+<p>Since a linear optimization problem with convex constraints admits a dual formulation, we have here the <a href="https://en.wikipedia.org/wiki/Wasserstein_metric#Dual_representation_of_W1" target=&ldquo;blank&rdquo;>Kantorovich's dual formulation</a>:
+</p>
+<p style="text-align:center">
+\[
+\begin{aligned}
+&amp; \sup _{u, v} \bigg\{\int_X u(x) \mathrm d \mu(x)+\int_Y v(y) \mathrm d \nu(y) \bigg\}\\
+\text { s.t. } &amp; u(x)+v(y) \leq c(x,y) \quad \forall x \in X \text { and } y \in Y
+\end{aligned}
+\]
+</p><p>where we assume that \(u\in L^1(X,\mu)\) and \(v\in L^1(Y,\nu)\). The relationship between the primal and the dual formulation is given as (see [<a href="https://cedricvillani.org/sites/dev/files/old_images/2012/08/preprint-1.pdf" target=&ldquo;blank&rdquo;>1</a>], Page 66; also proof in [<a href="https://www.math.ucla.edu/~wgangbo/Cedric-Villani.pdf" target=&ldquo;blank&rdquo;>2</a>], Page 21)
+</p>
+<p style="text-align:center">
+\[
+\begin{equation}
+\sup _{u+v\leq c} \bigg\{\int_X u(x) \mathrm d \mu(x)+\int_Y v(y) \mathrm d \nu(y) \bigg\}
+ \leq \inf _{\gamma \in \Pi(\mu, \nu)}\left\{\int_{{X} \times {Y}} c(x, y) \mathrm d \gamma(x, y)\right\} .
+ \label{eq:w-dual-1}
+ \end{equation}
+\]
+</p><p>While original Kantorovich problem is to minimize cost, in the dual problem it is to maximize the price (and thus the profit). To Quote from Wikipedia (from [<a href="https://www.math.ucla.edu/~wgangbo/Cedric-Villani.pdf" target=&ldquo;blank&rdquo;>2</a>], page 21)
+</p>
+<p><blockquote> 
+Suppose you want to ship some coal from mines, distributed as \(\mu\), to factories, distributed as \(\nu\). The cost function of transport is \(c\). Now a shipper comes and offers to do the transport for you. You would pay him \(u(x)\) per coal for loading the coal at \(x\), and pay him \(v(y)\) per coal for unloading the coal at \(y\). For you to accept the deal, the price schedule must satisfy \(u(x)+v(y) \leq c(x, y)\). The Kantorovich duality states that the shipper can make a price schedule that makes you pay almost as much as you would ship yourself. 
+</blockquote>
+</p>
+<p>Actually, if \(c\) is uniformly continuous and bounded, the inequality \(\eqref{eq:w-dual-1}\) becomes an equality:
+</p>
+<p style="text-align:center">
+\[
+\color{blue}{\sup _{u+v\leq c} \bigg\{\int_X u(x) \mathrm d \mu(x)+\int_Y v(y) \mathrm d \nu(y) \bigg\}
+ =\inf _{\gamma \in \Pi(\mu, \nu)}\left\{\int_{{X} \times {Y}} c(x, y) \mathrm d \gamma(x, y)\right\} .}
+\]
+</p><p>This is called the <b>Kantorovich duality</b> (and is a strong duality). It implies that optimizing the primal problem is equivalent to optimizing the dual problem.
+</p>
+<p>There are multiple ways to prove this theorem:
+</p>
+<ul>
+<li><p>Since we already have \(\eqref{eq:w-dual-1}\), we only need to show the inequality holds from another direction. This proof also involves the concept of <a href="https://en.wikipedia.org/wiki/Cyclical_monotonicity" target=&ldquo;blank&rdquo;>cyclic monotonicity</a> and can be found <a href="https://www3.cs.stonybrook.edu/~gu/lectures/2020/Lecture_9/CCG_Lecture_9.pdf" target=&ldquo;blank&rdquo;>here</a>; or
+</p>
+</li>
+<li><p>The primal problem is convex so solutions for the dual and the primal problem are the same; or
+</p>
+</li>
+<li><p>Rewrite the constrained infimum problem as an inf sup problem and use minimax principle (see [<a href="https://www.math.ucla.edu/~wgangbo/Cedric-Villani.pdf" target=&ldquo;blank&rdquo;>2</a>])
+</p>
+</li>
+</ul>
+<h2>References</h2>
+<ol>
+<li><p>Villani Cedric. <a href="https://cedricvillani.org/sites/dev/files/old_images/2012/08/preprint-1.pdf" target=&ldquo;blank&rdquo;>Optimal transport: old and new</a>, volume 338. Springer Science &amp; Business Media, 2008.
+</p>
+</li>
+<li><p>Villani Cédric. Topics in Optimal Transportation (2nd edition). American Mathematical Society, 2016.
+</p>
+</li>
+<li><p>
+</p>
+</li>
+</ol>
+<div id="footer">
+<div id="footer-text">
+Page generated 2022-12-27 00:35:47 CST.
+</div>
+</div>
+</td>
+</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,45 @@
+# jemdoc: addpackage{color}, menu{wasserstein_MENU}{wasserstein_GD2.html}
+= Gradient Descent with Kantorovich's dual formulation
+
+Recall [wasserstein_Kantorovich.html Kantorovich's dual formulation]:
+\(
+\begin{aligned}
+& \inf _{\phi, \psi} \bigg\{\int_X \phi(x) \mathrm d \mu(x)+\int_Y \psi(y) \mathrm d \nu(y) \bigg\}\\
+\text { s.t. } & \phi(x)+\psi(y) \geq\langle x, y\rangle \quad \forall x \in X \text { and } y \in Y
+\end{aligned}
+\)
+{{<font style="color:red"> If $c(x,y)=\frac{1}{2}\|x-y\|^2$ </font>}}, then using $\|x-y\|^2=\|x\|^2+\|y\|^2-2\langle x,y\rangle$, we have
+\(
+u(x)+v(y) \leq \frac{1}{2}\|x-y\|^2 \Longleftrightarrow \langle x, y\rangle \leq \underbrace{\frac{1}{2}\|x\|^2-u(x)}_{\phi(x)}+\underbrace{\frac{1}{2}\|y\|^2-v(y)}_{\psi(y)}
+\)
+As a consequence, the problem becomes
+\(
+\begin{aligned}
+& \inf _{\phi, \psi} \bigg\{\int_X \phi(x) \mathrm d \mu(x)+\int_Y \psi(y) \mathrm d \nu(y) \bigg\}\\
+\text { s.t. } & \phi(x)+\psi(y) \geq\langle x, y\rangle \quad \forall x \in X \text { and } y \in Y
+\end{aligned}
+\)
+One important fact: the optimal pair $(\phi,\psi)$ are convex conjugate such that
+\(
+\begin{cases}
+\psi(y)&=\sup\limits_{x \in X}(\langle x, y\rangle-\phi(x)) \\
+\phi(x)&=\sup\limits_{y \in Y}(\langle x, y\rangle-\psi(y))
+\end{cases}
+\)
+
+
+
+
+== Algorithm
+
+
+
+== Implementation
+
+
+
+
+
+
+
+

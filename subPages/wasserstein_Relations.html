@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="jemdoc.css" type="text/css" />
+<title>Relationship between these two formulations</title>
+<!-- MathJax -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+<!-- End MathJax -->
+</head>
+<body>
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-category">Wasserstein Distance</div>
+<div class="menu-item"><a href="wasserstein_index.html">Intro</a></div>
+<div class="menu-category">Formulations</div>
+<div class="menu-item"><a href="wasserstein_Monge.html">Monge</a></div>
+<div class="menu-item"><a href="wasserstein_Kantorovich.html">Kantorovich</a></div>
+<div class="menu-item"><a href="wasserstein_Relations.html" class="current">Relations</a></div>
+<div class="menu-category">Solvers</div>
+<div class="menu-item"><a href="wasserstein_explicit.html">Explicit&nbsp;solution</a></div>
+<div class="menu-item"><a href="wasserstein_LP.html">Linear&nbsp;programming</a></div>
+<div class="menu-item"><a href="wasserstein_GD1.html">GD&nbsp;with&nbsp;Brenier</a></div>
+<div class="menu-item"><a href="wasserstein_GD2.html">GD&nbsp;with&nbsp;dual&nbsp;formulation</a></div>
+<div class="menu-category">Applications</div>
+<div class="menu-item"><a href="wasserstein_reg.html">Registration</a></div>
+</td>
+<td id="layout-content">
+<div id="toptitle">
+<h1>Relationship between these two formulations</h1>
+</div>
+<h2>Relations</h2>
+<p>If a transport map \(F\) exists, then it will induce a unique transport plan \(\gamma\) with the same cost function given by \(\gamma = (\mathrm{Id},F)_{\#}\mu\). Moreover, if \(F\) is the optimal transport map, \(\gamma\) induced by \(F\) will be the optimal transport plan. The inverse is not true: The existence of transport plans does NOT guarantee the existence of transport maps.
+</p>
+<h2>Brenier's theorem</h2>
+<p>If \(X=Y=\mathbb{R}^n\), \(c(x,y)=\|x-y\|^2\), \(\mu,\nu\) are with finite second-order moments and \(\mu\) is absolutely continuous, then there exist a unique optimal transport map \(F\) and a unique optimal transport plan: 
+</p>
+<p style="text-align:center">
+\[ \int_X\|x-F(x)\|^2 \mathrm{d} \mu(x) =  \min_{\gamma\in \Pi(\mu,\nu)}\int_{X\times Y} \|x-y\|^2\mathrm d\gamma(x,y). \]
+</p><p>Moreover, \(F=\nabla \phi(x)\) for some convex scalar function \(\phi: \mathbb{R}^m\to \mathbb{R}\). Note that \(\phi\) can be solved from the <a href="https://en.wikipedia.org/wiki/Monge–Ampère_equation" target=&ldquo;blank&rdquo;>Monge-Ampère equation</a> 
+</p>
+<p style="text-align:center">
+\[
+    I_0(x)=\mathrm{det}\big(\nabla^2 \phi(x)\big)I_1\big(\nabla \phi(x)\big)\quad \Longleftrightarrow \quad I_0(x)=\operatorname{det}(D F(x)) I_1(F(x))
+\]
+</p><p>where \(I_0\) and \(I_1\) are density functions of \(\mu\) and \(\nu\) respectively, and  \(DF\) is the Jacobian matrix of \(F\).
+</p>
+<div id="footer">
+<div id="footer-text">
+Page generated 2022-12-26 10:01:57 CST.
+</div>
+</div>
+</td>
+</tr>
+</table>
+</body>
+</html>

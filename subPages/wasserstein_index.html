@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="jemdoc.css" type="text/css" />
+<title>Wasserstein Distance (Optimal Transport Problem)</title>
+<!-- MathJax -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+<!-- End MathJax -->
+</head>
+<body>
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-category">Wasserstein Distance</div>
+<div class="menu-item"><a href="wasserstein_index.html" class="current">Intro</a></div>
+<div class="menu-category">Formulations</div>
+<div class="menu-item"><a href="wasserstein_Monge.html">Monge</a></div>
+<div class="menu-item"><a href="wasserstein_Kantorovich.html">Kantorovich</a></div>
+<div class="menu-item"><a href="wasserstein_Relations.html">Relations</a></div>
+<div class="menu-category">Solvers</div>
+<div class="menu-item"><a href="wasserstein_explicit.html">Explicit&nbsp;solution</a></div>
+<div class="menu-item"><a href="wasserstein_LP.html">Linear&nbsp;programming</a></div>
+<div class="menu-item"><a href="wasserstein_GD1.html">GD&nbsp;with&nbsp;Brenier</a></div>
+<div class="menu-item"><a href="wasserstein_GD2.html">GD&nbsp;with&nbsp;dual&nbsp;formulation</a></div>
+<div class="menu-category">Applications</div>
+<div class="menu-item"><a href="wasserstein_reg.html">Registration</a></div>
+</td>
+<td id="layout-content">
+<div id="toptitle">
+<h1>Wasserstein Distance (Optimal Transport Problem)</h1>
+</div>
+<div class="infoblock">
+<div class="blockcontent">
+<p>This page is currently under construction.
+</p>
+</div></div>
+<p>The OT problem seeks to answer this question: <i>How do you best move given piles of sand to fill up given holes (in another place) of the same total volume?</i> Let's translate this into math (see <a href="https://www.math.ucdavis.edu/~qlxia/Research/monge.pdf" target=&ldquo;blank&rdquo;>these slides</a>): 
+</p>
+<ul>
+<li><p>&ldquo;piles of sand&rdquo;: a positive measure \(\mu\) defined on \(X\)
+</p>
+</li>
+<li><p>&ldquo;holes (in another place)&rdquo;: another positive measure \(\nu\) defined on \(Y\)
+</p>
+</li>
+<li><p>&ldquo;same total volume&rdquo;: usually we restrict \(\mu\) and \(\nu\) to be probability measures (so the total volume is 1)
+</p>
+</li>
+<li><p>&ldquo;best&rdquo;: the total cost to move should be minimized. The cost for moving 1 unit of mass from \(x\in X\) to \(y\in Y\) is \(c(x,y)\).
+</p>
+</li>
+</ul>
+<p>Under different formulations, interpretations of the following words/phrases may differ:
+</p>
+<ul>
+<li><p>&ldquo;move&rdquo;: transport maps (a measurable map \(F\)) or transport plans (probability measure \(\gamma\))
+</p>
+</li>
+<li><p>&ldquo;fill up&rdquo;: \(F_{\#}\mu = \nu\) for transport maps and \(\left(\pi_X\right)_{\#} \gamma=\mu\), \(\left(\pi_Y\right)_{\#} \gamma=\nu\) for transport plans.
+</p>
+</li>
+</ul>
+<div id="footer">
+<div id="footer-text">
+Page generated 2022-12-26 10:02:13 CST.
+</div>
+</div>
+</td>
+</tr>
+</table>
+</body>
+</html>

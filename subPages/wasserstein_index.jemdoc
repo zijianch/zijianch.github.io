@@ -1,0 +1,19 @@
+# jemdoc: addpackage{color}, menu{wasserstein_MENU}{wasserstein_index.html}
+= Wasserstein Distance (Optimal Transport Problem)
+
+~~~
+This page is currently under construction.
+~~~
+
+
+The OT problem seeks to answer this question: /How do you best move given piles of sand to fill up given holes (in another place) of the same total volume?/ Let's translate this into math (see [https://www.math.ucdavis.edu/~qlxia/Research/monge.pdf these slides]): 
+
+- "piles of sand": a positive measure $\mu$ defined on $X$
+- "holes (in another place)": another positive measure $\nu$ defined on $Y$
+- "same total volume": usually we restrict $\mu$ and $\nu$ to be probability measures (so the total volume is 1)
+- "best": the total cost to move should be minimized. The cost for moving 1 unit of mass from $x\in X$ to $y\in Y$ is $c(x,y)$.
+
+Under different formulations, interpretations of the following words/phrases may differ:
+- "move": transport maps (a measurable map $F$) or transport plans (probability measure $\gamma$)
+- "fill up": $F_{\#}\mu = \nu$ for transport maps and $\left(\pi_X\right)_{\#} \gamma=\mu$, $\left(\pi_Y\right)_{\#} \gamma=\nu$ for transport plans.
+

@@ -1,0 +1,19 @@
+# jemdoc: addpackage{color}, menu{wasserstein_MENU}{wasserstein_LP.html}
+= Linear programming
+
+== Algorithm
+
+This solver relies on discretization. Consider the densities $I_0(x)=\sum_{i=1}^{n_p}p_i\delta(x-x_i)$ and $I_1(x)=\sum_{j=1}^{n_q}q_j\delta(y-y_j)$. The problem has the following form:
+\(
+\begin{aligned}
+\min_{\boldsymbol{\gamma}=(\gamma_{ij}) \in \mathbb{R}^{n_p\times n_q}} \quad &\sum_{i=1}^{n_p}\sum_{j=1}^{n_q} c(x_i,y_j)\gamma_{ij}\\
+\text{subject to} \quad & \sum_{i=1}^{n_p} \gamma_{ij} = q_j, \quad \forall j=1,\cdots,n_q\\
+ & \sum_{j=1}^{n_q} \gamma_{ij} = p_i, \quad \forall i=1,\cdots,n_p\\
+ & \gamma_{ij}\geq 0, \quad \forall i,j.
+\end{aligned}
+\)
+This method is applicable to general costs, but will have great trouble when the densities are supported on a large number of sites.
+
+
+== Implementation
+
