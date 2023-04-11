@@ -1,6 +1,7 @@
-# jemdoc: menu{MENU}{SMDS.html}
-= What's new
+# jemdoc: menu{MENU}{new.html}
+= What's new 
 
+== 2023
 
 \[04/2023\] I'll give a presenation at ISBI 2023 Special session Wasserstein Distance in Biomedical Imaging.
 
