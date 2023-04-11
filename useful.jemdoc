@@ -1,24 +1,14 @@
 # jemdoc: menu{MENU}{useful.html},analytics{UA-252546838-1}
-= Some useful Stuff
+= Some useful stuffs
 
 
 == Academics
 
-- The Matrix Cookbook: a collection of facts about matrices for quick reference. \[[https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf pdf]\]
+- The [https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf Matrix Cookbook]: a collection of facts about matrices for quick reference. 
+- Some Lecture notes:
+-- [https://pages.stat.wisc.edu/~mchung/teaching/stat992/stat992.html Statistical Methods in Signal and Image Analysis].
+-- [https://www3.cs.stonybrook.edu/~gu/lectures/2020/ Computational Conformal Geometry].
 
-- Lecture notes on [https://pages.stat.wisc.edu/~mchung/teaching/stat992/stat992.html Statistical Methods in Signal and Image Analysis].
 
-- Lecture series: [https://www3.cs.stonybrook.edu/~gu/lectures/2020/ Computational Conformal Geometry].
-
-
-== MATLAB
-
-=== Visualization
-- Plot cheatsheet, by [http://home.ustc.edu.cn/~pjer1316/ Peijin Zhang] \[[files/matlab_plot_cheatsheet.png png]\]
-- How to apply +colormap+ on line objects. \[[http://brainimaging.waisman.wisc.edu/%7Echung/tracts/ link]\].
-
-=== Functions in brain network analysis
-- Heat kernel smoothing: \[[http://brainimaging.waisman.wisc.edu/%7Echung/lb/ link1]\] \[[https://pages.stat.wisc.edu/~mchung/mandible/ link2]\].
-- Permutation test and Transposition test. \[[https://pages.stat.wisc.edu/~mchung/transpositions/ link1]\]\[[https://pages.stat.wisc.edu/~mchung/dynamicTDA/ link2]\]
 
 
