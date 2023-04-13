@@ -1,4 +1,4 @@
-# jemdoc: menu{MENU}{SMDS.html},analytics{UA-252546838-1}
+# jemdoc: menu{MENU}{software.html},analytics{UA-252546838-1}
 = Software
 
 The followings are some of the software of which I am one of the developers. Other useful software can be found in [useful.html Misc>>Resources].
@@ -10,12 +10,7 @@ The followings are some of the software of which I am one of the developers. Oth
 
 The code performs the Hodge Laplacian based modeling of cycles and various Hodge Laplacian based computations in brain networks. Click [hodgeLap.html here] for details of the algorithm and the usage. 
 
-The source codes can also be found at this [https://github.com/laplcebeltrami/hodge GitHub repo]. If you are using any of the codes given here, please reference the paper
-
-~~~
-Dakurah, S., Anand, D.V., Chen, Z., Chung, M.K. 2022, Modeling Cycles in Brain Networks Using Hodge Laplacian, Medical Image Computing and Computer Assisted Intervention - MICCAI 2022. Lecture Notes in Computer Science, vol 13431. Springer, Cham.
-~~~
-
+The source codes can also be found at this [https://github.com/laplcebeltrami/hodge GitHub repo].
 
 === Spherical Multi-dimensional Scaling
 
@@ -23,9 +18,6 @@ The codes performs the spherical- and hyperbolic-MDS.
 
 The source codes can also be found at this [https://github.com/laplcebeltrami/sphericalMDS GitHub repo]. If you are using any of the codes given here, please reference the paper
 
-~~~
-Chung, M.K., Chen Z. 2022, Embedding of Functional Human Brain Networks on a Sphere. [https://arxiv.org/abs/2204.03653]
-~~~
 
 == Computational Neuroimaging/Neuroanatomy 
 
