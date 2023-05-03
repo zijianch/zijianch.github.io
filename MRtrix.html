@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="jemdoc.css" type="text/css" />
+<title>A Quick Guide to MRtrix</title>
+<!-- MathJax -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+<!-- End MathJax -->
+</head>
+<body>
+<div id="layout-content">
+<div id="toptitle">
+<h1>A Quick Guide to MRtrix</h1>
+</div>
+<h2>Installation (on MacOS)</h2>
+<h3>Dependencies</h3>
+<h4>FSL</h4>
+<p>1. Download <a href="https://fsl.fmrib.ox.ac.uk/fsldownloads_registration" target=&ldquo;blank&rdquo;>fslinstaller.py</a>. <br />
+2. Run the following code in terminal
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+cs ~/Downloads
+python fslinstaller.py
+</pre></div></div>
+<h4>FreeSurfer</h4>
+<p>1. Download and install FreeSurfer through <a href="https://surfer.nmr.mgh.harvard.edu/fswiki/rel7downloads" target=&ldquo;blank&rdquo;>pkg file</a>. <br />
+2. <a href="https://surfer.nmr.mgh.harvard.edu/registration.html" target=&ldquo;blank&rdquo;>Register to obtain license</a> before use. <br />
+3. Configure environment by running (remember to change the version number (here is 7.3.2) accordingly)
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+export FREESURFER_HOME=/Applications/freesurfer/7.3.2
+export SUBJECTS_DIR=$FREESURFER_HOME/subjects
+source $FREESURFER_HOME/SetUpFreeSurfer.sh
+</pre></div></div>
+<h3>MRtrix </h3>
+<p>For MacOS, run the following codes to install and build (see <a href="https://www.mrtrix.org/download/macos-application/" target=&ldquo;blank&rdquo;>this page</a>).
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/MRtrix3/macos-installer/master/install)"
+</pre></div></div>
+<p>The files will be installed in <tt>/usr/local/mrtrix3</tt> by default, but you can call all these functions globally (in any other directories).
+</p>
+<p>To upgrade, simply run the above codes again.
+</p>
+<h2>Loading and Viewing data</h2>
+<p>To view images, use
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+mrview [file path]
+</pre></div></div>
+<p>to open the GUI, or to start it from Launchpad (or Application). 
+</p>
+<h2>Preprocessing</h2>
+<h3>Data format Conversion</h3>
+<p>We need to convert the DWI data into mif format (output file: <tt>dwi.mif</tt>).
+</p>
+<p>For DICOM files, use
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+mrconvert [dicom file] dwi.mif
+</pre></div></div>
+<p>For nii(nifti) files, they are usually with bval/bvec/json files, documenting the b-values, gradient directions and phase-encoding direction, respectively. We need to pack them into one mif file:
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+mrconvert -fslgrad [bvec file] [bval file] [json file] dwi.mif
+</pre></div></div>
+<p>To combine files with different gradient from the same subject (e.g., b=1000 and b=2000), do the previous steps for each file and use:
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+mrcat [b1000 file] [b2000 file] dwi.mif
+</pre></div></div>
+<h3>Denosing and corrections</h3>
+<p>Before starting, we need to create a mask to restrict the range (area) of image analysis to brain voxels only (output file: <tt>pmask.mif</tt>):
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+dwi2mask dwi.mif pmask.mif
+</pre></div></div>
+<p><a href="https://doi.org/10.1016/j.neuroimage.2016.08.016" target=&ldquo;blank&rdquo;>Denoising</a> (output file: <tt>denoise.mif</tt>)
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+dwidenoise dwi.mif denoise.mif -mask pmask.mif
+</pre></div></div>
+<p>Removing <a href="https://doi.org/10.1002/mrm.26054" target=&ldquo;blank&rdquo;>Gibbs artifacts</a> (output file: <tt>degibbs.mif</tt>)
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+mrdegibbs denoise.mif degibbs.mif
+</pre></div></div>
+<p>For <a href="https://doi.org/10.1016/j.neuroimage.2009.11.044" target=&ldquo;blank&rdquo;>epi correction</a>, we may need two opposite direction (AP-PA) to neutralize the effect. We first create the pair from b0 images (output file: <tt>b0_pair.mif</tt>). Here order matters: MRtrix expects the first image to be the b0 in phase-encoding direction, and the second in the reversed direction.
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+dwiextract [AP file] b0_AP.mif -bzero -force
+dwiextract [PA file] b0_PA.mif -bzero -force
+mrcat b0_AP.mif b0_PA.mif b0_pair.mif -force
+</pre></div></div>
+<p>It is possible that the AP or PA mif file contains more than 1 b0 image. We can do either of the following
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+# option 1: select only one of them
+dwiextract [PA file] - -bzero | mrconvert - -coord 3 0 b0_PA.mif -force
+
+# option 2: take the mean
+dwiextract [PA file] - -bzero | mrmath – mean b0_PA.mif –axis 3
+</pre></div></div>
+<p>Then, the epi correction, together with <a href="https://doi.org/10.1016/j.neuroimage.2004.07.051" target=&ldquo;blank&rdquo;>b0-field inhomogeneity correction</a> and <a href="https://doi.org/10.1016/j.neuroimage.2015.10.019" target=&ldquo;blank&rdquo;>Eddy-current and movement distortion correction</a> can be done altogether by the following codes where FSL is needed (output file: <tt>correction.mif</tt>). This step could take 1-1.5 hours.
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+dwifslpreproc degibbs.mif correction.mif -pe_dir PA -rpe_pair -se_epi b0_pair.mif -eddy_options "--data_is_shelled --slm=linear --niter=5" -force
+</pre></div></div>
+<p>For <a href="https://doi.org/10.1109/TMI.2010.2046908" target=&ldquo;blank&rdquo;>bias field correction</a> (Global intensity normalization), run either of the following code (output file: <tt>biascorr.mif</tt>). This step is meant to improve brain mask estimation, but could potentially deteriorate the estimation if no strong bias fields are present (check your biasfield.mif output!).
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+# option 1
+dwibiascorrect fsl correction.mif biascorr.mif -bias biasfield.mif
+
+# option 2
+dwibiascorrect ants correction.mif biascorr.mif -bias biasfield.mif
+</pre></div></div>
+<p>The final step is to register DWI to T1WI. To do this, we first take the average of all b0 images since they are more &ldquo;structurally&rdquo; different than b1000 (or other) images (output file: <tt>b0.nii</tt>).
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+dwiextract biascorr.mif -bzero - | mrmath -axis 3 - mean b0.nii -force
+</pre></div></div>
+<p>Since the images (diffusion, T1W) are from the same subject, we just use linear registration (output file: <tt>registered.mif</tt>).
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+flirt -dof 6 -cost normmi -ref [T1WI file] -in b0.nii -omat T_fsl.txt
+transformconvert T_fsl.txt b0.nii [T1WI file] flirt_import T_DWItoT1.txt
+mrtransform -linear T_DWItoT1.txt biascorr.mif registered.mif
+</pre></div></div>
+<p>Up to this step, we have finished almost all necessary steps for preprocessing. We can update the mask by the same code provided above. Here we can augment the mask a bit (output file: <tt>dwi_mask.mif</tt>).
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+dwi2mask registered.mif - | maskfilter - dilate dwi_mask.mif -npass 3 -force
+</pre></div></div>
+<h3>Parcellation and segmentation</h3>
+<p>Using the recon-all command from FreeSurfer to obtain parcellations. This step will create a new sub-folder with the name you specify in the bracket (say, &ldquo;subj&rdquo;).
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+recon-all -i [T1WI file] -subjid [subfolder name] -sd . -all
+</pre></div></div>
+<p>Further, we use <a href="https://mrtrix.readthedocs.io/en/dev/reference/commands/5ttgen.html" target=&ldquo;blank&rdquo;>5ttgen</a> to segment the parcellation image (any image containing ‘aseg’ in its name) into five tissue catagories (1=GM; 2=Subcortical GM; 3=WM; 4=CSF; 5=Pathological tissue) (output file: <tt>5ttseg.mif</tt>)
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+mrconvert subj/mri/aparc.a2009s+aseg.mgz aparc.a2009s+aseg.nii.gz
+5ttgen freesurfer aparc.a2009s+aseg.nii.gz 5ttseg.mif -force
+</pre></div></div>
+<p>The GM/WM interface (where tracts start and end) can be computed by (output file: <tt>5tt_gmwmi.mif</tt>)
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+5tt2gmwmi 5ttseg.mif 5tt_gmwmi.mif -force
+</pre></div></div>
+<h2>Tractography</h2>
+<h3>Diffusion tensor and CSD</h3>
+<h4>Diffusion tensor</h4>
+<p>Creating diffusion tensor (output file: <tt>dt.mif</tt>):
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+dwi2tensor -mask dwi_mask.mif registered.mif dt.mif -force
+</pre></div></div>
+<p>Based on the tensors created, we can compute some metrics (functional anisotropy: -fa; mean diffusivity: -adc; axial diffusivity: -ad; radial diffusivity: -rd). (output file: <tt>dt_fa.mif</tt>)
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+tensor2metric dt.mif -fa dt_fa.mif -force
+</pre></div></div>
+<p>To view the generated tensor through the mrview GUI, open T1WI first, and then select Tool&gt;&gt;ODF display&gt;&gt;open tensor image. The tensor at each voxel is described by a ellipsoid (characterized by 6 values).
+</p>
+<p>Since the voxel size is far greater then the fiber radius, these tensors are imprecise in describing the real tracts of the fibers. It is more recommended to use the CSD algorithm as follows.
+</p>
+<h4>Constrained spherical deconvolution (CSD)</h4>
+<p>Step 1: Compute response functions for white matter, gray matter and CSF (output files: <tt>ms_5tt_wm.txt</tt>, <tt>ms_5tt_gm.txt</tt>, <tt>ms_5tt_csf.txt</tt>):
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+dwi2response msmt_5tt registered.mif 5ttseg.mif ms_5tt_wm.txt ms_5tt_gm.txt ms_5tt_csf.txt -voxels ms_5tt_voxels.mif
+</pre></div></div>
+<p>Step 2: Compute fiber orientation distribution  (output files: <tt>dwi_wmcsd.mif</tt>, <tt>dwi_gmcsd.mif</tt>, <tt>dwi_csfCsd.mif</tt>):
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+dwi2fod msmt_csd registered.mif ms_5tt_wm.txt dwi_wmcsd.mif ms_5tt_gm.txt dwi_gmcsd.mif ms_5tt_csf.txt dwi_csfCsd.mif
+</pre></div></div>
+<p>To view the generated FOD through the mrview GUI, open T1WI first, and then select Tool&gt;&gt;ODF display&gt;&gt;open SH image.
+</p>
+<h3>Generating tracts</h3>
+<p>Creating ROI (output file: <tt>dwi_wmMask.mif</tt>)
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+# option 1: whole brain (thresholded by FA)
+mrthreshold -abs 0.2 dt_fa.mif - | mrcalc - dwi_mask.mif -mult dwi_wmMask.mif -force
+
+# option 2: specific regions (from thalamus to cuneus)
+mri_extract_label -dilate 1 aparc.a2009s+aseg.nii.gz 10 lh_thalamus.nii.gz
+mri_extract_label -dilate 1 aparc.a2009s+aseg.nii.gz 11111 lh_cuneus.nii.gz
+</pre></div></div>
+<p>Fiber tracking in the whole brain:
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+tckgen -algo iFOD2 -act 5ttseg.mif \
+       -backtrack -crop_at_gmwmi -cutoff 0.05 -angle 45 -minlength 20 -maxlength 200 \
+       -seed_image dwi_wmMask.mif  -select 200k \
+       dwi_wmCsd.mif fibs_200k_angle45_maxlen200_act.tck
+</pre></div></div>
+<p>Fiber tracking between specific regions: The only difference is to set seed image as the starting region and require it to include your target region. Here we also ask for uni-directional tracking.
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+tckgen -algo iFOD2 -act 5ttseg.mif \
+       -backtrack -crop_at_gmwmi -cutoff 0.05 -angle 45 -minlength 20 -maxlength 200 \
+       -seed_image lh_thalamus.nii.gz -include lh_cuneus.nii.gz -seed_unidirectional -stop \
+       dwi_wmCsd.mif fibs_OR.tck
+</pre></div></div>
+<h2>Connectome</h2>
+<p>We need to re-label the freesurfer output regions (make sure you have access) (output file: <tt>aparc.a2009s+aseg_relabel.nii.gz</tt>):
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+labelconvert aparc.a2009s+aseg.nii.gz /Applications/freesurfer/7.3.2/FreeSurferColorLUT.txt \
+            /usr/local/mrtrix3/share/mrtrix3/labelconvert/fs_a2009s.txt \
+            aparc.a2009s+aseg_relabel.nii.gz -force
+</pre></div></div>
+<p>Generating connectome using (normalized) number of fibers (output file: <tt>connectome_a2009s.csv</tt>):
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+tck2connectome -symmetric -zero_diagonal -scale_invnodevol \
+               fibs_200k_angle45_maxlen200_act.tck aparc.a2009s+aseg_relabel.nii.gz connectome_a2009s.csv \
+               -out_assignment assignments_a2009s.csv -force
+</pre></div></div>
+<p>Generating connectome using mean FA (output file: <tt>connectome_fa.csv</tt>)::
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+# Step 1: generate mean FA
+tcksample fibs_200k_angle45_maxlen200_act.tck dt_fa.mif tck_meanFA.txt -stat_tck mean -force
+
+# Step 2:
+tck2connectome -symmetric -zero_diagonal -scale_invnodevol \
+               fibs_200k_angle45_maxlen200_act.tck aparc.a2009s+aseg_relabel.nii.gz connectome_fa.csv \
+               -scale_file tck_meanFA.txt -stat_edge mean -force
+</pre></div></div>
+<p>To view it in mrview, use
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+mrview aparc.a2009s+aseg_relabel.nii.gz -connectome.init \
+       aparc.a2009s+aseg_relabel.nii.gz -connectome.load connectome_a2009s.csv
+</pre></div></div>
+<div id="footer">
+<div id="footer-text">
+Page generated 2023-05-02 23:18:38 CDT.
+</div>
+</div>
+</div>
+</body>
+</html>
