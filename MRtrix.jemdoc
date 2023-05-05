@@ -50,7 +50,6 @@ mrview [file path]
 ~~~
 to open the GUI, or to start it from Launchpad (or Application). 
 
-
 == Preprocessing
 
 === Data format Conversion

@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="jemdoc.css" type="text/css" />
+<title>A Quick Guide to FreeSurfer</title>
+<!-- MathJax -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+<!-- End MathJax -->
+</head>
+<body>
+<div id="layout-content">
+<div id="toptitle">
+<h1>A Quick Guide to FreeSurfer</h1>
+</div>
+<p>One sentence summary: FreeSurfer reconstructs 2D surfaces (lying in 3D space of course) in triangular mesh format from 3D voxels obtained from T1 weighted images, and provides parcellation and segmentation.
+</p>
+<p>This process is fully automated, just by running
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+recon-all –i [input T1 file] –subject [subject name/id] –all
+</pre></div></div>
+<p>which will create a folder in <tt>$SUBJECTS_DIR</tt> called <tt>[subject name/id]</tt> that you specified.
+</p>
+<h2>Input image(s)</h2>
+<p>The input image has to be a full brain T1 weighted image that has no major problems. The input can be a single:
+</p>
+<ul>
+<li><p>DICOM file. There may be thousands of such files when they come off the scanner. Use <tt>dcmunpack –src /path/to/dicoms</tt> and read from the output to locate the MP-RAGE T1 Protocol file. There might still be several hundred (different slices) in that series but you only need one of them and FreeSurfer will find the rest automatically.
+</p>
+</li>
+<li><p>Nifti file. (which is simpler)
+</p>
+</li>
+</ul>
+<h2>The recon-all process</h2>
+<p>The recon-all process contains two streams: volume processing and surface processing. 
+</p>
+<p><a href="https://surfer.nmr.mgh.harvard.edu\/fswiki/recon-all#StepDescriptionSummaries" target=&ldquo;blank&rdquo;>Full list</a> of commands (operations) that are executed by <tt>recon -all</tt>. See also this <a href="http://surfer.nmr.mgh.harvard.edu/pub/docs/fsrecon.sep2022.pptx" target=&ldquo;blank&rdquo;>official tutorial slides</a>
+</p>
+<h3>Volume (Voxel) Processing</h3>
+<ul>
+<li><p>Intensity Bias/Normalization (output: <tt>mri/T1.mgz</tt>)
+</p>
+<ul>
+<li><p>To tackle the problem of outside of image being much brighter than inside (coils), which makes gray/white segmentation difficult.
+</p>
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li><p>Skull Strip (output: <tt>mri/brainmask.mgz</tt>)
+</p>
+<ul>
+<li><p>Removes all non-brain structures
+</p>
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li><p>Automatic Volume Labeling (output: <tt>mri/aseg.mgz</tt>)
+</p>
+<ul>
+<li><p>Used to fill in subcortical structures for creating subcortical mass
+</p>
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li><p>White matter segmentation (output: <tt>mri/wm.mgz</tt>)
+</p>
+<ul>
+<li><p>Separate white matter from everything else.
+</p>
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li><p>Subcortical Mass filling (output: <tt>mri/filled.mgz</tt>)
+</p>
+<ul>
+<li><p>Fill everything inside the cortical surface and separate hemispheres.
+</p>
+</li>
+<li><p>This will make a prototype surface, but is still volume-based
+</p>
+</li>
+</ul>
+
+</li>
+</ul>
+<h3>Surface Processing</h3>
+<ul>
+<li><p>Surface Extraction
+</p>
+<ul>
+<li><p>orig surface (output: <tt>surf/?h.orig.nofix</tt>)
+</p>
+</li>
+<li><p>white surface (output: <tt>surf/?h.white</tt>)
+</p>
+<ul>
+<li><p>Nudge orig surface and adjust the location of vertices following T1 intensity gradients
+</p>
+</li></ul>
+</li>
+<li><p>pial surface (output: <tt>surf/?h.pial</tt>)
+</p>
+<ul>
+<li><p>Nudge white surface and adjust the location of vertices following T1 intensity gradients
+</p>
+</li></ul>
+</li>
+<li><p>Computing metrics
+</p>
+<ul>
+<li><p>Cortical Thickness (Distance between white and pial surfaces) (output: <tt>surf/?h.thickness</tt>)
+</p>
+</li>
+<li><p>Curvature (Circle tangent to surface at each vertex) (output: <tt>surf/?h.curv</tt>)
+</p>
+</li>
+<li><p>Surface-based Area (mean of triangles) (output: <tt>surf/?h.area</tt>)
+</p>
+</li>
+<li><p>Surface-based Volume (area \(\times\) thickness) (output: <tt>surf/?h.volume</tt>)
+</p>
+</li>
+</ul>
+
+</li>
+</ul>
+
+</li>
+</ul>
+<ul>
+<li><p>Inflation (output: <tt>surf/?h.inflated</tt>)
+</p>
+<ul>
+<li><p>minimize metric distortion so that distances and areas are preserved
+</p>
+</li>
+<li><p>Nudge vertices with no intensity constraint
+</p>
+</li></ul>
+</li>
+<li><p>Spherical Registration (output: <tt>surf/?h.sphere</tt>)
+</p>
+<ul>
+<li><p>Registration to spherical template <tt>fsaverge</tt>
+</p>
+</li></ul>
+</li>
+<li><p>Automatic Cortical Parcellation (output: <tt>label/?h.aparc.annot</tt>)
+</p>
+<ul>
+<li><p>Map to individual through spherical Reg.
+</p>
+</li>
+<li><p>Fine-tune based on individual anatomy
+</p>
+</li>
+</ul>
+
+</li>
+</ul>
+<h2>Reading the outputs</h2>
+<p>The recon-all process will automatically create a subfolder in your current directory named <tt>subjid</tt> (pre-specified in the command).
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+/current directory
+├── T1W.nii
+├── subjid
+│   ├── label
+|   |   ├── aparc.annot.a2009s.ctab
+|   |   └── ...
+|   ├── mri
+|   |   ├── antsdn.brain.mgz
+|   |   └── ...
+|   ├── surf
+|   |   ├── lh.area
+|   |   └── ...
+|   └── ...
+└── ...
+</pre></div></div>
+<h3>mri</h3>
+<p>This folder <tt>./mri</tt> contains output files from the first stream (volume processing).
+</p>
+<h3>surf</h3>
+<p>This folder <tt>./mri</tt> contains output files from the second stream (surface processing).
+</p>
+<p>To view all these files, use the Freeview GUI. Caution: it happens on my laptop (Apple M1 Pro, macOS 13.0) that if you open the GUI from launchpad and try to load the files, the software will crash and quit unexpectedly. 
+</p>
+<p><a href="mailto:https://www.mail-archive.com/freesurfer@nmr.mgh.harvard.edu/msg70721.html" target=&ldquo;blank&rdquo;>One way to solve this</a> is to use the terminal and enter <tt>bash</tt>, then type in the following code to open:
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+export FREESURFER_HOME=/Applications/freesurfer/7.3.2
+source /Applications/freesurfer/7.3.2/SetUpFreeSurfer.sh
+freeview
+</pre></div></div>
+<p>Please do note that some other issues include <a href="https://neurostars.org/t/problem-installing-freesurfer-in-mac/20552/21" target=&ldquo;blank&rdquo;>using an external monitor to open</a>. It is suggested to first open it in the internal monitor and then drag back to the external one.
+</p>
+<table class="imgtable"><tr><td>
+<img src="./figs/freeview_open.png" alt="" width="50%" />&nbsp;</td>
+<td align="left"></td></tr></table>
+<h3>label </h3>
+<p>This folder <tt>./label</tt> contains the parcellation information. Three major file formats are <b>.ctab</b>, <b>.annot</b> and <b>.label</b>.
+</p>
+<p><u><b>.label</b></u> files contains a list of vertices (with corresponding spatial positions using <a href="http://www.grahamwideman.com/gw/brain/fs/coords/fscoords.htm" target=&ldquo;blank&rdquo;>RAS coordinates</a>) which are part of the region (that has the same name as the file name). Thus, a label file corresponds only to a single label. There are 5 columns in total, representing &ldquo;vertex index&rdquo;, &ldquo;R coord&rdquo;, &ldquo;A coord&rdquo;, &ldquo;S coord&rdquo;, and &ldquo;value&rdquo; (often all set as zero, <a href="https://surfer.nmr.mgh.harvard.edu/fswiki/LabelsClutsAnnotationFiles" target=&ldquo;blank&rdquo;>not clear</a> what this column is used for). For example, the first few lines from <tt>/label/aparc.annot.a2009s.ctab</tt> are
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+#!ascii label  , from subject  vox2ras=TkReg
+139547
+0  -4.883  -92.608  2.234 0.0000000000
+1  -5.552  -92.572  2.070 0.0000000000
+</pre></div></div>
+<p><u><b>.ctab</b></u> is referred to as &ldquo;color table&rdquo;. It stores the RGB and transparency value of each region. There are 6 columns in total, representing &ldquo;label index&rdquo;, &ldquo;caption&rdquo;, &ldquo;R&rdquo;, &ldquo;G&rdquo;, &ldquo;B&rdquo; and &ldquo;transparency&rdquo;. For example, the first two lines from <tt>/label/lh.cortex.label</tt> are
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+0  Unknown                           0   0   0    0
+1  G_and_S_frontomargin             23 220  60    0
+</pre></div></div>
+<p>By default, there are 4 (or 5) such color table files, corresponding to different atlases:
+</p>
+<ul>
+<li><p>Desikan-Killiany Atlas. The naming convention is <b>aparc.annot</b>
+</p>
+</li>
+<li><p>Destrieux Atlas. The naming convention is <b>aparc.annot.a2009s</b> (since it's from 2009-07-28)
+</p>
+</li>
+<li><p>DKT Atlas. The naming convention is <b>aparc.annot.DKTatlas</b>
+</p>
+</li>
+<li><p>Brodmann Area Maps. The naming convention is <b>BA_exvivo</b> (and <b>BA_exvivo.thresh</b>)
+</p>
+</li>
+</ul>
+<p><u><b>.annot</b></u> is referred to as &ldquo;annotation&rdquo;. It can be seen as a combination (and bridge) of label files, along with a color table, i.e., it contains information about &ldquo;which vertex (selected from the whole list) belongs to which region and what color should this region be&rdquo; (instead of &ldquo;this region contains these vertices&rdquo; in .label files).
+</p>
+<p>Since there are many atlases (ways of parcellations), we need one annotation for each atlas. It is basically as in .ctab files, but is more finer:
+</p>
+<ul>
+<li><p>Left and right hemispheres have different files, marked by &ldquo;lh&rdquo; and &ldquo;rh&rdquo; in the front of the file name.
+</p>
+</li>
+<li><p>In addition to the four basic Atlas mentioned above (where it divides BA into some sub-categories), it also contains ventral posterior lateral nucleus (VPNL) of the thalamus using Multi-parametric mapping (mpm). The information is stored in <tt>/label/?h.mpm.vpnl.annot</tt>.
+</p>
+</li>
+</ul>
+<p>This file cannot be opened by TextEdit. Instead, you need to use the <b>read_annotation.m</b> function in MATLAB (can be found in <tt>$FREESURFER_HOME/matlab</tt> or download from this <a href="https://surfer.nmr.mgh.harvard.edu/fswiki/CorticalParcellation?action=AttachFile&amp;do=view&amp;target=read_annotation.m" target=&ldquo;blank&rdquo;>link</a>):
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+[vertices,label,colortable]=read_annotation('rh.aparc.annot');
+</pre></div></div>
+<p>Here <tt>vertices</tt> is the vertex number (ranging from 1 to approximately 150k, this number is the same across all .annot files for one subject). If the corresponding <tt>label</tt> (a number) is &rsquo;9182740&rsquo;, then find that number in the <tt>colortable.table</tt> structure, and its label name is that same index in the <tt>colortable.struct_name</tt> structure (in this example, &rsquo;9182740&rsquo; is 'rostralanteriorcingulate&rsquo;).
+</p>
+<table class="imgtable"><tr><td>
+<img src="./figs/freesurfer_reconall_output_annot.png" alt="" width="50%" />&nbsp;</td>
+<td align="left"></td></tr></table>
+<p>An easier way to view these files is to use freeview.
+</p>
+<table class="imgtable"><tr><td>
+<img src="./figs/freeview_annot_label.png" alt="" width="50%" />&nbsp;</td>
+<td align="left"></td></tr></table>
+<div id="footer">
+<div id="footer-text">
+Page generated 2023-05-05 16:00:34 CDT.
+</div>
+</div>
+</div>
+</body>
+</html>

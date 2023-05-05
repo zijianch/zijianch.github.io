@@ -5,10 +5,7 @@
 == Academics
 
 - The [https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf Matrix Cookbook]: a collection of facts about matrices for quick reference. 
-- Some Lecture notes:
--- [https://pages.stat.wisc.edu/~mchung/teaching/stat992/stat992.html Statistical Methods in Signal and Image Analysis].
--- [https://www3.cs.stonybrook.edu/~gu/lectures/2020/ Computational Conformal Geometry].
-- A [MRtrix.html quick intro] to running MRtrix3 on MacOS.
+- A quick intro to running [MRtrix.html MRtrix3] and [freesurfer.html FreeSurfer] on MacOS.
 
 
 == Others
