@@ -95,7 +95,7 @@ This folder +./mri+ contains output files from the first stream (volume processi
 
 === surf
 
-This folder +./mri+ contains output files from the second stream (surface processing).
+This folder +./surf+ contains output files from the second stream (surface processing).
 
 To view all these files, use the Freeview GUI. Caution: it happens on my laptop (Apple M1 Pro, macOS 13.0) that if you open the GUI from launchpad and try to load the files, the software will crash and quit unexpectedly. 
 
