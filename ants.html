@@ -96,10 +96,10 @@ export PATH=${ANTSPATH}:$PATH
 <p>You only need two commands to perform registration. Go into the folder that contains 
 </p>
 <ul>
-<li><p>registration template (<a href="files/MNI152_T1_2009c.nii" target=&ldquo;blank&rdquo;>MNI152_T1_2009c.nii</a>, converted from HEAD/BRIK file from AFNI database)
+<li><p>target image (<a href="files/MNI152_T1_2009c.nii" target=&ldquo;blank&rdquo;>MNI152_T1_2009c.nii</a>, converted from <a href="https://afni.nimh.nih.gov/pub/dist/atlases/MNI_HCP/MNI_Glasser_HCP_2019_v1.0/" target=&ldquo;blank&rdquo;>HEAD/BRIK file from AFNI database</a>)
 </p>
 </li>
-<li><p>subject image to be registered (I am using <tt>sub-PA01_ses-3TB1_acq-r10x10x10_T1w_defaced.nii</tt>, which is publicly available here)
+<li><p>source image to be registered (I am using the sculp stripped verson of <tt>sub-PA01_ses-3TB1_acq-r10x10x10_T1w_defaced.nii</tt>)
 </p>
 </li>
 </ul>
@@ -109,8 +109,8 @@ export PATH=${ANTSPATH}:$PATH
 <div class="blockcontent"><pre>
 antsRegistrationSyN.sh -d 3 \
                        -o ./ants \
-                       -f  \
-                       -m []
+                       -f MNI152_T1_2009c.nii \
+                       -m subj1_T1.nii
 </pre></div></div>
 <p>Parameters:
 </p>
@@ -118,13 +118,32 @@ antsRegistrationSyN.sh -d 3 \
 <li><p><tt>-d</tt>: dimension of the image (for <tt>.nii</tt> figures, the dimension is 3)
 </p>
 </li>
-<li><p><tt>-o</tt>: output
+<li><p><tt>-o</tt>: output file name prefix (all output file will look like <tt>antsxxxxx</tt>). 
 </p>
 </li>
-<li><p><tt>-f</tt>: the fixed image (the target image for your registration)
+<li><p><tt>-f</tt>: the fixed image
 </p>
 </li>
-<li><p><tt>-m</tt>: the moving image (the images that need to be deformed)
+<li><p><tt>-m</tt>: the moving image
+</p>
+</li>
+</ul>
+<p>This step could take approximately 1 hour and should produce the following files (using 'ants&rsquo; as the prefix):
+</p>
+<ul>
+<li><p>ants0GenericAffine.mat
+</p>
+</li>
+<li><p>ants1InverseWarp.nii.gz
+</p>
+</li>
+<li><p>ants1Warp.nii.gz
+</p>
+</li>
+<li><p>antsInverseWarped.nii.gz
+</p>
+</li>
+<li><p>antsWarped.nii.gz
 </p>
 </li>
 </ul>
@@ -133,15 +152,18 @@ antsRegistrationSyN.sh -d 3 \
 <div class="codeblock">
 <div class="blockcontent"><pre>
 antsApplyTransforms -d 3 \
-                    -i [] \
-                    -r [] \
+                    -i subj1_T1.nii \
+                    -r MNI152_T1_2009c.nii \
                     -n GenericLabel[Linear] \
-                    -t  -t
-                    -o
+                    -t ./ants1Warp.nii.gz -t ./ants0GenericAffine.mat \
+                    -o ./sub_to_MNI152.nii.gz
 </pre></div></div>
+<table class="imgtable"><tr><td>
+<img src="./figs/ants_demo_1.png" alt="" width="50%" />&nbsp;</td>
+<td align="left"></td></tr></table>
 <div id="footer">
 <div id="footer-text">
-Page generated 2023-05-29 01:15:31 CDT.
+Page generated 2023-05-29 23:59:33 CDT.
 </div>
 </div>
 </div>

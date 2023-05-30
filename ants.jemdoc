@@ -71,23 +71,30 @@ Alternatively, if you want to configure this once and for all, add the above lin
 == Usage
 
 You only need two commands to perform registration. Go into the folder that contains 
-- registration template ([files/MNI152_T1_2009c.nii MNI152\_T1\_2009c.nii], converted from HEAD/BRIK file from AFNI database)
-- subject image to be registered (I am using +sub-PA01\_ses-3TB1_acq-r10x10x10\_T1w\_defaced.nii+, which is publicly available here)
+- target image ([files/MNI152_T1_2009c.nii MNI152\_T1\_2009c.nii], converted from [https://afni.nimh.nih.gov/pub/dist/atlases/MNI_HCP/MNI_Glasser_HCP_2019_v1.0/ HEAD/BRIK file from AFNI database])
+- source image to be registered (I am using the sculp stripped verson of +sub-PA01\_ses-3TB1_acq-r10x10x10\_T1w\_defaced.nii+)
 
 The first command is to generate the transformation matrix
 ~~~
 {}{}
 antsRegistrationSyN.sh -d 3 \
                        -o ./ants \
-                       -f  \
-                       -m []
+                       -f MNI152_T1_2009c.nii \
+                       -m subj1_T1.nii
 ~~~
 
 Parameters:
 - +-d+: dimension of the image (for +.nii+ figures, the dimension is 3)
-- +-o+: output
-- +-f+: the fixed image (the target image for your registration)
-- +-m+: the moving image (the images that need to be deformed)
+- +-o+: output file name prefix (all output file will look like +antsxxxxx+). 
+- +-f+: the fixed image
+- +-m+: the moving image
+
+This step could take approximately 1 hour and should produce the following files (using 'ants' as the prefix):
+- ants0GenericAffine.mat
+- ants1InverseWarp.nii.gz
+- ants1Warp.nii.gz
+- antsInverseWarped.nii.gz
+- antsWarped.nii.gz
 
 
 
@@ -95,14 +102,16 @@ The second command is to apply thr transformation:
 ~~~
 {}{}
 antsApplyTransforms -d 3 \
-                    -i [] \
-                    -r [] \
+                    -i subj1_T1.nii \
+                    -r MNI152_T1_2009c.nii \
                     -n GenericLabel[Linear] \
-                    -t  -t 
-                    -o
+                    -t ./ants1Warp.nii.gz -t ./ants0GenericAffine.mat \
+                    -o ./sub_to_MNI152.nii.gz
 ~~~
 
-
+~~~
+{}{img_left}{./figs/ants_demo_1.png}{}{50%}{}{}
+~~~
 
 
 
