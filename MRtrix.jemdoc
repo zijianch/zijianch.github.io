@@ -1,3 +1,4 @@
+# jemdoc: menu{MENU_sws}{MRtrix.html},analytics{UA-252546838-1}
 = A Quick Guide to MRtrix
 
 
@@ -5,10 +6,7 @@
 
 === Dependencies
 
-==== FSL
-
-1. Download [https://fsl.fmrib.ox.ac.uk/fsldownloads_registration fslinstaller.py]. \n
-2. Run the following code in terminal
+FSL: Download [https://fsl.fmrib.ox.ac.uk/fsldownloads_registration fslinstaller.py] and then run the following code in terminal
 
 ~~~
 {}{}
@@ -16,18 +14,8 @@ cs ~/Downloads
 python fslinstaller.py
 ~~~
 
-==== FreeSurfer
+FreeSurfer: see [freesurfer.html this page]
 
-
-1. Download and install FreeSurfer through [https://surfer.nmr.mgh.harvard.edu/fswiki/rel7downloads pkg file]. \n
-2. [https://surfer.nmr.mgh.harvard.edu/registration.html Register to obtain license] before use. \n
-3. Configure environment by running (remember to change the version number (here is 7.3.2) accordingly)
-~~~
-{}{}
-export FREESURFER_HOME=/Applications/freesurfer/7.3.2
-export SUBJECTS_DIR=$FREESURFER_HOME/subjects
-source $FREESURFER_HOME/SetUpFreeSurfer.sh
-~~~
 
 === MRtrix 
 
@@ -192,6 +180,11 @@ tensor2metric dt.mif -fa dt_fa.mif -force
 
 To view the generated tensor through the mrview GUI, open T1WI first, and then select Tool>>ODF display>>open tensor image. The tensor at each voxel is described by a ellipsoid (characterized by 6 values).
 
+~~~
+{}{img_left}{./figs/mrtrix_dt.png}{}{50%}{}{}
+~~~
+
+
 Since the voxel size is far greater then the fiber radius, these tensors are imprecise in describing the real tracts of the fibers. It is more recommended to use the CSD algorithm as follows.
 
 ==== Constrained spherical deconvolution (CSD)
@@ -209,6 +202,11 @@ dwi2fod msmt_csd registered.mif ms_5tt_wm.txt dwi_wmcsd.mif ms_5tt_gm.txt dwi_gm
 ~~~
 
 To view the generated FOD through the mrview GUI, open T1WI first, and then select Tool>>ODF display>>open SH image.
+
+~~~
+{}{img_left}{./figs/mrtrix_csd.png}{}{50%}{}{}
+~~~
+
 
 === Generating tracts
 
@@ -232,6 +230,11 @@ tckgen -algo iFOD2 -act 5ttseg.mif \
        dwi_wmCsd.mif fibs_200k_angle45_maxlen200_act.tck 
 ~~~
 
+~~~
+{}{img_left}{./figs/mrtrix_tck_wholeBrain.png}{}{50%}{}{}
+~~~
+
+
 Fiber tracking between specific regions: The only difference is to set seed image as the starting region and require it to include your target region. Here we also ask for uni-directional tracking.
 ~~~
 {}{}
@@ -241,7 +244,9 @@ tckgen -algo iFOD2 -act 5ttseg.mif \
        dwi_wmCsd.mif fibs_OR.tck 
 ~~~
 
-
+~~~
+{}{img_left}{./figs/mrtrix_tck_partial.png}{}{50%}{}{}
+~~~
 
 == Connectome
 
@@ -278,4 +283,8 @@ To view it in mrview, use
 {}{}
 mrview aparc.a2009s+aseg_relabel.nii.gz -connectome.init \
        aparc.a2009s+aseg_relabel.nii.gz -connectome.load connectome_a2009s.csv
+~~~
+
+~~~
+{}{img_left}{./figs/mrtrix_connectome.png}{}{50%}{}{}
 ~~~

@@ -17,7 +17,29 @@ MathJax.Hub.Config({
 <!-- End MathJax -->
 </head>
 <body>
-<div id="layout-content">
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-252546838-1");
+    pageTracker._trackPageview();
+} catch(err) {}</script>
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-category">Home</div>
+<div class="menu-item"><a href="index.html">Homepage</a></div>
+<div class="menu-item"><a href="sws_intro.html">Intro</a></div>
+<div class="menu-category">Software</div>
+<div class="menu-item"><a href="freesurfer.html">FreeSurfer</a></div>
+<div class="menu-item"><a href="ants.html" class="current">ANTs</a></div>
+<div class="menu-item"><a href="MRtrix.html">MRtrix</a></div>
+<div class="menu-item"><a href="anfi.html">ANFI</a></div>
+<div class="menu-category">Data</div>
+</td>
+<td id="layout-content">
 <div id="toptitle">
 <h1>A Quick Guide to ANTs</h1>
 </div>
@@ -158,14 +180,32 @@ antsApplyTransforms -d 3 \
                     -t ./ants1Warp.nii.gz -t ./ants0GenericAffine.mat \
                     -o ./sub_to_MNI152.nii.gz
 </pre></div></div>
+<p>New parameters:
+</p>
+<ul>
+<li><p><tt>-i</tt>: input images
+</p>
+</li>
+<li><p><tt>-r</tt>: reference image (target image)
+</p>
+</li>
+<li><p><tt>-n</tt>: interpolation options
+</p>
+</li>
+<li><p><tt>-t</tt>: transform file name. 
+</p>
+</li>
+</ul>
 <table class="imgtable"><tr><td>
 <img src="./figs/ants_demo_1.png" alt="" width="50%" />&nbsp;</td>
 <td align="left"></td></tr></table>
 <div id="footer">
 <div id="footer-text">
-Page generated 2023-05-29 23:59:33 CDT.
+Page generated 2023-05-30 22:30:51 CDT.
 </div>
 </div>
-</div>
+</td>
+</tr>
+</table>
 </body>
 </html>

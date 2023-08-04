@@ -1,13 +1,21 @@
+# jemdoc: menu{MENU_sws}{freesurfer.html},analytics{UA-252546838-1}
 = A Quick Guide to FreeSurfer
 
 One sentence summary: FreeSurfer reconstructs 2D surfaces (lying in 3D space of course) in triangular mesh format from 3D voxels obtained from T1 weighted images, and provides parcellation and segmentation.
 
-This process is fully automated, just by running
+
+== Installation
+
+1. Download and install FreeSurfer through [https://surfer.nmr.mgh.harvard.edu/fswiki/rel7downloads pkg file]. \n
+2. [https://surfer.nmr.mgh.harvard.edu/registration.html Register to obtain license] before use. \n
+3. Configure environment by running (remember to change the version number (here is 7.3.2) accordingly)
 ~~~
 {}{}
-recon-all –i [input T1 file] –subject [subject name/id] –all
+export FREESURFER_HOME=/Applications/freesurfer/7.3.2
+export SUBJECTS_DIR=$FREESURFER_HOME/subjects
+source $FREESURFER_HOME/SetUpFreeSurfer.sh
 ~~~
-which will create a folder in +$SUBJECTS\_DIR+ called +\[subject name/id\]+ that you specified.
+
 
 == Input image(s)
 
@@ -20,7 +28,15 @@ The input image has to be a full brain T1 weighted image that has no major probl
 
 == The recon-all process
 
-The recon-all process contains two streams: volume processing and surface processing. 
+The recon-all process is fully automated, just by running
+~~~
+{}{}
+recon-all –i [input T1 file] –subject [subject name/id] –all
+~~~
+which will create a folder in +$SUBJECTS\_DIR+ called +\[subject name/id\]+ that you specified.
+
+
+This process contains two streams: volume processing and surface processing. 
 
 [https://surfer.nmr.mgh.harvard.edu\/fswiki/recon-all\#StepDescriptionSummaries Full list] of commands (operations) that are executed by +recon -all+. See also this [http://surfer.nmr.mgh.harvard.edu/pub/docs/fsrecon.sep2022.pptx official tutorial slides]
 
@@ -88,28 +104,44 @@ The recon-all process will automatically create a subfolder in your current dire
 └── ...
 ~~~
 
+The following results are generated with the sample T1WI from subject id +sub-CIIIsA01+ in this [https://openneuro.org/datasets/ds003416/versions/2.0.1 online database]. 
 
 === mri
 
-This folder +./mri+ contains output files from the first stream (volume processing).
+This folder +./mri+ contains output files from the first stream (volume processing). See previous sections for details.
 
-=== surf
+To view all these files, you can use either Freeview or [MRtrix.html MRview].
 
-This folder +./surf+ contains output files from the second stream (surface processing).
+~~~
+{}{img_left}{./figs/freesurfer_volumeproc.png}{}{50%}{}{}
+~~~
 
-To view all these files, use the Freeview GUI. Caution: it happens on my laptop (Apple M1 Pro, macOS 13.0) that if you open the GUI from launchpad and try to load the files, the software will crash and quit unexpectedly. 
-
-[https://www.mail-archive.com/freesurfer@nmr.mgh.harvard.edu/msg70721.html One way to solve this] is to use the terminal and enter +bash+, then type in the following code to open:
+If you use Freeview, it happens on my laptop (Apple M1 Pro, macOS 13.0) that if you open the GUI from launchpad and try to load the files, the software will crash and quit unexpectedly. [https://www.mail-archive.com/freesurfer@nmr.mgh.harvard.edu/msg70721.html One way to solve this] is to use the terminal and enter +bash+, then type in the following code to open:
 ~~~
 {}{}
 export FREESURFER_HOME=/Applications/freesurfer/7.3.2
 source /Applications/freesurfer/7.3.2/SetUpFreeSurfer.sh
 freeview
 ~~~
-Please do note that some other issues include [https://neurostars.org/t/problem-installing-freesurfer-in-mac/20552/21 using an external monitor to open]. It is suggested to first open it in the internal monitor and then drag back to the external one.
 
 ~~~
-{}{img_left}{./figs/freeview_open.png}{}{50%}{}{}
+{}{img_left}{./figs/freeview_open_volume.png}{}{50%}{}{}
+~~~
+
+These files can also be converted back to nii format (so that they can be viewed or edited using other software)
+~~~
+{}{}
+mri_convert T1.mgz T1.nii
+~~~
+
+
+=== surf
+
+This folder +./surf+ contains output files from the second stream (surface processing).
+
+To view all these files, use the Freeview GUI. This time select "load surface..." in the "File" menu.
+~~~
+{}{img_left}{./figs/freesurfer_surfproc.png}{}{50%}{}{}
 ~~~
 
 

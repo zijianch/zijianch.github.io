@@ -1,0 +1,28 @@
+# jemdoc: menu{MENU}{software.html},analytics{UA-252546838-1}
+= Software
+
+The followings are some of the software of which I am one of the developers. Other useful software can be found in [useful.html Misc>>Resources].
+
+== Brain Networks Analysis
+
+
+=== Hodge Lapalacian
+
+The code performs the Hodge Laplacian based modeling of cycles and various Hodge Laplacian based computations in brain networks. Click [hodgeLap.html here] for details of the algorithm and the usage. 
+
+The source codes can also be found at this [https://github.com/laplcebeltrami/hodge GitHub repo].
+
+=== Spherical Multi-dimensional Scaling
+
+The codes performs the spherical- and hyperbolic-MDS. 
+
+The source codes can also be found at this [https://github.com/laplcebeltrami/sphericalMDS GitHub repo].
+
+
+== Computational Neuroimaging/Neuroanatomy 
+
+=== Heat Kernel Smoothing on circular data
+
+This function provides a smooth estimate of the functional data (corpus callosum boundaries) defined on a circle. This is for matching two circular functional data for cross comparison that reduces spatial variability in statistical analysis.
+
+The source codes can be found at this [https://github.com/laplcebeltrami/circle GitHub repo].

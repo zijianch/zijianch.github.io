@@ -17,20 +17,45 @@ MathJax.Hub.Config({
 <!-- End MathJax -->
 </head>
 <body>
-<div id="layout-content">
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-252546838-1");
+    pageTracker._trackPageview();
+} catch(err) {}</script>
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-category">Home</div>
+<div class="menu-item"><a href="index.html">Homepage</a></div>
+<div class="menu-item"><a href="sws_intro.html">Intro</a></div>
+<div class="menu-category">Software</div>
+<div class="menu-item"><a href="freesurfer.html" class="current">FreeSurfer</a></div>
+<div class="menu-item"><a href="ants.html">ANTs</a></div>
+<div class="menu-item"><a href="MRtrix.html">MRtrix</a></div>
+<div class="menu-item"><a href="anfi.html">ANFI</a></div>
+<div class="menu-category">Data</div>
+</td>
+<td id="layout-content">
 <div id="toptitle">
 <h1>A Quick Guide to FreeSurfer</h1>
 </div>
 <p>One sentence summary: FreeSurfer reconstructs 2D surfaces (lying in 3D space of course) in triangular mesh format from 3D voxels obtained from T1 weighted images, and provides parcellation and segmentation.
 </p>
-<p>This process is fully automated, just by running
+<h2>Installation</h2>
+<p>1. Download and install FreeSurfer through <a href="https://surfer.nmr.mgh.harvard.edu/fswiki/rel7downloads" target=&ldquo;blank&rdquo;>pkg file</a>. <br />
+2. <a href="https://surfer.nmr.mgh.harvard.edu/registration.html" target=&ldquo;blank&rdquo;>Register to obtain license</a> before use. <br />
+3. Configure environment by running (remember to change the version number (here is 7.3.2) accordingly)
 </p>
 <div class="codeblock">
 <div class="blockcontent"><pre>
-recon-all –i [input T1 file] –subject [subject name/id] –all
+export FREESURFER_HOME=/Applications/freesurfer/7.3.2
+export SUBJECTS_DIR=$FREESURFER_HOME/subjects
+source $FREESURFER_HOME/SetUpFreeSurfer.sh
 </pre></div></div>
-<p>which will create a folder in <tt>$SUBJECTS_DIR</tt> called <tt>[subject name/id]</tt> that you specified.
-</p>
 <h2>Input image(s)</h2>
 <p>The input image has to be a full brain T1 weighted image that has no major problems. The input can be a single:
 </p>
@@ -43,7 +68,15 @@ recon-all –i [input T1 file] –subject [subject name/id] –all
 </li>
 </ul>
 <h2>The recon-all process</h2>
-<p>The recon-all process contains two streams: volume processing and surface processing. 
+<p>The recon-all process is fully automated, just by running
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+recon-all –i [input T1 file] –subject [subject name/id] –all
+</pre></div></div>
+<p>which will create a folder in <tt>$SUBJECTS_DIR</tt> called <tt>[subject name/id]</tt> that you specified.
+</p>
+<p>This process contains two streams: volume processing and surface processing. 
 </p>
 <p><a href="https://surfer.nmr.mgh.harvard.edu\/fswiki/recon-all#StepDescriptionSummaries" target=&ldquo;blank&rdquo;>Full list</a> of commands (operations) that are executed by <tt>recon -all</tt>. See also this <a href="http://surfer.nmr.mgh.harvard.edu/pub/docs/fsrecon.sep2022.pptx" target=&ldquo;blank&rdquo;>official tutorial slides</a>
 </p>
@@ -201,15 +234,17 @@ recon-all –i [input T1 file] –subject [subject name/id] –all
 |   └── ...
 └── ...
 </pre></div></div>
+<p>The following results are generated with the sample T1WI from subject id <tt>sub-CIIIsA01</tt> in this <a href="https://openneuro.org/datasets/ds003416/versions/2.0.1" target=&ldquo;blank&rdquo;>online database</a>. 
+</p>
 <h3>mri</h3>
-<p>This folder <tt>./mri</tt> contains output files from the first stream (volume processing).
+<p>This folder <tt>./mri</tt> contains output files from the first stream (volume processing). See previous sections for details.
 </p>
-<h3>surf</h3>
-<p>This folder <tt>./surf</tt> contains output files from the second stream (surface processing).
+<p>To view all these files, you can use either Freeview or <a href="MRtrix.html" target=&ldquo;blank&rdquo;>MRview</a>.
 </p>
-<p>To view all these files, use the Freeview GUI. Caution: it happens on my laptop (Apple M1 Pro, macOS 13.0) that if you open the GUI from launchpad and try to load the files, the software will crash and quit unexpectedly. 
-</p>
-<p><a href="mailto:https://www.mail-archive.com/freesurfer@nmr.mgh.harvard.edu/msg70721.html" target=&ldquo;blank&rdquo;>One way to solve this</a> is to use the terminal and enter <tt>bash</tt>, then type in the following code to open:
+<table class="imgtable"><tr><td>
+<img src="./figs/freesurfer_volumeproc.png" alt="" width="50%" />&nbsp;</td>
+<td align="left"></td></tr></table>
+<p>If you use Freeview, it happens on my laptop (Apple M1 Pro, macOS 13.0) that if you open the GUI from launchpad and try to load the files, the software will crash and quit unexpectedly. <a href="mailto:https://www.mail-archive.com/freesurfer@nmr.mgh.harvard.edu/msg70721.html" target=&ldquo;blank&rdquo;>One way to solve this</a> is to use the terminal and enter <tt>bash</tt>, then type in the following code to open:
 </p>
 <div class="codeblock">
 <div class="blockcontent"><pre>
@@ -217,10 +252,22 @@ export FREESURFER_HOME=/Applications/freesurfer/7.3.2
 source /Applications/freesurfer/7.3.2/SetUpFreeSurfer.sh
 freeview
 </pre></div></div>
-<p>Please do note that some other issues include <a href="https://neurostars.org/t/problem-installing-freesurfer-in-mac/20552/21" target=&ldquo;blank&rdquo;>using an external monitor to open</a>. It is suggested to first open it in the internal monitor and then drag back to the external one.
+<table class="imgtable"><tr><td>
+<img src="./figs/freeview_open_volume.png" alt="" width="50%" />&nbsp;</td>
+<td align="left"></td></tr></table>
+<p>These files can also be converted back to nii format (so that they can be viewed or edited using other software)
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+mri_convert T1.mgz T1.nii
+</pre></div></div>
+<h3>surf</h3>
+<p>This folder <tt>./surf</tt> contains output files from the second stream (surface processing).
+</p>
+<p>To view all these files, use the Freeview GUI. This time select &ldquo;load surface&hellip;&rdquo; in the &ldquo;File&rdquo; menu.
 </p>
 <table class="imgtable"><tr><td>
-<img src="./figs/freeview_open.png" alt="" width="50%" />&nbsp;</td>
+<img src="./figs/freesurfer_surfproc.png" alt="" width="50%" />&nbsp;</td>
 <td align="left"></td></tr></table>
 <h3>label </h3>
 <p>This folder <tt>./label</tt> contains the parcellation information. Three major file formats are <b>.ctab</b>, <b>.annot</b> and <b>.label</b>.
@@ -287,9 +334,11 @@ freeview
 <td align="left"></td></tr></table>
 <div id="footer">
 <div id="footer-text">
-Page generated 2023-05-05 21:14:11 CDT.
+Page generated 2023-05-31 10:19:58 CDT.
 </div>
 </div>
-</div>
+</td>
+</tr>
+</table>
 </body>
 </html>

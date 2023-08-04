@@ -17,32 +17,43 @@ MathJax.Hub.Config({
 <!-- End MathJax -->
 </head>
 <body>
-<div id="layout-content">
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-252546838-1");
+    pageTracker._trackPageview();
+} catch(err) {}</script>
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-category">Home</div>
+<div class="menu-item"><a href="index.html">Homepage</a></div>
+<div class="menu-item"><a href="sws_intro.html">Intro</a></div>
+<div class="menu-category">Software</div>
+<div class="menu-item"><a href="freesurfer.html">FreeSurfer</a></div>
+<div class="menu-item"><a href="ants.html">ANTs</a></div>
+<div class="menu-item"><a href="MRtrix.html" class="current">MRtrix</a></div>
+<div class="menu-item"><a href="anfi.html">ANFI</a></div>
+<div class="menu-category">Data</div>
+</td>
+<td id="layout-content">
 <div id="toptitle">
 <h1>A Quick Guide to MRtrix</h1>
 </div>
 <h2>Installation (on MacOS)</h2>
 <h3>Dependencies</h3>
-<h4>FSL</h4>
-<p>1. Download <a href="https://fsl.fmrib.ox.ac.uk/fsldownloads_registration" target=&ldquo;blank&rdquo;>fslinstaller.py</a>. <br />
-2. Run the following code in terminal
+<p>FSL: Download <a href="https://fsl.fmrib.ox.ac.uk/fsldownloads_registration" target=&ldquo;blank&rdquo;>fslinstaller.py</a> and then run the following code in terminal
 </p>
 <div class="codeblock">
 <div class="blockcontent"><pre>
 cs ~/Downloads
 python fslinstaller.py
 </pre></div></div>
-<h4>FreeSurfer</h4>
-<p>1. Download and install FreeSurfer through <a href="https://surfer.nmr.mgh.harvard.edu/fswiki/rel7downloads" target=&ldquo;blank&rdquo;>pkg file</a>. <br />
-2. <a href="https://surfer.nmr.mgh.harvard.edu/registration.html" target=&ldquo;blank&rdquo;>Register to obtain license</a> before use. <br />
-3. Configure environment by running (remember to change the version number (here is 7.3.2) accordingly)
+<p>FreeSurfer: see <a href="freesurfer.html" target=&ldquo;blank&rdquo;>this page</a>
 </p>
-<div class="codeblock">
-<div class="blockcontent"><pre>
-export FREESURFER_HOME=/Applications/freesurfer/7.3.2
-export SUBJECTS_DIR=$FREESURFER_HOME/subjects
-source $FREESURFER_HOME/SetUpFreeSurfer.sh
-</pre></div></div>
 <h3>MRtrix </h3>
 <p>For MacOS, run the following codes to install and build (see <a href="https://www.mrtrix.org/download/macos-application/" target=&ldquo;blank&rdquo;>this page</a>).
 </p>
@@ -195,6 +206,9 @@ tensor2metric dt.mif -fa dt_fa.mif -force
 </pre></div></div>
 <p>To view the generated tensor through the mrview GUI, open T1WI first, and then select Tool&gt;&gt;ODF display&gt;&gt;open tensor image. The tensor at each voxel is described by a ellipsoid (characterized by 6 values).
 </p>
+<table class="imgtable"><tr><td>
+<img src="./figs/mrtrix_dt.png" alt="" width="50%" />&nbsp;</td>
+<td align="left"></td></tr></table>
 <p>Since the voxel size is far greater then the fiber radius, these tensors are imprecise in describing the real tracts of the fibers. It is more recommended to use the CSD algorithm as follows.
 </p>
 <h4>Constrained spherical deconvolution (CSD)</h4>
@@ -212,6 +226,9 @@ dwi2fod msmt_csd registered.mif ms_5tt_wm.txt dwi_wmcsd.mif ms_5tt_gm.txt dwi_gm
 </pre></div></div>
 <p>To view the generated FOD through the mrview GUI, open T1WI first, and then select Tool&gt;&gt;ODF display&gt;&gt;open SH image.
 </p>
+<table class="imgtable"><tr><td>
+<img src="./figs/mrtrix_csd.png" alt="" width="50%" />&nbsp;</td>
+<td align="left"></td></tr></table>
 <h3>Generating tracts</h3>
 <p>Creating ROI (output file: <tt>dwi_wmMask.mif</tt>)
 </p>
@@ -233,6 +250,9 @@ tckgen -algo iFOD2 -act 5ttseg.mif \
        -seed_image dwi_wmMask.mif  -select 200k \
        dwi_wmCsd.mif fibs_200k_angle45_maxlen200_act.tck
 </pre></div></div>
+<table class="imgtable"><tr><td>
+<img src="./figs/mrtrix_tck_wholeBrain.png" alt="" width="50%" />&nbsp;</td>
+<td align="left"></td></tr></table>
 <p>Fiber tracking between specific regions: The only difference is to set seed image as the starting region and require it to include your target region. Here we also ask for uni-directional tracking.
 </p>
 <div class="codeblock">
@@ -242,6 +262,9 @@ tckgen -algo iFOD2 -act 5ttseg.mif \
        -seed_image lh_thalamus.nii.gz -include lh_cuneus.nii.gz -seed_unidirectional -stop \
        dwi_wmCsd.mif fibs_OR.tck
 </pre></div></div>
+<table class="imgtable"><tr><td>
+<img src="./figs/mrtrix_tck_partial.png" alt="" width="50%" />&nbsp;</td>
+<td align="left"></td></tr></table>
 <h2>Connectome</h2>
 <p>We need to re-label the freesurfer output regions (make sure you have access) (output file: <tt>aparc.a2009s+aseg_relabel.nii.gz</tt>):
 </p>
@@ -278,11 +301,16 @@ tck2connectome -symmetric -zero_diagonal -scale_invnodevol \
 mrview aparc.a2009s+aseg_relabel.nii.gz -connectome.init \
        aparc.a2009s+aseg_relabel.nii.gz -connectome.load connectome_a2009s.csv
 </pre></div></div>
+<table class="imgtable"><tr><td>
+<img src="./figs/mrtrix_connectome.png" alt="" width="50%" />&nbsp;</td>
+<td align="left"></td></tr></table>
 <div id="footer">
 <div id="footer-text">
-Page generated 2023-05-02 23:18:38 CDT.
+Page generated 2023-06-01 10:10:13 CDT.
 </div>
 </div>
-</div>
+</td>
+</tr>
+</table>
 </body>
 </html>
