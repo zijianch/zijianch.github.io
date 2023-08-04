@@ -33,7 +33,7 @@ The recon-all process is fully automated, just by running
 {}{}
 recon-all –i [input T1 file] –subject [subject name/id] –all
 ~~~
-which will create a folder in +$SUBJECTS\_DIR+ called +\[subject name/id\]+ that you specified.
+which will create a folder in +$SUBJECTS\_DIR+ called +\[subject name/id\]+ that you specified. The whole process should take approximately 3-4 hours for one subject (Apple M1 Pro).
 
 
 This process contains two streams: volume processing and surface processing. 
