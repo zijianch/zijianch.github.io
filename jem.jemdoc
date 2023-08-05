@@ -42,7 +42,11 @@ Then use +Terminal+
 cd \User\xxx\myJem
 python2 jemdoc.py MENU
 ~~~
-Remember to re-generate all other pages after you update the menu.
+Remember to re-generate all other pages after you update the menu. You can also use a [updateMENU.sh shell script] to execute the update process for all pages. Make sure you give permission to this file by 
+~~~
+{}{}
+chmod +x updateMENU.sh
+~~~
 
 === Pages with MathJax
 
