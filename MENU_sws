@@ -1,6 +1,7 @@
 Home
-    Homepage             [index.html]
     Intro		 [sws_intro.html]
+    Homepage             [index.html]
+    
 
 Software
     FreeSurfer		 [freesurfer.html]
@@ -9,3 +10,5 @@ Software
     ANFI		 [anfi.html]
 
 Data
+    Overview		 [dataOverview.html]
+    HCP			 [HCP.html]
