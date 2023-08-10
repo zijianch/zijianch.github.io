@@ -2,6 +2,35 @@
 = HCP dataset
 
 
- 
+== Accessing HCP data
+
+Go to [https://db.humanconnectome.org/app/template/Login.vm connectome db] for downloading the data.
+
+For details, see [https://www.humanconnectome.org/storage/app/media/documentation/s1200/HCP_S1200_Release_Reference_Manual.pdf Reference Manual] chapter
+1.
+
+
+== Data Structure
+
+
+For unprocessed structural data, the folders for one subject should look like the following:
+~~~
+{}{img_left}{./figs/HCP_dataStruct_unproc.png}{}{50%}{}{}
+~~~
+
+For preprocessed data:
+- structural
+-- * T1w\/ *: T1w and T2w volume data (see [freesurfer.html FreeSurfer naming conventions])
+--- *T1w\/Native\/*: FreeSurfer surfaces in their native mesh and original dimensions after rigid-body rotation to AC-PC alignment.
+-- *MNINonLinear\/*: data registered to MNI152 space
+--- *MNINonLinear\/Native\/*: additional files used during surface-based registration.
+--- *MNINonLinear\/xfms\/*: files encoding the transformation between acpc and MNINonLinear volumetric space.
+--- *MNINonLinear\/fsaverage_LR32k\/*: files spatially downsampled to a 32k mesh (average vertex spacing of 2 mm)
+- fMRI
+-- *MNINonLinear\/Results\/* : volumetric and CIFTI grayordinates data, motion parameters, and physiological data in four subdirectories named similar to +rfMRI\_REST1\_RL+, plus data for 7 pairs of tfMRI scans, named similar to +tfMRI\_EMOTION\_RL+.
+-- Estimates of motion parameters are saved into two different files: +Movement\_Regressors.txt+ and +Movement\_Regressors\_dt.txt+.
+- Diffusion
+-- * T1w\/ *: contains +T1w\_acpc\_dc\_restore\_1.25.nii.gz+ (structural volume)
+--- *T1w\/Diffusion\/*: contains bval, bvec, +data.nii.gz+(preprocessed diffusion time series), +nodif\_brain\_mask.nii.gz+(brain mask) and +grad\_dev.nii.gz+ (effects of gradient nonlinearities on the bvals and bvecs for each voxel).
 
 

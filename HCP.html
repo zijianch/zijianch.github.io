@@ -45,9 +45,74 @@ try {
 <div id="toptitle">
 <h1>HCP dataset</h1>
 </div>
+<h2>Accessing HCP data</h2>
+<p>Go to <a href="https://db.humanconnectome.org/app/template/Login.vm" target=&ldquo;blank&rdquo;>connectome db</a> for downloading the data.
+</p>
+<p>For details, see <a href="https://www.humanconnectome.org/storage/app/media/documentation/s1200/HCP_S1200_Release_Reference_Manual.pdf" target=&ldquo;blank&rdquo;>Reference Manual</a> chapter
+1.
+</p>
+<h2>Data Structure</h2>
+<p>For unprocessed structural data, the folders for one subject should look like the following:
+</p>
+<table class="imgtable"><tr><td>
+<img src="./figs/HCP_dataStruct_unproc.png" alt="" width="50%" />&nbsp;</td>
+<td align="left"></td></tr></table>
+<p>For preprocessed data:
+</p>
+<ul>
+<li><p>structural
+</p>
+<ul>
+<li><p><b> T1w/ </b>: T1w and T2w volume data (see <a href="freesurfer.html" target=&ldquo;blank&rdquo;>FreeSurfer naming conventions</a>)
+</p>
+<ul>
+<li><p><b>T1w/Native/</b>: FreeSurfer surfaces in their native mesh and original dimensions after rigid-body rotation to AC-PC alignment.
+</p>
+</li></ul>
+</li>
+<li><p><b>MNINonLinear/</b>: data registered to MNI152 space
+</p>
+<ul>
+<li><p><b>MNINonLinear/Native/</b>: additional files used during surface-based registration.
+</p>
+</li>
+<li><p><b>MNINonLinear/xfms/</b>: files encoding the transformation between acpc and MNINonLinear volumetric space.
+</p>
+</li>
+<li><p><b>MNINonLinear/fsaverage_LR32k/</b>: files spatially downsampled to a 32k mesh (average vertex spacing of 2 mm)
+</p>
+</li></ul>
+</li></ul>
+</li>
+<li><p>fMRI
+</p>
+<ul>
+<li><p><b>MNINonLinear/Results/</b> : volumetric and CIFTI grayordinates data, motion parameters, and physiological data in four subdirectories named similar to <tt>rfMRI_REST1_RL</tt>, plus data for 7 pairs of tfMRI scans, named similar to <tt>tfMRI_EMOTION_RL</tt>.
+</p>
+</li>
+<li><p>Estimates of motion parameters are saved into two different files: <tt>Movement_Regressors.txt</tt> and <tt>Movement_Regressors_dt.txt</tt>.
+</p>
+</li></ul>
+</li>
+<li><p>Diffusion
+</p>
+<ul>
+<li><p><b> T1w/ </b>: contains <tt>T1w_acpc_dc_restore_1.25.nii.gz</tt> (structural volume)
+</p>
+<ul>
+<li><p><b>T1w/Diffusion/</b>: contains bval, bvec, <tt>data.nii.gz</tt>(preprocessed diffusion time series), <tt>nodif_brain_mask.nii.gz</tt>(brain mask) and <tt>grad_dev.nii.gz</tt> (effects of gradient nonlinearities on the bvals and bvecs for each voxel).
+</p>
+</li>
+</ul>
+
+</li>
+</ul>
+
+</li>
+</ul>
 <div id="footer">
 <div id="footer-text">
-Page generated 2023-08-09 09:00:37 EDT.
+Page generated 2023-08-09 22:17:07 EDT.
 </div>
 </div>
 </td>
