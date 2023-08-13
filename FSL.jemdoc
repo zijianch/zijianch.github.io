@@ -1,13 +1,34 @@
-# jemdoc: menu{MENU_sws}{afni.html},analytics{UA-252546838-1}
-= A Quick Guide to AFNI
+# jemdoc: menu{MENU_sws}{FSL.html},analytics{UA-252546838-1}
+= A Quick Guide to FSL
 
 == Installation on macOS
 
-The [https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/background_install/install_instructs/steps_macOS_12_Silicon.html official tutorials] are very detailed and explains itself extremely clearly. Please just follow the steps.
 
+== Usage
 
+FSL provides introductory courses with hands-on tutorials which can be accessed through this [https://open.win.ox.ac.uk/pages/fslcourse/website/online_materials.html link].
 
+=== Structural MRI
 
- 
+Registration ([https://open.win.ox.ac.uk/pages/fslcourse/practicals/registration/index.html official tutorial]): This contains two main steps:
+- Register functional EPI images to the individual structural image and to standard space using FEAT. This includes fieldmap-based unwarping and the preparation of these fieldmap scans.
+- Calculate and apply transforms and inverses from linear and non-linear registration
+
+Segmentation ([https://open.win.ox.ac.uk/pages/fslcourse/practicals/seg_struc/index.html official tutorial]): This includes using FAST (tissue-type segmentation), FIRST (sub-cortical structure segmentation) and FSL-VBM (local grey matter volume difference analysis).
+
+=== fMRI
+
+=== DWI
+
+The main toolbox is FDT(FMRIB's Diffusion Toolbox).  The programs in this toolbox are: 
+- +eddy+ - for correction of eddy current distortions 
+- +bedpostx+ - for local modeling of diffusion parameters 
+- +probtrackx+ - for tractography and connectivity-based segmentation 
+- +dtifit+ - for local fitting of diffusion tensors
+
+The order of running all these procedures should be 
+- +eddy+ - +dtifit+ (see this [https://open.win.ox.ac.uk/pages/fslcourse/practicals/fdt1/index.html official tutorial]) or
+- +eddy+ - +bedpostx+ - +probtrackx+  (see this [https://open.win.ox.ac.uk/pages/fslcourse/practicals/fdt2/index.html official tutorial])
+
 
 

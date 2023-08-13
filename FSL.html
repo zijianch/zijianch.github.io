@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="stylesheet" href="jemdoc.css" type="text/css" />
+<title>A Quick Guide to FSL</title>
+<!-- MathJax -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+<!-- End MathJax -->
+</head>
+<body>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+    var pageTracker = _gat._getTracker("UA-252546838-1");
+    pageTracker._trackPageview();
+} catch(err) {}</script>
+<table summary="Table for page layout." id="tlayout">
+<tr valign="top">
+<td id="layout-menu">
+<div class="menu-category">Home</div>
+<div class="menu-item"><a href="sws_intro.html">Intro</a></div>
+<div class="menu-item"><a href="index.html">Homepage</a></div>
+<div class="menu-category">Software</div>
+<div class="menu-item"><a href="freesurfer.html">FreeSurfer</a></div>
+<div class="menu-item"><a href="ants.html">ANTs</a></div>
+<div class="menu-item"><a href="MRtrix.html">MRtrix</a></div>
+<div class="menu-item"><a href="afni.html">AFNI</a></div>
+<div class="menu-item"><a href="FSL.html" class="current">FSL</a></div>
+<div class="menu-category">Data</div>
+<div class="menu-item"><a href="dataOverview.html">Overview</a></div>
+<div class="menu-item"><a href="HCP.html">HCP</a></div>
+</td>
+<td id="layout-content">
+<div id="toptitle">
+<h1>A Quick Guide to FSL</h1>
+</div>
+<h2>Installation on macOS</h2>
+<h2>Usage</h2>
+<p>FSL provides introductory courses with hands-on tutorials which can be accessed through this <a href="https://open.win.ox.ac.uk/pages/fslcourse/website/online_materials.html" target=&ldquo;blank&rdquo;>link</a>.
+</p>
+<h3>Structural MRI</h3>
+<p>Registration (<a href="https://open.win.ox.ac.uk/pages/fslcourse/practicals/registration/index.html" target=&ldquo;blank&rdquo;>official tutorial</a>): This contains two main steps:
+</p>
+<ul>
+<li><p>Register functional EPI images to the individual structural image and to standard space using FEAT. This includes fieldmap-based unwarping and the preparation of these fieldmap scans.
+</p>
+</li>
+<li><p>Calculate and apply transforms and inverses from linear and non-linear registration
+</p>
+</li>
+</ul>
+<p>Segmentation (<a href="https://open.win.ox.ac.uk/pages/fslcourse/practicals/seg_struc/index.html" target=&ldquo;blank&rdquo;>official tutorial</a>): This includes using FAST (tissue-type segmentation), FIRST (sub-cortical structure segmentation) and FSL-VBM (local grey matter volume difference analysis).
+</p>
+<h3>fMRI</h3>
+<h3>DWI</h3>
+<p>The main toolbox is FDT(FMRIB's Diffusion Toolbox).  The programs in this toolbox are: 
+</p>
+<ul>
+<li><p><tt>eddy</tt> - for correction of eddy current distortions 
+</p>
+</li>
+<li><p><tt>bedpostx</tt> - for local modeling of diffusion parameters 
+</p>
+</li>
+<li><p><tt>probtrackx</tt> - for tractography and connectivity-based segmentation 
+</p>
+</li>
+<li><p><tt>dtifit</tt> - for local fitting of diffusion tensors
+</p>
+</li>
+</ul>
+<p>The order of running all these procedures should be 
+</p>
+<ul>
+<li><p><tt>eddy</tt> - <tt>dtifit</tt> (see this <a href="https://open.win.ox.ac.uk/pages/fslcourse/practicals/fdt1/index.html" target=&ldquo;blank&rdquo;>official tutorial</a>) or
+</p>
+</li>
+<li><p><tt>eddy</tt> - <tt>bedpostx</tt> - <tt>probtrackx</tt>  (see this <a href="https://open.win.ox.ac.uk/pages/fslcourse/practicals/fdt2/index.html" target=&ldquo;blank&rdquo;>official tutorial</a>)
+</p>
+</li>
+</ul>
+<div id="footer">
+<div id="footer-text">
+Page generated 2023-08-12 23:40:32 EDT.
+</div>
+</div>
+</td>
+</tr>
+</table>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EZMPZ1N19T"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-EZMPZ1N19T');
+</script>
+</body>
+</html>

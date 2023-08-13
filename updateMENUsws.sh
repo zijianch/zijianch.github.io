@@ -17,6 +17,7 @@ python jemdoc3.py -c mysite.conf MRtrix
 python jemdoc3.py -c mysite.conf afni
 python jemdoc3.py -c mysite.conf dataOverview
 python jemdoc3.py -c mysite.conf HCP
+python jemdoc3.py -c mysite.conf FSL
 
 
 
