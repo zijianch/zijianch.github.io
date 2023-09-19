@@ -47,13 +47,23 @@ try {
 <h1>HCP dataset</h1>
 </div>
 <h2>Accessing HCP data</h2>
-<p>Go to <a href="https://db.humanconnectome.org/app/template/Login.vm" target=&ldquo;blank&rdquo;>connectome db</a> for downloading the data.
-</p>
-<p>For details, see <a href="https://www.humanconnectome.org/storage/app/media/documentation/s1200/HCP_S1200_Release_Reference_Manual.pdf" target=&ldquo;blank&rdquo;>Reference Manual</a> chapter
+<p>Go to <a href="https://db.humanconnectome.org/app/template/Login.vm" target=&ldquo;blank&rdquo;>connectome db</a> for downloading the data. For details, see <a href="https://www.humanconnectome.org/storage/app/media/documentation/s1200/HCP_S1200_Release_Reference_Manual.pdf" target=&ldquo;blank&rdquo;>Reference Manual</a> chapter
 1.
 </p>
-<h2>Imaging data structure</h2>
-<p>For unprocessed structural data, the folders for one subject should look like the following:
+<p>For example, if you want to download the data for a specific subject, see the following steps:
+</p>
+<table class="imgtable"><tr><td>
+<img src="./figs/HCP_download_1.png" alt="" width="50%" />&nbsp;</td>
+<td align="left"></td></tr></table>
+<p>For batch downloading, use &ldquo;filters&rdquo;:
+</p>
+<table class="imgtable"><tr><td>
+<img src="./figs/HCP_download_2.png" alt="" width="30%" />&nbsp;</td>
+<td align="left"></td></tr></table>
+<h2>File directory structure</h2>
+<p>See <a href="https://www.humanconnectome.org/storage/app/media/documentation/s1200/HCP_S1200_Release_Reference_Manual.pdf" target=&ldquo;blank&rdquo;>Reference Manual</a> chapter 3 or <a href="https://www.humanconnectome.org/storage/app/media/documentation/s1200/HCP_S1200_Release_Appendix_III.pdf" target=&ldquo;blank&rdquo;>Appendix III</a> of the Reference Manual for more detailed information.
+</p>
+<p>For unprocessed images, the folders for one subject should look like the following:
 </p>
 <table class="imgtable"><tr><td>
 <img src="./figs/HCP_dataStruct_unproc.png" alt="" width="50%" />&nbsp;</td>
@@ -88,8 +98,18 @@ try {
 <li><p>fMRI
 </p>
 <ul>
-<li><p><b>MNINonLinear/Results/</b> : volumetric and CIFTI grayordinates data, motion parameters, and physiological data in four subdirectories named similar to <tt>rfMRI_REST1_RL</tt>, plus data for 7 pairs of tfMRI scans, named similar to <tt>tfMRI_EMOTION_RL</tt>.
+<li><p><b>MNINonLinear/Results/</b> : volumetric and CIFTI grayordinates data, motion parameters, and physiological data
 </p>
+<ul>
+<li><p>For rs-fMRI, there are 4 subdirectories named similar to <tt>rfMRI_REST1_RL</tt>
+</p>
+</li>
+<li><p>For t-fMRI, there are 7 pairs of tfMRI scans (14 folders), named similar to <tt>tfMRI_EMOTION_RL</tt>. There are additional 7 folders named similar to <tt>tfMRI_LANGUAGE</tt> that contain an <tt>.fsf</tt> file that can be used to run analysis across the two runs of each task.
+</p>
+</li>
+<li><p>Each of the directories contains an <tt>.fsf</tt> file and a “EVs” directory containing explanatory variables. These files can be used to run first-level analyses in the <a href="FSL.html" target=&ldquo;blank&rdquo;>FSL</a> program FEAT.
+</p>
+</li></ul>
 </li>
 <li><p>Estimates of motion parameters are saved into two different files: <tt>Movement_Regressors.txt</tt> and <tt>Movement_Regressors_dt.txt</tt>.
 </p>
@@ -111,9 +131,31 @@ try {
 
 </li>
 </ul>
+<h2>Pre-processed Files that are of specific interest</h2>
+<h3>rs-fMRI</h3>
+<p>File located at
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+&lt;subject id&gt;/MNINonLinear/Results/rfMRI_REST1_LR/rfMRI_REST1_LR.nii.gz
+</pre></div></div>
+<p>There are four such files (2 sessions, each session has both LR and RL). Just pick any one of them. The nii.gz file size should be around 1 GB. 
+</p>
+<p>This image is registered to the MNI space. To do ROI analysis, you should register the atlas to the rs-fMRI data/creating ROI masks, and then use CONN or FSL.
+</p>
+<h3>T1WI</h3>
+<p>File located at
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+&lt;subject id&gt;/MNINonLinear/T1w.nii.gz
+</pre></div></div>
+<h3>Diffusion</h3>
+<p>File located at
+</p>
 <div id="footer">
 <div id="footer-text">
-Page generated 2023-08-12 23:40:32 EDT.
+Page generated 2023-09-19 00:32:27 EDT.
 </div>
 </div>
 </td>

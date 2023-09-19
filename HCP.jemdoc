@@ -4,16 +4,28 @@
 
 == Accessing HCP data
 
-Go to [https://db.humanconnectome.org/app/template/Login.vm connectome db] for downloading the data.
-
-For details, see [https://www.humanconnectome.org/storage/app/media/documentation/s1200/HCP_S1200_Release_Reference_Manual.pdf Reference Manual] chapter
+Go to [https://db.humanconnectome.org/app/template/Login.vm connectome db] for downloading the data. For details, see [https://www.humanconnectome.org/storage/app/media/documentation/s1200/HCP_S1200_Release_Reference_Manual.pdf Reference Manual] chapter
 1.
 
 
-== Imaging data structure
+For example, if you want to download the data for a specific subject, see the following steps:
+~~~
+{}{img_left}{./figs/HCP_download_1.png}{}{50%}{}{}
+~~~
+
+For batch downloading, use "filters":
+~~~
+{}{img_left}{./figs/HCP_download_2.png}{}{30%}{}{}
+~~~
 
 
-For unprocessed structural data, the folders for one subject should look like the following:
+
+
+== File directory structure
+
+See [https://www.humanconnectome.org/storage/app/media/documentation/s1200/HCP_S1200_Release_Reference_Manual.pdf Reference Manual] chapter 3 or [https://www.humanconnectome.org/storage/app/media/documentation/s1200/HCP_S1200_Release_Appendix_III.pdf Appendix III] of the Reference Manual for more detailed information.
+
+For unprocessed images, the folders for one subject should look like the following:
 ~~~
 {}{img_left}{./figs/HCP_dataStruct_unproc.png}{}{50%}{}{}
 ~~~
@@ -27,10 +39,37 @@ For preprocessed data:
 --- *MNINonLinear\/xfms\/*: files encoding the transformation between acpc and MNINonLinear volumetric space.
 --- *MNINonLinear\/fsaverage_LR32k\/*: files spatially downsampled to a 32k mesh (average vertex spacing of 2 mm)
 - fMRI
--- *MNINonLinear\/Results\/* : volumetric and CIFTI grayordinates data, motion parameters, and physiological data in four subdirectories named similar to +rfMRI\_REST1\_RL+, plus data for 7 pairs of tfMRI scans, named similar to +tfMRI\_EMOTION\_RL+.
+-- *MNINonLinear\/Results\/* : volumetric and CIFTI grayordinates data, motion parameters, and physiological data
+--- For rs-fMRI, there are 4 subdirectories named similar to +rfMRI\_REST1\_RL+
+--- For t-fMRI, there are 7 pairs of tfMRI scans (14 folders), named similar to +tfMRI\_EMOTION\_RL+. There are additional 7 folders named similar to +tfMRI\_LANGUAGE+ that contain an +.fsf+ file that can be used to run analysis across the two runs of each task.
+--- Each of the directories contains an +.fsf+ file and a “EVs” directory containing explanatory variables. These files can be used to run first-level analyses in the [FSL.html FSL] program FEAT.
 -- Estimates of motion parameters are saved into two different files: +Movement\_Regressors.txt+ and +Movement\_Regressors\_dt.txt+.
 - Diffusion
 -- * T1w\/ *: contains +T1w\_acpc\_dc\_restore\_1.25.nii.gz+ (structural volume)
 --- *T1w\/Diffusion\/*: contains bval, bvec, +data.nii.gz+(preprocessed diffusion time series), +nodif\_brain\_mask.nii.gz+(brain mask) and +grad\_dev.nii.gz+ (effects of gradient nonlinearities on the bvals and bvecs for each voxel).
 
 
+== Pre-processed Files that are of specific interest
+
+=== rs-fMRI
+
+File located at
+~~~
+{}{}
+<subject id>/MNINonLinear/Results/rfMRI_REST1_LR/rfMRI_REST1_LR.nii.gz
+~~~
+There are four such files (2 sessions, each session has both LR and RL). Just pick any one of them. The nii.gz file size should be around 1 GB. 
+
+This image is registered to the MNI space. To do ROI analysis, you should register the atlas to the rs-fMRI data/creating ROI masks, and then use CONN or FSL.
+
+=== T1WI
+
+File located at
+~~~
+{}{}
+<subject id>/MNINonLinear/T1w.nii.gz
+~~~
+
+=== Diffusion
+
+File located at
