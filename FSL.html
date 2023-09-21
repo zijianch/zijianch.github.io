@@ -63,7 +63,13 @@ try {
 </ul>
 <p>Segmentation (<a href="https://open.win.ox.ac.uk/pages/fslcourse/practicals/seg_struc/index.html" target=&ldquo;blank&rdquo;>official tutorial</a>): This includes using FAST (tissue-type segmentation), FIRST (sub-cortical structure segmentation) and FSL-VBM (local grey matter volume difference analysis).
 </p>
-<h3>fMRI</h3>
+<h3>rs-fMRI</h3>
+<p>For each single subject, to extract the time series from a 4D (3D structural + 1D time) NIFTI file for <b>ONE</b> ROI, use <tt>fslmeants</tt>, which average the time series over all voxels in the mask to obtain one final time series.
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+fslmeants -i &lt;fMRI input&gt;.nii.gz -o &lt;output name&gt;.txt -m &lt;roi mask&gt;.nii.gz
+</pre></div></div>
 <h3>DWI</h3>
 <p>The main toolbox is FDT(FMRIB's Diffusion Toolbox).  The programs in this toolbox are: 
 </p>
@@ -93,7 +99,7 @@ try {
 </ul>
 <div id="footer">
 <div id="footer-text">
-Page generated 2023-08-12 23:40:32 EDT.
+Page generated 2023-09-20 23:05:29 EDT.
 </div>
 </div>
 </td>

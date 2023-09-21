@@ -16,7 +16,16 @@ Registration ([https://open.win.ox.ac.uk/pages/fslcourse/practicals/registration
 
 Segmentation ([https://open.win.ox.ac.uk/pages/fslcourse/practicals/seg_struc/index.html official tutorial]): This includes using FAST (tissue-type segmentation), FIRST (sub-cortical structure segmentation) and FSL-VBM (local grey matter volume difference analysis).
 
-=== fMRI
+=== rs-fMRI
+
+For each single subject, to extract the time series from a 4D (3D structural \+ 1D time) NIFTI file for *ONE* ROI, use +fslmeants+, which average the time series over all voxels in the mask to obtain one final time series.
+~~~
+{}{}
+fslmeants -i <fMRI input>.nii.gz -o <output name>.txt -m <roi mask>.nii.gz
+~~~
+
+
+
 
 === DWI
 

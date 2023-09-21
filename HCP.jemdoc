@@ -49,7 +49,39 @@ For preprocessed data:
 --- *T1w\/Diffusion\/*: contains bval, bvec, +data.nii.gz+(preprocessed diffusion time series), +nodif\_brain\_mask.nii.gz+(brain mask) and +grad\_dev.nii.gz+ (effects of gradient nonlinearities on the bvals and bvecs for each voxel).
 
 
-== Pre-processed Files that are of specific interest
+== Basic info for the HCP data
+
+=== Imaging protocols for raw data
+
+*T1w\/T2w*: (Chapter 2 at Page 35)
+~~~
+{}{img_left}{./figs/HCP_structural_protocol.png}{}{30%}{}{}
+~~~
+
+*rs-fMRI*: (Chapter 2 at Page 35-36)
+~~~
+{}{img_left}{./figs/HCP_rsfmri_protocol.png}{}{30%}{}{}
+~~~
+
+
+
+
+
+
+
+=== Preprocessing operations
+
+*fMRI*: there are two pipelines (cf. Chapter 5 at Page 131-132):
+- fMRIVolume: spatial distortion removal, motion correction, bias field reduction, registration to the structural MNI template, and data masking with the brain mask based on FreeSurfer segmentation. (other sources of reference: \[[https://pubmed.ncbi.nlm.nih.gov/23668970/ 1]\], \[[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7739896/ 2]\])
+- fMRISurface: aim to bring the time-series from the volume into the CIFTI grayordinates standard space. (you can ignore this) 
+
+
+
+
+
+== Next steps...
+
+There are some of the files that we may be specifically interested in using. The section briefly introduce how to locate and use them.
 
 === rs-fMRI
 
@@ -60,7 +92,21 @@ File located at
 ~~~
 There are four such files (2 sessions, each session has both LR and RL). Just pick any one of them. The nii.gz file size should be around 1 GB. 
 
-This image is registered to the MNI space. To do ROI analysis, you should register the atlas to the rs-fMRI data/creating ROI masks, and then use CONN or FSL.
+This particular image is preprocessed using fMRIVolume only (see above). The resulting volumetric data contains values at $91 \times  109 \times  91 = 902629$ 2-mm isotropic voxels (MNI space) at 1200 time points. To see this, simply download the MATLAB function [https://www.mathworks.com/matlabcentral/fileexchange/8797-tools-for-nifti-and-analyze-image load\_nii] and run
+~~~
+{}{}
+nii = load_nii('rfMRI_REST1_LR.nii');
+X = nii.img;
+~~~
+where +X+ will be a 4-D single image matrix with size $91 \times  109 \times  91 \times 1200$.
+
+Ultimately, we want to compute functional connectivity between each pair of ROIs. The first step is to compute the average time-series across all voxels within every single ROI. MATLAB scripting will be hard wrt atlas and registration. Instead, this can be done using:
+- [https://nideconv.readthedocs.io/en/latest/auto_examples/extract_timeseries_fmriprep.html nilearn]
+- FSL: can process one ROI only with +fslmeants+. Need to write script to automate the process for outputting all ROI time series.
+
+There are also softwares that directly output the final connectivity:
+- CONN: [https://web.conn-toolbox.org/fmri-methods/connectivity-measures/roi-to-roi ROI-to-ROI analyses]
+
 
 === T1WI
 
