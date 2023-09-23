@@ -92,13 +92,13 @@ File located at
 ~~~
 There are four such files (2 sessions, each session has both LR and RL). Just pick any one of them. The nii.gz file size should be around 1 GB. 
 
-This particular image is preprocessed using fMRIVolume only (see above). The resulting volumetric data contains values at $91 \times  109 \times  91 = 902629$ 2-mm isotropic voxels (MNI space) at 1200 time points. To see this, simply download the MATLAB function [https://www.mathworks.com/matlabcentral/fileexchange/8797-tools-for-nifti-and-analyze-image load\_nii] and run
+This particular image is preprocessed using fMRIVolume only (see above). The resulting volumetric data contains values at $91 \times  109 \times  91 = 902629$ 2-mm isotropic voxels (MNI152) at 1200 time points. To see this, simply download the MATLAB function [https://www.mathworks.com/matlabcentral/fileexchange/8797-tools-for-nifti-and-analyze-image load\_nii] and run
 ~~~
 {}{}
 nii = load_nii('rfMRI_REST1_LR.nii');
 X = nii.img;
+size(X)       % 91x109x91x1200 4-D single
 ~~~
-where +X+ will be a 4-D single image matrix with size $91 \times  109 \times  91 \times 1200$.
 
 Ultimately, we want to compute functional connectivity between each pair of ROIs. The first step is to compute the average time-series across all voxels within every single ROI. MATLAB scripting will be hard wrt atlas and registration. Instead, this can be done using:
 - [https://nideconv.readthedocs.io/en/latest/auto_examples/extract_timeseries_fmriprep.html nilearn]

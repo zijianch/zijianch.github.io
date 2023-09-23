@@ -166,15 +166,14 @@ try {
 </pre></div></div>
 <p>There are four such files (2 sessions, each session has both LR and RL). Just pick any one of them. The nii.gz file size should be around 1 GB. 
 </p>
-<p>This particular image is preprocessed using fMRIVolume only (see above). The resulting volumetric data contains values at \(91 \times  109 \times  91 = 902629\) 2-mm isotropic voxels (MNI space) at 1200 time points. To see this, simply download the MATLAB function <a href="https://www.mathworks.com/matlabcentral/fileexchange/8797-tools-for-nifti-and-analyze-image" target=&ldquo;blank&rdquo;>load_nii</a> and run
+<p>This particular image is preprocessed using fMRIVolume only (see above). The resulting volumetric data contains values at \(91 \times  109 \times  91 = 902629\) 2-mm isotropic voxels (MNI152) at 1200 time points. To see this, simply download the MATLAB function <a href="https://www.mathworks.com/matlabcentral/fileexchange/8797-tools-for-nifti-and-analyze-image" target=&ldquo;blank&rdquo;>load_nii</a> and run
 </p>
 <div class="codeblock">
 <div class="blockcontent"><pre>
 nii = load_nii('rfMRI_REST1_LR.nii');
 X = nii.img;
+size(X)       % 91x109x91x1200 4-D single
 </pre></div></div>
-<p>where <tt>X</tt> will be a 4-D single image matrix with size \(91 \times  109 \times  91 \times 1200\).
-</p>
 <p>Ultimately, we want to compute functional connectivity between each pair of ROIs. The first step is to compute the average time-series across all voxels within every single ROI. MATLAB scripting will be hard wrt atlas and registration. Instead, this can be done using:
 </p>
 <ul>
@@ -207,7 +206,7 @@ X = nii.img;
 </p>
 <div id="footer">
 <div id="footer-text">
-Page generated 2023-09-21 00:16:35 EDT.
+Page generated 2023-09-21 22:29:41 EDT.
 </div>
 </div>
 </td>
