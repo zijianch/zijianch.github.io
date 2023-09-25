@@ -21,9 +21,23 @@ MathJax.Hub.Config({
 <div id="toptitle">
 <h1>FAQ</h1>
 </div>
+<h2>Space, template and atlas</h2>
+<div class="infoblock">
+<div class="blockcontent">
 <p><b>Q: What is the difference between &ldquo;space&rdquo;, &ldquo;template&rdquo; and &ldquo;atlas&rdquo;?</b>
 </p>
-<p><b>A</b>: &ldquo;Space&rdquo; refers to the background space that one study the brain. Less generally, it refers to the boundaries around the brain. There are two big categories: the <i>Native (individual) space</i> and the <i>Common space</i>. As the name suggests, the former is where your individual brain data is at (and varies from subject to subject), while the latter is a common space that enables the comparison between different subjects&rsquo; brains. There are two famous common space: the  Talairach space and the MNI space. &ldquo;Template&rdquo; is a standard brain in a specific space. For example, the MNI space has the following templates:
+</div></div>
+<p>&ldquo;Space&rdquo; refers to the background space that one study the brain. Less generally, it refers to the boundaries around the brain. There are two big categories: 
+</p>
+<ul>
+<li><p>Native (individual) space:  where your individual brain data is at (and varies from subject to subject)
+</p>
+</li>
+<li><p>Common space: enables the comparison between different subjects&rsquo; brains. There are two famous common space: the  Talairach space and the MNI space. 
+</p>
+</li>
+</ul>
+<p>&ldquo;Template&rdquo; is a standard brain in a specific space. For example, the MNI space has the following templates (download <a href="https://nist.mni.mcgill.ca/atlases/" target=&ldquo;blank&rdquo;>here</a>):
 </p>
 <ul>
 <li><p>MNI305: 305 normal brains were linearly registered to 241 brains that had been registered to the Talairach atlas.
@@ -38,28 +52,42 @@ MathJax.Hub.Config({
 <li><p>MNI152 nonlinear 6th gen: 152 normal brains non-linearly registered to the 305 space. 
 </p>
 </li>
-<li><p>MNI152 nonlinear 2009
+<li><p>MNI152 nonlinear 2009 (three versions: 2009a, 2009b and 2009c)
+</p>
+</li>
+</ul>
+
+</li>
+</ul>
+<p>For atlas (aka., &ldquo;parcellation&rdquo;), it refers to how we partition the brain into different regions. It is a map indicating which voxels belongs to which structure. It can be defined on any templates. Application-wise, an atlas, associated with a certain template, usually comes in two types:
 </p>
 <ul>
-<li><p>2009a
+<li><p>Label atlas: a 3D image where each voxel contains the value corresponding to that voxel's classification label.
 </p>
 </li>
-<li><p>2009b
-</p>
-</li>
-<li><p>2009c
+<li><p>Probabilistic atlas: a 4D image where each volume contains voxel values 0 to 100 indicating the probability that a given voxel is classified as belonging to the structure represented by that volume.
 </p>
 </li>
 </ul>
-
-</li>
-</ul>
-
-</li>
-</ul>
+<p>(Source/Suggested further reading: [<a href="https://www.lead-dbs.org/about-the-mni-spaces/" target=&ldquo;blank&rdquo;>1</a>], [<a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Atlases-Reference" target=&ldquo;blank&rdquo;>2</a>])
+</p>
+<table class="imgtable"><tr><td>
+<img src="./figs/template_atlas.png" alt="" width="30%" />&nbsp;</td>
+<td align="left"></td></tr></table>
+<div class="infoblock">
+<div class="blockcontent">
+<p><b>Q: Should I register the atlas (in common space) to the subject's brain, or the opposite?</b>
+</p>
+</div></div>
+<h2>fMRI </h2>
+<div class="infoblock">
+<div class="blockcontent">
+<p><b>Q: Which one is better, Surface-based connectivity or Volume-based connectivity?</b>
+</p>
+</div></div>
 <div id="footer">
 <div id="footer-text">
-Page generated 2023-09-21 23:30:02 EDT.
+Page generated 2023-09-24 22:26:36 EDT.
 </div>
 </div>
 </div>

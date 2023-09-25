@@ -83,6 +83,15 @@ For preprocessed data:
 
 There are some of the files that we may be specifically interested in using. The section briefly introduce how to locate and use them.
 
+=== T1WI
+
+File located at
+~~~
+{}{}
+<subject id>/MNINonLinear/T1w.nii.gz
+~~~
+
+
 === rs-fMRI
 
 File located at
@@ -102,19 +111,18 @@ size(X)       % 91x109x91x1200 4-D single
 
 Ultimately, we want to compute functional connectivity between each pair of ROIs. The first step is to compute the average time-series across all voxels within every single ROI. MATLAB scripting will be hard wrt atlas and registration. Instead, this can be done using:
 - [https://nideconv.readthedocs.io/en/latest/auto_examples/extract_timeseries_fmriprep.html nilearn]
-- FSL: can process one ROI only with +fslmeants+. Need to write script to automate the process for outputting all ROI time series.
-- Freesurfer: see [https://www.mail-archive.com/freesurfer@nmr.mgh.harvard.edu/msg48095.html this page].
+- [FSL.html FSL]: can process one ROI only with +fslmeants+. Need to write script to automate the process for outputting all ROI time series.
 
 And then Pearson correlation can be computed on these time-series to obtain the connectivity matrix. There are also softwares that directly output the final connectivity:
 - CONN: [https://web.conn-toolbox.org/fmri-methods/connectivity-measures/roi-to-roi ROI-to-ROI analyses], see also [https://www.nitrc.org/forum/message.php?msg_id=11244 this page]
 
 
-=== T1WI
+=== t-fMRI
 
-File located at
+We use language for example. File is located at
 ~~~
 {}{}
-<subject id>/MNINonLinear/T1w.nii.gz
+<subject id>/MNINonLinear/Results/tfMRI_LANGUAGE_LR/tfMRI_LANGUAGE_LR.nii.gz
 ~~~
 
 === Diffusion
