@@ -181,19 +181,15 @@ nii = load_nii('rfMRI_REST1_LR.nii');
 X = nii.img;
 size(X)       % 91x109x91x1200 4-D single
 </pre></div></div>
-<p>Ultimately, we want to compute functional connectivity between each pair of ROIs. The first step is to compute the average time-series across all voxels within every single ROI. MATLAB scripting will be hard wrt atlas and registration. Instead, this can be done using:
+<p>Ultimately, we want to extract the time series from each ROI and compute the correlation between them. There are certain ways to do this:
 </p>
 <ul>
-<li><p><a href="https://nideconv.readthedocs.io/en/latest/auto_examples/extract_timeseries_fmriprep.html" target=&ldquo;blank&rdquo;>nilearn</a>
+<li><p><a href="afni.html" target=&ldquo;blank&rdquo;>AFNI</a>: use <tt>afni_proc</tt> to regress out covariates (and use the error term for further analysis), and then <tt>3dNetCorr</tt> to calculate the correlation matrix of a set of ROIs.
 </p>
 </li>
-<li><p><a href="FSL.html" target=&ldquo;blank&rdquo;>FSL</a>: can process one ROI only with <tt>fslmeants</tt>. Need to write script to automate the process for outputting all ROI time series.
+<li><p><a href="FSL.html" target=&ldquo;blank&rdquo;>FSL</a>: use <tt>fslmeants</tt> to extract the time series.
 </p>
 </li>
-</ul>
-<p>And then Pearson correlation can be computed on these time-series to obtain the connectivity matrix. There are also softwares that directly output the final connectivity:
-</p>
-<ul>
 <li><p>CONN: <a href="https://web.conn-toolbox.org/fmri-methods/connectivity-measures/roi-to-roi" target=&ldquo;blank&rdquo;>ROI-to-ROI analyses</a>, see also <a href="https://www.nitrc.org/forum/message.php?msg_id=11244" target=&ldquo;blank&rdquo;>this page</a>
 </p>
 </li>
@@ -210,7 +206,7 @@ size(X)       % 91x109x91x1200 4-D single
 </p>
 <div id="footer">
 <div id="footer-text">
-Page generated 2023-09-24 10:52:44 EDT.
+Page generated 2023-09-25 21:39:43 EDT.
 </div>
 </div>
 </td>

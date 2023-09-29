@@ -4,11 +4,10 @@
 == Installation on macOS
 
 
-== Usage
 
 FSL provides introductory courses with hands-on tutorials which can be accessed through this [https://open.win.ox.ac.uk/pages/fslcourse/website/online_materials.html link].
 
-=== Structural MRI
+== Structural MRI
 
 Registration ([https://open.win.ox.ac.uk/pages/fslcourse/practicals/registration/index.html official tutorial]): This contains two main steps:
 - Register functional EPI images to the individual structural image and to standard space using FEAT. This includes fieldmap-based unwarping and the preparation of these fieldmap scans.
@@ -16,7 +15,7 @@ Registration ([https://open.win.ox.ac.uk/pages/fslcourse/practicals/registration
 
 Segmentation ([https://open.win.ox.ac.uk/pages/fslcourse/practicals/seg_struc/index.html official tutorial]): This includes using FAST (tissue-type segmentation), FIRST (sub-cortical structure segmentation) and FSL-VBM (local grey matter volume difference analysis).
 
-=== rs-fMRI
+== rs-fMRI
 
 For each single subject, to extract the time series from a 4D (3D structural \+ 1D time) NIFTI file for *ONE* ROI, use +fslmeants+, which average the time series over all voxels in the mask to obtain one final time series.
 ~~~
@@ -24,10 +23,74 @@ For each single subject, to extract the time series from a 4D (3D structural \+ 
 fslmeants -i <fMRI input>.nii.gz -o <output name>.txt -m <roi mask>.nii.gz
 ~~~
 
+== t-fMRI
+
+=== Running FEAT through GUI
+
+To open the Feat GUI, go to the target directory (that contains nifti and other files) and call the following command in the Terminal.
+~~~
+{}{}
+feat_gui
+~~~
+
+Prepare the following files for input:
+- 4D image (in NIFTI format)
+- waveform txt files for the tasks (3 columns)
+
+~~~
+{}{img_left}{./figs/FSL_FEAT_GUI.png}{}{60%}{}{}
+~~~
+
+
+=== Scripting
+
+All the operations in the FEAT GUI can be transformed into a +.fsf+ file (a txt file actually). The following is an snippet from HCP t-fMRI dataset (tfMRI\_LANGUAGE\_LR\_hp200\_s4\_level1.fsf):
+ ~~~
+{}{}
+# FEAT version number
+set fmri(version) 6.00
+
+# Are we in MELODIC?
+set fmri(inmelodic) 0
+
+# Analysis level
+# 1 : First-level analysis
+# 2 : Higher-level analysis
+set fmri(level) 1
+
+# Which stages to run
+# 0 : No first-level analysis (registration and/or group stats only)
+# 7 : Full first-level analysis
+# 1 : Pre-Stats
+# 3 : Pre-Stats + Stats
+# 2 :             Stats
+# 6 :             Stats + Post-stats
+# 4 :                     Post-stats
+set fmri(analysis) 7
+
+(...and much more)
+~~~
+
+You don't need to write it yourself. Just go to the GUI, finish the settings and click +save+. It will generate the fsf file for you.
+
+After having the fsf file, to run this pipeline without opening the GUI, use
+ ~~~
+{}{}
+feat <name>.fsf
+~~~
+
+For more information about scripting to run on all subjects, you can see [https://andysbrainbook.readthedocs.io/en/latest/fMRI_Short_Course/fMRI_06_Scripting.html this tutorial].
+
+=== Reading the output
+
+For a complete list of what each output file is about, see [https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FEAT/UserGuide\#FEAT_Output this page]. Some of the files are what we may be interested in:
+- *filtered\_func\_data.nii.gz*: the 4D FMRI data after all filtering.
+- *stats\/pe1.nii.gz* or *stats\/pe2.nii.gz* etc.: the parameter estimate image for EV 1, EV 2, etc.
 
 
 
-=== DWI
+
+== DWI
 
 The main toolbox is FDT(FMRIB's Diffusion Toolbox).  The programs in this toolbox are: 
 - +eddy+ - for correction of eddy current distortions 

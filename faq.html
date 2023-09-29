@@ -69,7 +69,7 @@ MathJax.Hub.Config({
 </p>
 </li>
 </ul>
-<p>(Source/Suggested further reading: [<a href="https://www.lead-dbs.org/about-the-mni-spaces/" target=&ldquo;blank&rdquo;>1</a>], [<a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Atlases-Reference" target=&ldquo;blank&rdquo;>2</a>])
+<p>(Source/Suggested further reading: [<a href="https://www.lead-dbs.org/about-the-mni-spaces/" target=&ldquo;blank&rdquo;>link 1</a>], [<a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Atlases-Reference" target=&ldquo;blank&rdquo;>link 2</a>])
 </p>
 <table class="imgtable"><tr><td>
 <img src="./figs/template_atlas.png" alt="" width="30%" />&nbsp;</td>
@@ -82,12 +82,51 @@ MathJax.Hub.Config({
 <h2>fMRI </h2>
 <div class="infoblock">
 <div class="blockcontent">
+<p><b>Q: How to understand the relationship between stimulation, HRF and BOLD signal?</b>
+</p>
+</div></div>
+<div class="infoblock">
+<div class="blockcontent">
+<p><b>Q: What's the point of using GLM in fMRI analysis?</b>
+</p>
+</div></div>
+<p>In short, <b>G</b>eneral <b>L</b>inear <b>M</b>odel separates the raw signal into different ingredients. For EACH VOXEL, the model is written as \(\mathbf Y=\mathbf{X}\boldsymbol{\beta+\varepsilon}\), or more detailed, 
+</p>
+<p style="text-align:center">
+\[
+\begin{bmatrix}  
+Y_1 \\ \vdots \\ Y_n 
+\end{bmatrix}_{n\times 1} = \left[ \begin{array}{ccc|ccc}
+   \mid &amp;  &amp; \mid &amp; \mid &amp; &amp;\mid \\
+   \mathbf{X}_{1} &amp; \cdots &amp; \mathbf{X}_{p} &amp; \mathbf{X}_{p+1} &amp; \cdots &amp; \mathbf{X}_{m}\\
+   \mid &amp;  &amp; \mid &amp; \mid &amp; &amp;\mid 
+\end{array}\right]_{n\times m} \begin{bmatrix}  
+\beta_1 \\ \vdots \\ \beta_m 
+\end{bmatrix}_{m\times 1} + \begin{bmatrix}  
+\varepsilon_1 \\ \vdots \\ \varepsilon_n
+\end{bmatrix}_{n\times 1}
+\]
+</p><p>where \(n\) is the number of time point (with time going down the vector vertically), and \(m\) is the number of variables (which contain \(p\) variables that we are interested in, and the rest \(n-p\) we don't care but they do affect the BOLD times series). 
+</p>
+<p>The following figure provides a very good illustration. In this figure, the design matrix \(\mathbf X\) includes 10 effects: 3 of interest (responses under task A,B,C respectively) and 7 confounders (6 motion parameters and 1 linear drift). For example, if task A is about speech, with the HRF for speech as the first column in the design matrix: \(\mathbf{X}_{1}=[X_{11}, \cdots, X_{n1}]^{\top}\), the corresponding coefficient \(\beta_1\) tells how strong this particular voxel responds to task A.
+</p>
+<table class="imgtable"><tr><td>
+<img src="./figs/fMRI_GLM.jpg" alt="" width="30%" />&nbsp;</td>
+<td align="left"></td></tr></table>
+<p>This is the ideal case. But in reality, we will never know the HRF. The only thing we have to approximate the HRF is the stimulation/task (designed by the experimenter), which is represented as a square wave (i.e., \(\mathbf X_i\) is a series of 1s and 0s). 
+</p>
+<p><b>Addition Note</b>: Even if we are analyzing resting-state fMRI (instead of the task-based), it is still worth using GLM to eliminate the confounders (motions, drifts, etc.). That is, we don't add in any regressor of interest, but just add in the nuisance regressors, and we pick the error term for further analysis.
+</p>
+<p>(Source/Suggested further reading: [<a href="https://mriquestions.com/general-linear-model.html" target=&ldquo;blank&rdquo;>link 1</a>], [<a href="https://andysbrainbook.readthedocs.io/en/latest/fMRI_Short_Course/Statistics/06_Stats_Running_1stLevel_Analysis.html" target=&ldquo;blank&rdquo;>link 2</a>], [<a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FEAT/UserGuide#Appendix_A:_Brief_Overview_of_GLM_Analysis" target=&ldquo;blank&rdquo;>link 3</a>])
+</p>
+<div class="infoblock">
+<div class="blockcontent">
 <p><b>Q: Which one is better, Surface-based connectivity or Volume-based connectivity?</b>
 </p>
 </div></div>
 <div id="footer">
 <div id="footer-text">
-Page generated 2023-09-24 22:26:36 EDT.
+Page generated 2023-09-28 22:00:55 EDT.
 </div>
 </div>
 </div>
