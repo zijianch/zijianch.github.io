@@ -9,11 +9,16 @@ FSL provides introductory courses with hands-on tutorials which can be accessed 
 
 == Structural MRI
 
+=== Image Preprocessing
+
 Registration ([https://open.win.ox.ac.uk/pages/fslcourse/practicals/registration/index.html official tutorial]): This contains two main steps:
 - Register functional EPI images to the individual structural image and to standard space using FEAT. This includes fieldmap-based unwarping and the preparation of these fieldmap scans.
 - Calculate and apply transforms and inverses from linear and non-linear registration
 
 Segmentation ([https://open.win.ox.ac.uk/pages/fslcourse/practicals/seg_struc/index.html official tutorial]): This includes using FAST (tissue-type segmentation), FIRST (sub-cortical structure segmentation) and FSL-VBM (local grey matter volume difference analysis).
+
+
+=== ROI
 
 == rs-fMRI
 
@@ -34,7 +39,7 @@ feat_gui
 ~~~
 
 Prepare the following files for input:
-- 4D image (in NIFTI format)
+- 4D image (in NIFTI format). In the first-level analysis, we only need one of the sessions.
 - waveform txt files for the tasks (3 columns)
 
 ~~~
@@ -83,10 +88,11 @@ For more information about scripting to run on all subjects, you can see [https:
 
 === Reading the output
 
-For a complete list of what each output file is about, see [https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FEAT/UserGuide\#FEAT_Output this page]. Some of the files are what we may be interested in:
+For a complete list of what each output file is about, see [https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FEAT/UserGuide\#FEAT_Output official tutorial]. We may be interested in:
 - *filtered\_func\_data.nii.gz*: the 4D FMRI data after all filtering.
-- *stats\/pe1.nii.gz* or *stats\/pe2.nii.gz* etc.: the parameter estimate image for EV 1, EV 2, etc.
-
+- *stats\/pe1.nii.gz* or *stats\/pe2.nii.gz* etc.: the original parameter estimate image for EV 1, EV 2, etc.
+-- Note: *stats\/cope1.nii.gz* and  *stats\/pe1.nii.gz* are identical. You can check this in MATLAB. So you can use either one of them.
+-- *stats\/tstat1.nii.gz* or *stats\/tstat2.nii.gz*: T statistic image for contrast 1 (=cope\/sqrt(varcope)).
 
 
 
@@ -94,7 +100,7 @@ For a complete list of what each output file is about, see [https://fsl.fmrib.ox
 
 The main toolbox is FDT(FMRIB's Diffusion Toolbox).  The programs in this toolbox are: 
 - +eddy+ - for correction of eddy current distortions 
-- +bedpostx+ - for local modeling of diffusion parameters 
+- [https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FDT/UserGuide#BEDPOSTX bedpostx] - for local modeling of diffusion parameters (creating all the files necessary for running prob tractography.)
 - +probtrackx+ - for tractography and connectivity-based segmentation 
 - +dtifit+ - for local fitting of diffusion tensors
 

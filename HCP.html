@@ -173,12 +173,11 @@ try {
 </pre></div></div>
 <p>There are four such files (2 sessions, each session has both LR and RL). Just pick any one of them. The nii.gz file size should be around 1 GB. 
 </p>
-<p>This particular image is preprocessed using fMRIVolume only (see above). The resulting volumetric data contains values at \(91 \times  109 \times  91 = 902629\) 2-mm isotropic voxels (MNI152) at 1200 time points. To see this, simply download the MATLAB function <a href="https://www.mathworks.com/matlabcentral/fileexchange/8797-tools-for-nifti-and-analyze-image" target=&ldquo;blank&rdquo;>load_nii</a> and run
+<p>This particular image is preprocessed using fMRIVolume only (see above). The resulting volumetric data contains values at \(91 \times  109 \times  91 = 902629\) 2-mm isotropic voxels (MNI152) at 1200 time points. To see this, simply run the following in MATLAB
 </p>
 <div class="codeblock">
 <div class="blockcontent"><pre>
-nii = load_nii('rfMRI_REST1_LR.nii');
-X = nii.img;
+X = niftiread('rfMRI_REST1_LR.nii');
 size(X)       % 91x109x91x1200 4-D single
 </pre></div></div>
 <p>Ultimately, we want to extract the time series from each ROI and compute the correlation between them. There are certain ways to do this:
@@ -206,7 +205,7 @@ size(X)       % 91x109x91x1200 4-D single
 </p>
 <div id="footer">
 <div id="footer-text">
-Page generated 2023-09-25 21:39:43 EDT.
+Page generated 2023-09-29 16:08:46 EDT.
 </div>
 </div>
 </td>
