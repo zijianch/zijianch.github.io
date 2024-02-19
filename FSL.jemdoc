@@ -108,5 +108,7 @@ The order of running all these procedures should be
 - +eddy+ - +dtifit+ (see this [https://open.win.ox.ac.uk/pages/fslcourse/practicals/fdt1/index.html official tutorial]) or
 - +eddy+ - +bedpostx+ - +probtrackx+  (see this [https://open.win.ox.ac.uk/pages/fslcourse/practicals/fdt2/index.html official tutorial])
 
+=== Obtaining structural connectivity matrix
+
 
 
