@@ -100,7 +100,7 @@ For a complete list of what each output file is about, see [https://fsl.fmrib.ox
 
 The main toolbox is FDT(FMRIB's Diffusion Toolbox).  The programs in this toolbox are: 
 - +eddy+ - for correction of eddy current distortions 
-- [https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FDT/UserGuide#BEDPOSTX bedpostx] - for local modeling of diffusion parameters (creating all the files necessary for running prob tractography.)
+- [https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FDT/UserGuide\#BEDPOSTX bedpostx] - for local modeling of diffusion parameters (creating all the files necessary for running prob tractography.)
 - +probtrackx+ - for tractography and connectivity-based segmentation 
 - +dtifit+ - for local fitting of diffusion tensors
 
