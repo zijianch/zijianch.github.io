@@ -6,6 +6,15 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link rel="stylesheet" href="jemdoc.css" type="text/css" />
 <title>A Quick Guide to FSL</title>
+<!-- MathJax -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+</script>
+<!-- End MathJax -->
 </head>
 <body>
 <script type="text/javascript">
@@ -220,7 +229,7 @@ probtrackx2 --network -x &lt;masks.txt&gt;
 /Users/zijianchen/Downloads/BN/BN10.nii
 /Users/zijianchen/Downloads/BN/BN100.nii
 </pre></div></div>
-<p>The output directory will have a file <tt>fdt<u>network</u>matrix</tt>, which is the \(N\times N\) connectivity matrix whose elements are the number of streamlines between the selected ROIs. It doesn't have an extension name but can still be imported into MATLAB using 
+<p>The output directory will have a file <tt>fdt_network_matrix</tt>, which is the \(N\times N\) connectivity matrix whose elements are the number of streamlines between the selected ROIs. It doesn't have an extension name but can still be imported into MATLAB using 
 </p>
 <div class="codeblock">
 <div class="blockcontent"><pre>
@@ -228,11 +237,18 @@ M = load('fdt_network_matrix');
 </pre></div></div>
 <div id="footer">
 <div id="footer-text">
-Page generated 2024-02-19 23:52:02 EST.
+Page generated 2024-02-19 23:58:32 EST.
 </div>
 </div>
 </td>
 </tr>
 </table>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EZMPZ1N19T"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-EZMPZ1N19T');
+</script>
 </body>
 </html>

@@ -160,7 +160,7 @@ Here +mask.txt+ is the list of ROI nifti files, in the format of:
 /Users/zijianchen/Downloads/BN/BN10.nii
 /Users/zijianchen/Downloads/BN/BN100.nii
 ~~~
-The output directory will have a file +fdt_network_matrix+, which is the $N\times N$ connectivity matrix whose elements are the number of streamlines between the selected ROIs. It doesn't have an extension name but can still be imported into MATLAB using 
+The output directory will have a file +fdt\_network\_matrix+, which is the $N\times N$ connectivity matrix whose elements are the number of streamlines between the selected ROIs. It doesn't have an extension name but can still be imported into MATLAB using 
 ~~~
 {}{}
 M = load('fdt_network_matrix');
