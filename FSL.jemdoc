@@ -165,4 +165,6 @@ The output directory will have a file +fdt\_network\_matrix+, which is the $N\ti
 {}{}
 M = load('fdt_network_matrix');
 ~~~
+If we set number of samples to be 20, it takes about 1651 seconds to obtain a $264\times 264$ matrix. The default number of samples is 5000, which should take around 60 hours for one subject. Up to now there is no quick fix for doing parallel computation of probtrackx.
+
 
