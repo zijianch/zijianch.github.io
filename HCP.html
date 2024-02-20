@@ -6,15 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link rel="stylesheet" href="jemdoc.css" type="text/css" />
 <title>HCP dataset</title>
-<!-- MathJax -->
-<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async>
-</script>
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-	  TeX: { equationNumbers: { autoNumber: "AMS" } }
-});
-</script>
-<!-- End MathJax -->
 </head>
 <body>
 <script type="text/javascript">
@@ -201,22 +192,25 @@ size(X)       % 91x109x91x1200 4-D single
 &lt;subject id&gt;/MNINonLinear/Results/tfMRI_LANGUAGE_LR/tfMRI_LANGUAGE_LR.nii.gz
 </pre></div></div>
 <h3>Diffusion</h3>
-<p>File located at
+<p>Original preprocessed files (nifti file, bval and bvec) are located at
 </p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+&lt;subject id&gt;/T1w/Diffusion
+</pre></div></div>
+<p>Usually we want to do tractography (especially with <a href="FSL.html" target=&ldquo;blank&rdquo;>FSL</a>). HCP data also contains output of <tt>bedpostx</tt> (preliminary step for doing tractography), which are located at
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+&lt;subject id&gt;/T1w/Diffusion.bedpostX
+</pre></div></div>
 <div id="footer">
 <div id="footer-text">
-Page generated 2023-09-29 16:08:46 EDT.
+Page generated 2024-02-20 00:20:10 EST.
 </div>
 </div>
 </td>
 </tr>
 </table>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-EZMPZ1N19T"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-EZMPZ1N19T');
-</script>
 </body>
 </html>

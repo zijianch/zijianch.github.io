@@ -124,4 +124,13 @@ We use language for example. File is located at
 
 === Diffusion
 
-File located at
+Original preprocessed files (nifti file, bval and bvec) are located at
+~~~
+{}{}
+<subject id>/T1w/Diffusion
+~~~
+Usually we want to do tractography (especially with [FSL.html FSL]). HCP data also contains output of +bedpostx+ (preliminary step for doing tractography), which are located at
+~~~
+{}{}
+<subject id>/T1w/Diffusion.bedpostX
+~~~
