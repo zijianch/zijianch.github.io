@@ -147,7 +147,7 @@ Some of these files are copies from the input directory. The most important file
 Then, to run +probtrackx+, use the following script (minimally, configurations, such as number of samples, are set as default)
 ~~~
 {}{}
-probtrackx2 --network -x <masks.txt> 
+probtrackx2 --network -x <masks.txt> \
             -l --onewaycondition --forcedir --opd \
             -s <subjid.bedpostx path>/merged \
             -m <subjid.bedpostx path>/nodif_brain_mask \
