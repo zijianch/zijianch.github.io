@@ -98,17 +98,66 @@ For a complete list of what each output file is about, see [https://fsl.fmrib.ox
 
 == DWI
 
-The main toolbox is FDT(FMRIB's Diffusion Toolbox).  The programs in this toolbox are: 
+The main toolbox is [https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FDT/UserGuide FDT].  The programs in this toolbox are: 
 - +eddy+ - for correction of eddy current distortions 
 - [https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FDT/UserGuide\#BEDPOSTX bedpostx] - for local modeling of diffusion parameters (creating all the files necessary for running prob tractography.)
-- +probtrackx+ - for tractography and connectivity-based segmentation 
-- +dtifit+ - for local fitting of diffusion tensors
+- [https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FDT/UserGuide\#PROBTRACKX\_-\_probabilistic\_tracking\_with\_crossing\_fibres probtrackx] - for tractography and connectivity-based segmentation 
+- [https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FDT/UserGuide\#DTIFIT dtifit] - for local fitting of diffusion tensors
 
 The order of running all these procedures should be 
-- +eddy+ - +dtifit+ (see this [https://open.win.ox.ac.uk/pages/fslcourse/practicals/fdt1/index.html official tutorial]) or
-- +eddy+ - +bedpostx+ - +probtrackx+  (see this [https://open.win.ox.ac.uk/pages/fslcourse/practicals/fdt2/index.html official tutorial])
+- eddy - dtifit (see this [https://open.win.ox.ac.uk/pages/fslcourse/practicals/fdt1/index.html official tutorial]) or
+- eddy - bedpostx - probtrackx  (see this [https://open.win.ox.ac.uk/pages/fslcourse/practicals/fdt2/index.html official tutorial])
 
 === Obtaining structural connectivity matrix
 
+So we are going the second way. Suppose you have the files prepared as follows:
 
+~~~
+{}{}
+/current directory
+├── <subjid>
+│   ├── data.nii.gz
+|   ├── nodif_brain_mask.nii.gz 
+|   ├── bval
+|   └── bvec
+└── ...
+~~~
+
+
++bedpostx+ creates a new directory at the same level as the input directory. So, after this step, you should expect
+~~~
+{}{}
+/current directory
+├── <subjid>
+|   └── ...
+├── <subjid>.bedpostX
+│   ├── logs
+|   |   └── ...
+│   ├── xfms
+|   |   └── ...
+|   ├── merged_*.nii.gz (Individual parameter estimates)
+│   ├── mean_*.nii.gz (Mean parameter estimate)
+│   ├── dyad*.nii.gz (Mean fibre orientations)
+│   ├── dyad*_dispersion.nii.gz (Uncertainty in fibre orientation)
+|   └── ...
+└── ...
+~~~
+Some of these files are copies from the input directory. The most important files for next steps are +merged\_\*.nii.gz+. If for visualization purposes only, use +mean\_\*.nii.gz+.
+
+Then, to run +probtrackx+, use the following script (minimally, configurations, such as number of samples, are set as default)
+~~~
+{}{}
+probtrackx2 --network -x <masks.txt> 
+            -l --onewaycondition --forcedir --opd
+            -s <subjid.bedpostx path>/merged 
+            -m <subjid.bedpostx path>/nodif_brain_mask 
+            --dir=<output folder path>
+~~~
+Here +mask.txt+ is the list of ROI nifti files, in the format of:
+~~~
+{}{}
+/Users/zijianchen/Downloads/BN/BN1.nii
+/Users/zijianchen/Downloads/BN/BN10.nii
+/Users/zijianchen/Downloads/BN/BN100.nii
+~~~
 

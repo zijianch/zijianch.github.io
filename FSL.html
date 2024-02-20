@@ -142,7 +142,7 @@ feat &lt;name&gt;.fsf
 </li>
 </ul>
 <h2>DWI</h2>
-<p>The main toolbox is FDT(FMRIB's Diffusion Toolbox).  The programs in this toolbox are: 
+<p>The main toolbox is <a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FDT/UserGuide" target=&ldquo;blank&rdquo;>FDT</a>.  The programs in this toolbox are: 
 </p>
 <ul>
 <li><p><tt>eddy</tt> - for correction of eddy current distortions 
@@ -151,27 +151,78 @@ feat &lt;name&gt;.fsf
 <li><p><a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FDT/UserGuide#BEDPOSTX" target=&ldquo;blank&rdquo;>bedpostx</a> - for local modeling of diffusion parameters (creating all the files necessary for running prob tractography.)
 </p>
 </li>
-<li><p><tt>probtrackx</tt> - for tractography and connectivity-based segmentation 
+<li><p><a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FDT/UserGuide#PROBTRACKX\_-\_probabilistic\_tracking\_with\_crossing\_fibres" target=&ldquo;blank&rdquo;>probtrackx</a> - for tractography and connectivity-based segmentation 
 </p>
 </li>
-<li><p><tt>dtifit</tt> - for local fitting of diffusion tensors
+<li><p><a href="https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FDT/UserGuide#DTIFIT" target=&ldquo;blank&rdquo;>dtifit</a> - for local fitting of diffusion tensors
 </p>
 </li>
 </ul>
 <p>The order of running all these procedures should be 
 </p>
 <ul>
-<li><p><tt>eddy</tt> - <tt>dtifit</tt> (see this <a href="https://open.win.ox.ac.uk/pages/fslcourse/practicals/fdt1/index.html" target=&ldquo;blank&rdquo;>official tutorial</a>) or
+<li><p>eddy - dtifit (see this <a href="https://open.win.ox.ac.uk/pages/fslcourse/practicals/fdt1/index.html" target=&ldquo;blank&rdquo;>official tutorial</a>) or
 </p>
 </li>
-<li><p><tt>eddy</tt> - <tt>bedpostx</tt> - <tt>probtrackx</tt>  (see this <a href="https://open.win.ox.ac.uk/pages/fslcourse/practicals/fdt2/index.html" target=&ldquo;blank&rdquo;>official tutorial</a>)
+<li><p>eddy - bedpostx - probtrackx  (see this <a href="https://open.win.ox.ac.uk/pages/fslcourse/practicals/fdt2/index.html" target=&ldquo;blank&rdquo;>official tutorial</a>)
 </p>
 </li>
 </ul>
 <h3>Obtaining structural connectivity matrix</h3>
+<p>So we are going the second way. Suppose you have the files prepared as follows:
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+/current directory
+├── &lt;subjid&gt;
+│   ├── data.nii.gz
+|   ├── nodif_brain_mask.nii.gz
+|   ├── bval
+|   └── bvec
+└── ...
+</pre></div></div>
+<p><tt>bedpostx</tt> creates a new directory at the same level as the input directory. So, after this step, you should expect
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+/current directory
+├── &lt;subjid&gt;
+|   └── ...
+├── &lt;subjid&gt;.bedpostX
+│   ├── logs
+|   |   └── ...
+│   ├── xfms
+|   |   └── ...
+|   ├── merged_*.nii.gz (Individual parameter estimates)
+│   ├── mean_*.nii.gz (Mean parameter estimate)
+│   ├── dyad*.nii.gz (Mean fibre orientations)
+│   ├── dyad*_dispersion.nii.gz (Uncertainty in fibre orientation)
+|   └── ...
+└── ...
+</pre></div></div>
+<p>Some of these files are copies from the input directory. The most important files for next steps are <tt>merged_*.nii.gz</tt>. If for visualization purposes only, use <tt>mean_*.nii.gz</tt>.
+</p>
+<p>Then, to run <tt>probtrackx</tt>, use the following script (minimally, configurations, such as number of samples, are set as default)
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+probtrackx2 --network -x &lt;masks.txt&gt;
+            -l --onewaycondition --forcedir --opd
+            -s &lt;subjid.bedpostx path&gt;/merged
+            -m &lt;subjid.bedpostx path&gt;/nodif_brain_mask
+            --dir=&lt;output folder path&gt;
+</pre></div></div>
+<p>Here <tt>mask.txt</tt> is the list of ROI nifti files, in the format of:
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+/Users/zijianchen/Downloads/BN/BN1.nii
+/Users/zijianchen/Downloads/BN/BN10.nii
+/Users/zijianchen/Downloads/BN/BN100.nii
+</pre></div></div>
 <div id="footer">
 <div id="footer-text">
-Page generated 2024-02-19 12:12:22 EST.
+Page generated 2024-02-19 23:08:33 EST.
 </div>
 </div>
 </td>
