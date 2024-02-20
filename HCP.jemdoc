@@ -122,7 +122,7 @@ We use language for example. File is located at
 {}{}
 <subject id>/MNINonLinear/Results/tfMRI_LANGUAGE_LR/tfMRI_LANGUAGE_LR.nii.gz
 ~~~
-The next step is to run FEAT to obtain parameter estimate map from the GLM (which indicates the activation level, see [faq.html here] for details). HCP data provide the corresponding +.fsf+ file for this pipeline. Each subject should take around 15 minutes to run. After executing this script, there will be an additional +.feat+ folders under +./tfMRI_LANGUAGE_LR/+. However, default FSL pipeline do not include post-stats (so we will not get a multiple-comparison-corrected threshold). To do this, we need to modify the official pipeline by replacing +set fmri(thresh) 0+ with +set fmri(thresh) 3+. 
+The next step is to run FEAT to obtain parameter estimate map from the GLM (which indicates the activation level, see [faq.html here] for details). HCP data provide the corresponding +.fsf+ file for this pipeline. Each subject should take around 15 minutes to run. After executing this script, there will be an additional +.feat+ folders under +./tfMRI\_LANGUAGE\_LR/+. However, default FSL pipeline do not include post-stats (so we will not get a multiple-comparison-corrected threshold). To do this, we need to modify the official pipeline by replacing +set fmri(thresh) 0+ with +set fmri(thresh) 3+. 
 
 
 === Diffusion
