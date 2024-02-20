@@ -192,6 +192,9 @@ size(X)       % 91x109x91x1200 4-D single
 <li><p>CONN: <a href="https://web.conn-toolbox.org/fmri-methods/connectivity-measures/roi-to-roi" target=&ldquo;blank&rdquo;>ROI-to-ROI analyses</a>, see also <a href="https://www.nitrc.org/forum/message.php?msg_id=11244" target=&ldquo;blank&rdquo;>this page</a>
 </p>
 </li>
+<li><p>MATLAB: some self-written codes.
+</p>
+</li>
 </ul>
 <h3>t-fMRI</h3>
 <p>We use language for example. File is located at
@@ -200,6 +203,8 @@ size(X)       % 91x109x91x1200 4-D single
 <div class="blockcontent"><pre>
 &lt;subject id&gt;/MNINonLinear/Results/tfMRI_LANGUAGE_LR/tfMRI_LANGUAGE_LR.nii.gz
 </pre></div></div>
+<p>The next step is to run FEAT to obtain parameter estimate map from the GLM (which indicates the activation level, see <a href="faq.html" target=&ldquo;blank&rdquo;>here</a> for details). HCP data provide the corresponding <tt>.fsf</tt> file for this pipeline. Each subject should take around 15 minutes to run. After executing this script, there will be an additional <tt>.feat</tt> folders under <tt>.<i>tfMRI<u>LANGUAGE</u>LR</i></tt>. However, default FSL pipeline do not include post-stats (so we will not get a multiple-comparison-corrected threshold). To do this, we need to modify the official pipeline by replacing <tt>set fmri(thresh) 0</tt> with <tt>set fmri(thresh) 3</tt>. 
+</p>
 <h3>Diffusion</h3>
 <p>Original preprocessed files (nifti file, bval and bvec) are located at
 </p>
@@ -215,7 +220,7 @@ size(X)       % 91x109x91x1200 4-D single
 </pre></div></div>
 <div id="footer">
 <div id="footer-text">
-Page generated 2024-02-20 00:21:29 EST.
+Page generated 2024-02-20 00:31:06 EST.
 </div>
 </div>
 </td>

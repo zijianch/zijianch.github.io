@@ -112,6 +112,7 @@ Ultimately, we want to extract the time series from each ROI and compute the cor
 - [afni.html AFNI]: use +afni\_proc+ to regress out covariates (and use the error term for further analysis), and then +3dNetCorr+ to calculate the correlation matrix of a set of ROIs.
 - [FSL.html FSL]: use +fslmeants+ to extract the time series.
 - CONN: [https://web.conn-toolbox.org/fmri-methods/connectivity-measures/roi-to-roi ROI-to-ROI analyses], see also [https://www.nitrc.org/forum/message.php?msg_id=11244 this page]
+- MATLAB: some self-written codes.
 
 
 === t-fMRI
@@ -121,6 +122,8 @@ We use language for example. File is located at
 {}{}
 <subject id>/MNINonLinear/Results/tfMRI_LANGUAGE_LR/tfMRI_LANGUAGE_LR.nii.gz
 ~~~
+The next step is to run FEAT to obtain parameter estimate map from the GLM (which indicates the activation level, see [faq.html here] for details). HCP data provide the corresponding +.fsf+ file for this pipeline. Each subject should take around 15 minutes to run. After executing this script, there will be an additional +.feat+ folders under +./tfMRI_LANGUAGE_LR/+. However, default FSL pipeline do not include post-stats (so we will not get a multiple-comparison-corrected threshold). To do this, we need to modify the official pipeline by replacing +set fmri(thresh) 0+ with +set fmri(thresh) 3+. 
+
 
 === Diffusion
 
