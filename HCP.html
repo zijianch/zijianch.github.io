@@ -210,8 +210,18 @@ size(X)       % 91x109x91x1200 4-D single
 </p>
 <div class="codeblock">
 <div class="blockcontent"><pre>
-&lt;subject id&gt;/T1w/Diffusion
+&lt;subject id&gt;/T1w/Diffusion/
 </pre></div></div>
+<p>To see the data sctructure, run the following code in MATLAB:
+</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+X = niftiread('data.nii'); % 145x174x145x288 4-D single
+bval = load("bvals"); % 1x288 double
+bvec = load("bvecs"); % 3x288 double
+</pre></div></div>
+<p>Images corresponding to different bvecs and bvals are concantenated along the fourth dimension.
+</p>
 <p>Usually we want to do tractography (especially with <a href="FSL.html" target=&ldquo;blank&rdquo;>FSL</a>). HCP data also contains output of <tt>bedpostx</tt> (preliminary step for doing tractography), which are located at
 </p>
 <div class="codeblock">
@@ -220,7 +230,7 @@ size(X)       % 91x109x91x1200 4-D single
 </pre></div></div>
 <div id="footer">
 <div id="footer-text">
-Page generated 2024-02-20 00:33:21 EST.
+Page generated 2024-03-03 15:47:27 EST.
 </div>
 </div>
 </td>

@@ -130,8 +130,17 @@ The next step is to run FEAT to obtain parameter estimate map from the GLM (whic
 Original preprocessed files (nifti file, bval and bvec) are located at
 ~~~
 {}{}
-<subject id>/T1w/Diffusion
+<subject id>/T1w/Diffusion/
 ~~~
+To see the data sctructure, run the following code in MATLAB:
+~~~
+{}{}
+X = niftiread('data.nii'); % 145x174x145x288 4-D single
+bval = load("bvals"); % 1x288 double
+bvec = load("bvecs"); % 3x288 double
+~~~
+Images corresponding to different bvecs and bvals are concantenated along the fourth dimension.
+
 Usually we want to do tractography (especially with [FSL.html FSL]). HCP data also contains output of +bedpostx+ (preliminary step for doing tractography), which are located at
 ~~~
 {}{}
