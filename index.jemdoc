@@ -1,8 +1,8 @@
 # jemdoc: menu{MENU}{index.html}, analytics{G-EZMPZ1N19T}
-= Zijian Chen
+= About me
 
 ~~~
-{}{img_left}{./1.jpg}{photo}{150px}{150px}{}
+{}{img_left}{./ZijianChen-240x360-2.jpeg}{photo}{130px}{180px}{}
 Zijian Chen  \n
 PhD student, \n
 [https://www.bu.edu/eng/academics/departments-and-divisions/electrical-and-computer-engineering/ Department of Electrical and Computer Engineering], \n
@@ -10,7 +10,7 @@ PhD student, \n
 
 {{<br />}} 
 
-\[[files/zchenCV_Apr23.pdf CV up to 04\/2023]\]
+\[[files/zchen.pdf CV up to 07\/2024]\]
 ~~~
 
 == Contact
@@ -19,15 +19,6 @@ Address: -
 
 Email: *Primary*: zijianc \[AT\] bu \[DOT\] edu; *Secondary*: zijian \[DOT\] chen \[AT\] wisc \[DOT\] edu.
 
-== Summary of my research 
-
-{{<div itemscope itemtype="https://schema.org/Person"><a itemprop="sameAs" content="https://orcid.org/0000-0001-9640-6096" href="https://orcid.org/0000-0001-9640-6096" target="orcid.widget" rel="me noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">https://orcid.org/0000-0001-9640-6096</a></div>}}
-
-My research interest lies in computational neuroscience. During my Master's, I worked in Prof. [https://pages.stat.wisc.edu/~mchung/index.html Moo K. Chung]'s group, where I used PDEs, topology and graph theories to develop methodologies of signal processing on manifolds and study the anatomical structures of human brains, as well as the intrinsic geometry and connectivity pattern of the brain network. 
-
-
-
-\[[https://scholar.google.com/citations?user=sDxCyTUAAAAJ&hl=en&oi=ao Google Scholar]\]
 
 == Education
 
@@ -37,6 +28,5 @@ My research interest lies in computational neuroscience. During my Master's, I w
 
 == Miscellaneous
 
-- A list of my [/awards.html awards].
 - Languages I speak: Cantonese(native), Mandarin(fluent), English(proficient)
 - My [https://www.linkedin.com/in/zijian-chen-985203256/ Linkedin page].

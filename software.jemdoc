@@ -3,41 +3,24 @@
 
 The followings are some of the software of which I am one of the developers. 
 
-== Brain Networks Analysis
+~~~
+{}{img_left}{./figs/ISBI2023.png}{}{150px}{}{}
+=== Sulcal pattern modeling and matching
 
+1) sulcal pattern projection and continuous re-parametrization 2) Pattern matching with the gradient descent solution (Chartrand's method).
+
+\[[https://github.com/laplcebeltrami/sulcaltree GitHub]\] \[[https://ieeexplore.ieee.org/abstract/document/10230413 Paper]\]
+
+~~~
 
 ~~~
 {}{img_left}{./figs/MICCAI2022.png}{}{150px}{}{}
 
 === Hodge Lapalacian
 
-The code performs the Hodge Laplacian based modeling of cycles and various Hodge Laplacian based computations in brain networks.
+Hodge Laplacian based modeling of cycles and various Hodge Laplacian based computations in brain networks.
 
-\[[https://github.com/laplcebeltrami/hodge GitHub repo]\] \[[hodgeLap.html Detailed explanation]\]
-
-~~~
-
-
-~~~
-{}{img_left}{./figs/sph_hyperbolic.png}{}{150px}{}{}
-=== Spherical Multi-dimensional Scaling
-
-The codes performs the spherical- and hyperbolic-MDS of brain networks.
-
-\[[https://github.com/laplcebeltrami/sphericalMDS GitHub repo]\] 
-
-~~~
-
-
-== Computational Neuroimaging/Neuroanatomy 
-
-~~~
-{}{img_left}{./figs/ISBI2023.png}{}{150px}{}{}
-=== Sulcal pattern modeling and matching
-
-The code contains: 1) sulcal pattern projection and continuous re-parametrization 2) Pattern matching with the gradient descent solution (Chartrand's method).
-
-\[[https://github.com/laplcebeltrami/sulcaltree GitHub repo]\]
+\[[https://github.com/laplcebeltrami/hodge GitHub]\] \[[https://link.springer.com/chapter/10.1007/978-3-031-16431-6_31 Paper]\]
 
 ~~~
 
@@ -45,9 +28,18 @@ The code contains: 1) sulcal pattern projection and continuous re-parametrizatio
 {}{img_left}{./figs/CC2.jpg}{}{150px}{}{}
 === Heat Kernel Smoothing on circular data
 
-This function provides a smooth estimate of the functional data (corpus callosum boundaries) defined on a circle. This is for matching two circular functional data for cross comparison that reduces spatial variability in statistical analysis.
+Smooth estimate of the functional data defined on a circle.
 
-\[[https://github.com/laplcebeltrami/circle GitHub repo]\]
+\[[https://github.com/laplcebeltrami/circle GitHub]\]
 
 ~~~
 
+~~~
+{}{img_left}{./figs/sph_hyperbolic.png}{}{150px}{}{}
+=== Spherical Multi-dimensional Scaling
+
+Spherical- and hyperbolic-MDS of brain networks.
+
+\[[https://github.com/laplcebeltrami/sphericalMDS GitHub]\] 
+
+~~~
