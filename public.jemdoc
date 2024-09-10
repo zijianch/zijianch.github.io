@@ -2,26 +2,40 @@
 = Publications 
 
 ~~~
-Corresponding codes can be found [/software.html here].
+\[[https://scholar.google.com/citations?user=sDxCyTUAAAAJ&hl=en&oi=ao google scholar]\]
 ~~~
 
-== Conference
+=== 2024
 
-. Chen, Z., Das S., Chung, M.K. 2022, Sulcal Pattern Analysis with the Wasserstein Distance. /accepted in ISBI 2023/
+[/pubs/MLCN24.pdf A Lesion-aware Edge-based Graph Neural Network for Predicting Language Ability in Patients with Post-stroke Aphasia] \n
+Chen, Z., Varkanitsa, M., Ishwar, P., Konrad, J., Betke, M., Kiran, S. and Venkataraman, A.\n
+MLCN workshop at MICCAI'24 \n\n
 
-. Dakurah, S., Anand, D.V., Chen, Z., Chung, M.K. 2022, [https://link.springer.com/chapter/10.1007/978-3-031-16431-6_31 Modeling Cycles in Brain Networks Using Hodge Laplacian], Medical Image Computing and Computer Assisted Intervention - MICCAI 2022. Lecture Notes in Computer Science, vol 13431. Springer, Cham. +(received travel award)+. 
+[/pubs/CDMRI24.pdf QID$^2$: An Image-Conditioned Diffusion Model for Q-space Up-sampling of DWI Data] \n
+Chen, Z., Wang, J. and Venkataraman, A.\n
+CDMRI workshop at MICCAI'24
 
+=== 2023
 
-== Journals
+[/pubs/chen.2023.ISBI.pdf Sulcal Pattern Matching with the Wasserstein Distance] \n
+Chen, Z., Das, S. and Chung, M.K. \n
+ISBI'23
 
-. Liu, T, Chen, Z, Xu, J. [https://onlinelibrary.wiley.com/doi/full/10.1002/jmv.27226 Epidemiological characteristics and incubation period of SARS-CoV-2 during the 2020–2021 winter pandemic wave in North China: an observational study]. J Med Virol. 2021; 93: 6628-6633.
+=== 2022
 
+[/pubs/dakurah.2022.MICCAI.pdf Modeling Cycles in Brain Networks Using Hodge Laplacian] \n
+Dakurah, S., Anand, D.V., Chen, Z., Chung, M.K. \n
+MICCAI'22 \n\n
 
-== Preprints
+[/pubs/2204.03653v2.pdf Embedding of Functional Human Brain Networks on a Sphere] \n
+Chung, M.K., Chen, Z. \n
+arXiv Preprint
 
-. Chung, M.K., Chen, Z. 2022, Embedding of Functional Human Brain Networks on a Sphere, [https://arxiv.org/abs/2204.03653].
+=== 2021
 
-
+Epidemiological characteristics and incubation period of SARSCoV-2 during the 2020-2021 winter pandemic wave in north China: an observational study. \n
+Liu, T., Chen, Z., Xu, J. \n
+J Med Virol.
 
 
 

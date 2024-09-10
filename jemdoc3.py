@@ -1553,7 +1553,8 @@ def procfile(f):
       if showlastupdatedtime:
         ts = '%Y-%m-%d %H:%M:%S %Z'
       else:
-        ts = '%Y-%m-%d'
+        #ts = '%Y-%m-%d'
+        ts = '%Y-%m'
       s = time.strftime(ts, time.localtime(time.time()))
       hb(f.outf, f.conf['lastupdated'], s)
     if showsourcelink:
