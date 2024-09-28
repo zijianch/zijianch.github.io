@@ -1,5 +1,5 @@
-# jemdoc: menu{MENU}{teaching.html},analytics{G-EZMPZ1N19T}
-= Teaching and Mentoring
+# jemdoc: menu{MENU}{activity.html},analytics{G-EZMPZ1N19T}
+= Services and Activities
 
 == Teaching Assistant
 
@@ -13,9 +13,9 @@
 
 
 
-== Directed Reading Program
+== Reading Club
 
-I served as a graduate student mentor for the [https://hilbert.math.wisc.edu/~drp/ Directed Reading Program] in 2022 Spring. 
+I served as a graduate student mentor for the [https://hilbert.math.wisc.edu/~drp/ Directed Reading Program] in Spring 2022. 
 
 Book: [https://probml.github.io/pml-book/ Machine Learning: A probabilistic Prospective] by Kevin Patrick Murphy
 
@@ -27,7 +27,7 @@ Handouts:
 - Mixture Normal, EM algorithm, EM for Mixture Normal \[[files/DRP_56.pdf pdf]\]
 
 
-== Madison Experimental Mathematics Lab
+== Undergrad Research
 
-I served as a graduate student instructor for the [https://mxm.math.wisc.edu Experimental Mathematics Lab] in 2022 Spring. The project that I supervised is *Vectors with smallest slopes*. Here is the [files/VOSS.pdf poster]. Brief intro can be found [https://mxm.math.wisc.edu/past-semesters/sp22/ here].
+I served as a graduate student instructor for the [https://mxm.math.wisc.edu Experimental Mathematics Lab] in Spring 2022. The project that I supervised is *Vectors with smallest slopes*. Here is the [files/VOSS.pdf poster]. Brief intro can be found [https://mxm.math.wisc.edu/past-semesters/sp22/ here].
 
