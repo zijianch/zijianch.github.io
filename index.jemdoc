@@ -2,9 +2,10 @@
 = About me
 
 ~~~
-{}{img_left}{./IMG_5420.JPG}{photo}{187px}{220px}{}
+{}{img_left}{./IMG_5420.JPG}{photo}{185px}{220px}{}
 Zijian Chen  \n
 PhD Candidate (advisor: [https://www.bu.edu/eng/profile/archana-venkataraman-ph-d/ Archana Venkataraman]), \n
+[https://www.nsa-lab.org Neural Systems Analysis Laboratory]\n
 Department of Electrical and Computer Engineering, \n
 Boston University
 
@@ -12,7 +13,7 @@ Boston University
 
 \[[files/zchen.pdf CV up to 10\/2025]\]
 
-Email if you need a more up-to-date and detailed CV.
+Email me if you need a more up-to-date and detailed CV.
 
 
 
@@ -29,7 +30,7 @@ Email: *Primary*: zijianc \[AT\] bu \[DOT\] edu; *Secondary*: zijian \[DOT\] che
 
 Graph and Manifold Learning; Statistical Signal Analysis; Stochastic Modeling
 
-Math that I use (and am interested in): Probability, PDEs, (Discrete) Differential Geometry, a bit of (applied) algebraic topology
+Math that I use (and am interested in): Probability, PDEs, a bit of (applied) Discrete Differential Geometry and Algebraic Topology
 
 == Education
 
@@ -45,7 +46,7 @@ Math that I use (and am interested in): Probability, PDEs, (Discrete) Differenti
 - My [https://www.linkedin.com/in/zijian-chen-985203256/ Linkedin page].
 
 And maybe some fun facts...
-- I enjoy flying (both as pilots and as passengers). I fly Piper Warriors myself. Working towards PPL \+ Instrument Rating \+ Multi-engine Rating.
+- I enjoy flying (both as pilots and as passengers). I fly [/figs/IMG_2227.jpg Piper Warriors] myself. My base is KBED, which is the second busiest airport in New England after KBOS.
 - I also sail and I drive -- so basically I manage all transportation modes, except outer space ones.
 - I love inverse engineering, including:
 -- video game design philosophies and implementation with Unreal Engine. For example, auto-targeting; [https://dishonored.fandom.com/wiki/Dark_Vision dark vision] in Dishonoured 2.

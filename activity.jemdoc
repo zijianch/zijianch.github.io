@@ -8,16 +8,20 @@ I am actively reviewing for:
 - ISBI
 - MICCAI
 
-== Teaching Assistant
+== Teaching
+
+*EC500*: Foundations in Probabilistic Machine Learning
+- Lectures given: Bayesian Hypothesis Testing; Neymann Pearson Testing; Randomized Testing
 
 *EC523*: Deep Learning
-- 2025 Spring Semester, Boston University
+- TA, 2025 Spring Semester, Boston University
+- Lecture given: \[[files/EC523_0410_GNN.pdf Graph Neural Networks]\]
 
 *EK381*: Probability, Statistics, and Data Science for Engineers
-- 2024 Fall Semester, Boston University
+- TA, 2024 Fall Semester, Boston University
 
 *Biostatistics*
-- 2021 Summer Semester, East China Normal University
+- TA, 2021 Summer Semester, East China Normal University
 - Lecturer: Prof. Jin Xu (ECNU), Prof. Menggang Yu (UW Madison)
 - Duty: computer lab instruction \[download [files/biostatCode.pdf lecture notes] (in Chinese) I wrote\]; recitation; grading; holding office hours
 
@@ -27,7 +31,7 @@ I am actively reviewing for:
 
 I served as a graduate student mentor for the [https://hilbert.math.wisc.edu/~drp/ Directed Reading Program] in Spring 2022. 
 
-Book: [https://probml.github.io/pml-book/ Machine Learning: A probabilistic Prospective] by Kevin Patrick Murphy
+Book: **Machine Learning: A probabilistic Prospective** by Kevin Patrick Murphy
 
 Handouts:
 
