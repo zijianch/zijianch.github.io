@@ -18,6 +18,6 @@ python jemdoc3.py -c mysite.conf talk
 python jemdoc3.py -c mysite.conf public
 python jemdoc3.py -c mysite.conf activity
 #python jemdoc3.py -c mysite.conf mentoring
-python jemdoc3.py -c mysite.conf software
+#python jemdoc3.py -c mysite.conf software
 #python jemdoc3.py -c mysite.conf resourceAcademic
 #python jemdoc3.py -c mysite.conf resourceTool
